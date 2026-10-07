@@ -1,0 +1,2904 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Code for Green School: Eco Survival (THPT Bình Chánh)</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Lexend:wght@400;600;800&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0a0e14;
+        color: #f0f6fc;
+        font-family: "Lexend", sans-serif;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 8px;
+      }
+      .pixel-font {
+        font-family: "Press Start 2P", monospace;
+      }
+      #game-wrap {
+        position: relative;
+        width: 100%;
+        max-width: 1024px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      canvas#gameCanvas {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        -ms-interpolation-mode: nearest-neighbor;
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        background: #000;
+        box-shadow:
+          0 0 0 4px #1e293b,
+          0 0 40px rgba(16, 185, 129, 0.15),
+          0 20px 60px rgba(0, 0, 0, 0.8);
+        max-height: 88vh;
+        object-fit: contain;
+      }
+      .overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        z-index: 20;
+        border-radius: 8px;
+        backdrop-filter: blur(6px);
+      }
+      .overlay.hidden {
+        display: none !important;
+      }
+      .panel {
+        background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 100%);
+        border: 3px solid #10b981;
+        border-radius: 16px;
+        padding: 20px;
+        max-width: 780px;
+        width: 100%;
+        max-height: 88vh;
+        overflow-y: auto;
+        box-shadow:
+          0 0 40px rgba(16, 185, 129, 0.3),
+          inset 0 0 60px rgba(0, 0, 0, 0.5);
+      }
+      .char-card {
+        cursor: pointer;
+        background: #0f172a;
+        border: 3px solid #334155;
+        border-radius: 12px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: all 0.15s;
+        position: relative;
+      }
+      .char-card:hover {
+        border-color: #10b981;
+        transform: translateY(-2px);
+      }
+      .char-card.selected {
+        border-color: #10b981;
+        background: #064e3b;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+      }
+      .char-card .avatar-box {
+        width: 72px;
+        height: 72px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 6px;
+        background: #020617;
+        border: 2px solid #334155;
+        overflow: hidden;
+      }
+      .char-card canvas {
+        width: 64px;
+        height: 64px;
+        image-rendering: pixelated;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: #fff;
+        font-weight: 800;
+        padding: 12px 28px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 13px;
+        box-shadow:
+          0 4px 0 #065f46,
+          0 8px 24px rgba(16, 185, 129, 0.4);
+        transition: all 0.1s;
+      }
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          0 5px 0 #065f46,
+          0 10px 28px rgba(16, 185, 129, 0.5);
+      }
+      .btn-primary:active {
+        transform: translateY(3px);
+        box-shadow: 0 1px 0 #065f46;
+      }
+      .btn-secondary {
+        background: #1e293b;
+        color: #cbd5e1;
+        font-weight: 700;
+        padding: 10px 20px;
+        border: 2px solid #475569;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: all 0.15s;
+      }
+      .btn-secondary:hover {
+        background: #334155;
+        border-color: #64748b;
+      }
+      #top-bar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+        padding: 8px 12px;
+        background: linear-gradient(90deg, #0f172a, #1e1b4b);
+        border: 2px solid #10b981;
+        border-radius: 10px;
+        flex-wrap: wrap;
+      }
+      #top-bar h1 {
+        font-size: 10px;
+        color: #10b981;
+        letter-spacing: 1px;
+      }
+      #top-bar .subtitle {
+        font-size: 10px;
+        color: #94a3b8;
+        font-weight: 600;
+      }
+      #dialogue-box {
+        position: absolute;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        background: rgba(15, 23, 42, 0.97);
+        border: 3px solid #facc15;
+        border-radius: 14px;
+        padding: 12px 14px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        z-index: 30;
+        box-shadow: 0 0 30px rgba(250, 204, 21, 0.3);
+        animation: slideUp 0.2s ease-out;
+      }
+      @keyframes slideUp {
+        from {
+          transform: translateY(20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      #dialogue-box.hidden {
+        display: none;
+      }
+      #dialogue-avatar {
+        width: 48px;
+        height: 48px;
+        background: #1e293b;
+        border: 2px solid #facc15;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        flex-shrink: 0;
+      }
+      #dialogue-text {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #e2e8f0;
+        margin-top: 4px;
+      }
+      #touch-controls {
+        width: 100%;
+        margin-top: 10px;
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 8px;
+      }
+      @media (max-width: 768px) {
+        #touch-controls {
+          display: flex;
+        }
+        .panel {
+          padding: 14px;
+        }
+        #top-bar h1 {
+          font-size: 8px;
+        }
+      }
+      .dpad {
+        position: relative;
+        width: 140px;
+        height: 140px;
+        background: rgba(15, 23, 42, 0.85);
+        border: 2px solid #334155;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tbtn {
+        position: absolute;
+        background: #1e293b;
+        border: 2px solid #475569;
+        color: #cbd5e1;
+        font-weight: 900;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+        user-select: none;
+        -webkit-user-select: none;
+        font-size: 14px;
+      }
+      .tbtn:active {
+        background: #10b981;
+        color: #fff;
+        transform: scale(0.94);
+      }
+      .dpad .tbtn {
+        width: 44px;
+        height: 44px;
+      }
+      .dpad #touch-up {
+        top: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .dpad #touch-down {
+        bottom: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .dpad #touch-left {
+        left: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .dpad #touch-right {
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .action-btns {
+        display: flex;
+        gap: 10px;
+      }
+      .action-btns .tbtn {
+        position: relative;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        font-size: 16px;
+        flex-direction: column;
+      }
+      #touch-btn-f {
+        background: #78350f;
+        border-color: #f59e0b;
+        color: #fde68a;
+      }
+      #touch-btn-e {
+        background: #064e3b;
+        border-color: #10b981;
+        color: #6ee7b7;
+        width: 74px;
+        height: 74px;
+        font-size: 20px;
+      }
+      .tbtn .lbl {
+        font-size: 8px;
+        font-weight: 700;
+        margin-top: -2px;
+      }
+      .panel::-webkit-scrollbar {
+        width: 6px;
+      }
+      .panel::-webkit-scrollbar-thumb {
+        background: #10b981;
+        border-radius: 3px;
+      }
+
+      /* Minigame overlay */
+      #minigame-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(2, 6, 23, 0.92);
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 25;
+        border-radius: 8px;
+        padding: 20px;
+      }
+      #minigame-overlay.active {
+        display: flex;
+      }
+      .mg-title {
+        font-family: "Press Start 2P", monospace;
+        color: #facc15;
+        font-size: 14px;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+      .mg-sub {
+        font-size: 12px;
+        color: #94a3b8;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      #mg-bar-container {
+        width: 400px;
+        max-width: 90%;
+        height: 40px;
+        background: #1e293b;
+        border: 3px solid #475569;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      #mg-zone {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(16, 185, 129, 0.6),
+          rgba(16, 185, 129, 0.9),
+          rgba(16, 185, 129, 0.6)
+        );
+        border-left: 2px solid #10b981;
+        border-right: 2px solid #10b981;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5) inset;
+      }
+      #mg-marker {
+        position: absolute;
+        top: -6px;
+        bottom: -6px;
+        width: 6px;
+        background: #facc15;
+        border-radius: 3px;
+        box-shadow: 0 0 12px #facc15;
+        transition: none;
+      }
+      #mg-btn {
+        padding: 14px 40px;
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: #fff;
+        font-family: "Press Start 2P", monospace;
+        font-size: 14px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        box-shadow: 0 4px 0 #065f46;
+        transition: all 0.1s;
+      }
+      #mg-btn:active {
+        transform: translateY(3px);
+        box-shadow: 0 1px 0 #065f46;
+      }
+      #mg-feedback {
+        margin-top: 16px;
+        font-family: "Press Start 2P", monospace;
+        font-size: 14px;
+        min-height: 20px;
+      }
+      .mg-ok {
+        color: #10b981;
+      }
+      .mg-fail {
+        color: #ef4444;
+      }
+      #mg-attempts {
+        display: flex;
+        gap: 6px;
+        margin-top: 12px;
+      }
+      .mg-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #334155;
+        border: 2px solid #475569;
+      }
+      .mg-dot.ok {
+        background: #10b981;
+        border-color: #6ee7b7;
+      }
+      .mg-dot.fail {
+        background: #ef4444;
+        border-color: #fca5a5;
+      }
+      .mg-dot.current {
+        background: #facc15;
+        border-color: #fde047;
+        box-shadow: 0 0 10px #facc15;
+      }
+
+      /* Seat hint when class time */
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 0.8;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-wrap">
+      <div id="top-bar">
+        <div style="display: flex; align-items: center; gap: 8px">
+          <div
+            style="
+              width: 26px;
+              height: 26px;
+              border-radius: 50%;
+              background: linear-gradient(135deg, #10b981, #059669);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 14px;
+            "
+          >
+            🌱
+          </div>
+          <div>
+            <h1 class="pixel-font">CODE FOR GREEN SCHOOL</h1>
+            <div class="subtitle">Eco Survival • THPT Bình Chánh</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px">
+          <button
+            id="btn-audio"
+            class="btn-secondary"
+            style="padding: 6px 10px; font-size: 11px"
+          >
+            🔊
+          </button>
+          <button
+            id="btn-help"
+            class="btn-secondary"
+            style="padding: 6px 10px; font-size: 11px"
+          >
+            ❓ Luật
+          </button>
+        </div>
+      </div>
+
+      <div style="position: relative; width: 100%">
+        <canvas id="gameCanvas" width="960" height="600"></canvas>
+
+        <!-- CHARACTER SELECT -->
+        <div
+          id="char-select-screen"
+          class="overlay"
+          style="background: rgba(2, 6, 23, 0.95)"
+        >
+          <div class="panel text-center">
+            <div
+              class="pixel-font"
+              style="font-size: 10px; color: #facc15; letter-spacing: 2px"
+            >
+              HỘI THI CLB TIN HỌC 2026-2027
+            </div>
+            <h2
+              class="pixel-font"
+              style="font-size: 18px; color: #10b981; margin: 8px 0"
+            >
+              CHỌN NHÂN VẬT
+            </h2>
+            <p style="font-size: 12px; color: #94a3b8; margin-bottom: 14px">
+              Mỗi bạn có kỹ năng riêng để bảo vệ ngôi trường xanh!
+            </p>
+            <div
+              id="char-grid"
+              style="
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+                margin-bottom: 18px;
+              "
+            ></div>
+            <button id="btn-start-game" class="btn-primary pixel-font">
+              🚀 BẮT ĐẦU
+            </button>
+          </div>
+        </div>
+
+        <!-- HELP -->
+        <div
+          id="instructions-modal"
+          class="overlay hidden"
+          style="background: rgba(2, 6, 23, 0.92)"
+        >
+          <div class="panel">
+            <h3
+              class="pixel-font"
+              style="color: #10b981; font-size: 13px; margin-bottom: 12px"
+            >
+              📖 HƯỚNG DẪN SINH TỒN XANH
+            </h3>
+            <div style="font-size: 12px; color: #cbd5e1; line-height: 1.7">
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #38bdf8;
+                  padding: 8px 10px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #7dd3fc"
+                  >⏰ THỜI KHÓA BIỂU (1 ngày):</strong
+                ><br />
+                • <strong>2 giờ ra chơi</strong> (30s mỗi giờ) → tự do chạy khắp
+                trường<br />
+                • <strong>7 tiết học</strong> (60s mỗi tiết) → phải vào lớp ngồi
+                ghế<br />
+                • Chuyển tiết có 3s nghỉ — nhanh chân về chỗ!
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #f59e0b;
+                  padding: 8px 10px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #fbbf24">☀️ OI BỨC:</strong> Ra chơi, lớp
+                bật điện tự động. Nhấn
+                <span style="color: #10b981; font-weight: bold">E</span> tại
+                công tắc để tắt. Quên tắt → mất điện giờ học! Trong giờ học nếu
+                mất điện phải <strong>quạt tay (F)</strong>, không sẽ mất HP do
+                sốc nhiệt.
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #ef4444;
+                  padding: 8px 10px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #f87171">☣️ Ô NHIỄM:</strong> Rác vương
+                vãi bốc mùi hôi. Nhặt rác bằng
+                <span style="color: #10b981; font-weight: bold">E</span>, mang
+                đến Thùng Rác Xanh ở sân. Rác nhiều + cửa mở = mất máu liên tục.
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #38bdf8;
+                  padding: 8px 10px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #7dd3fc">🌧️ MƯA PHÙN:</strong> Vũng nước
+                trên hành lang — dẫm vào mất 15 HP. Rác trên sân cuốn vào cống
+                gây tắc — đứng cạnh cống nhấn
+                <span style="color: #10b981; font-weight: bold">E</span> để
+                thông.
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #a855f7;
+                  padding: 8px 10px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #c4b5fd">🎯 MINIGAME "IM LẶNG":</strong>
+                Trong giờ học, bạn phải <strong>giữ im lặng</strong>. Minigame
+                thanh trượt xuất hiện — nhấn SPACE/CLICK khi kim nằm trong vùng
+                xanh để không phát ra tiếng động. Trượt 3 lần = mất 10 HP + cô
+                giáo khiển trách!
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #10b981;
+                  padding: 8px 10px;
+                  border-radius: 6px;
+                "
+              >
+                <strong style="color: #6ee7b7">🎮 ĐIỀU KHIỂN:</strong> WASD /
+                Mũi tên di chuyển • <strong>E</strong> tương tác •
+                <strong>F/Space</strong> quạt tay • <strong>SPACE</strong> chơi
+                minigame im lặng.
+              </div>
+            </div>
+            <button
+              id="btn-close-help"
+              class="btn-primary"
+              style="width: 100%; margin-top: 14px"
+            >
+              ĐÃ HIỂU
+            </button>
+          </div>
+        </div>
+
+        <!-- GAME OVER -->
+        <div
+          id="game-over-screen"
+          class="overlay hidden"
+          style="background: rgba(80, 7, 7, 0.9)"
+        >
+          <div
+            class="panel"
+            style="
+              text-align: center;
+              border-color: #ef4444;
+              box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
+            "
+          >
+            <div style="font-size: 56px; margin-bottom: 6px">🍂</div>
+            <h2
+              class="pixel-font"
+              style="font-size: 20px; color: #f87171; margin-bottom: 10px"
+            >
+              BẠN ĐÃ KIỆT SỨC!
+            </h2>
+            <p
+              id="game-over-reason"
+              style="font-size: 13px; color: #fecaca; margin-bottom: 16px"
+            >
+              —
+            </p>
+            <div
+              style="
+                background: #0f172a;
+                border: 2px solid #7f1d1d;
+                border-radius: 10px;
+                padding: 12px;
+                margin-bottom: 16px;
+                font-size: 12px;
+                color: #cbd5e1;
+                line-height: 1.9;
+              "
+            >
+              <div>
+                📅 SỐ NGÀY SỐNG SÓT:
+                <strong id="stat-days" style="color: #fbbf24">0</strong>
+              </div>
+              <div>
+                🗑️ RÁC ĐÃ THU GOM:
+                <strong id="stat-trash" style="color: #34d399">0</strong>
+              </div>
+              <div>
+                ⚡ LƯỢT TẮT ĐIỆN:
+                <strong id="stat-power" style="color: #38bdf8">0</strong>
+              </div>
+              <div>
+                📚 SỐ TIẾT HOÀN THÀNH:
+                <strong id="stat-lessons" style="color: #c4b5fd">0</strong>
+              </div>
+            </div>
+            <button id="btn-restart" class="btn-primary">
+              🔄 CHƠI LẠI TỪ NGÀY 1
+            </button>
+          </div>
+        </div>
+
+        <!-- DIALOGUE -->
+        <div id="dialogue-box" class="hidden">
+          <div id="dialogue-avatar">👴</div>
+          <div style="flex: 1">
+            <h4
+              id="dialogue-speaker"
+              style="color: #facc15; font-weight: 800; font-size: 12px"
+            >
+              Bác Bảo Vệ
+            </h4>
+            <p id="dialogue-text" style="font-size: 12px">—</p>
+          </div>
+          <button
+            id="btn-close-dialogue"
+            class="btn-secondary"
+            style="padding: 6px 10px; font-size: 10px"
+          >
+            Đóng [E]
+          </button>
+        </div>
+
+        <!-- MINIGAME OVERLAY -->
+        <div id="minigame-overlay">
+          <div class="mg-title">🔇 GIỮ IM LẶNG</div>
+          <div class="mg-sub">Nhấn SPACE / CLICK khi kim vào vùng XANH!</div>
+          <div id="mg-bar-container">
+            <div id="mg-zone"></div>
+            <div id="mg-marker" style="left: 0"></div>
+          </div>
+          <button id="mg-btn">NHẤN ĐỂ IM LẶNG</button>
+          <div id="mg-feedback"></div>
+          <div id="mg-attempts"></div>
+        </div>
+      </div>
+
+      <div id="touch-controls">
+        <div class="dpad">
+          <button id="touch-up" class="tbtn">▲</button>
+          <button id="touch-down" class="tbtn">▼</button>
+          <button id="touch-left" class="tbtn">◀</button>
+          <button id="touch-right" class="tbtn">▶</button>
+        </div>
+        <div class="action-btns">
+          <button id="touch-btn-f" class="tbtn">
+            <span>F</span><span class="lbl">Quạt</span>
+          </button>
+          <button id="touch-btn-e" class="tbtn">
+            <span>E</span><span class="lbl">Tương tác</span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        style="
+          text-align: center;
+          font-size: 10px;
+          color: #475569;
+          margin-top: 8px;
+        "
+      >
+        CLB Tin Học • THPT Bình Chánh • "Lập Trình Vì Ngôi Trường Xanh"
+      </div>
+    </div>
+
+    <script>
+      /* =========================================================
+   SOUND ENGINE
+========================================================= */
+      class SoundEngine {
+        constructor() {
+          this.ctx = null;
+          this.enabled = true;
+          this.musicTimer = 0;
+          this.musicStep = 0;
+        }
+        init() {
+          if (!this.ctx) {
+            const AC = window.AudioContext || window.webkitAudioContext;
+            this.ctx = new AC();
+          }
+          if (this.ctx.state === "suspended") this.ctx.resume();
+        }
+        tone(freq, dur, type = "sine", gainVal = 0.08, when = 0) {
+          if (!this.enabled || !this.ctx) return;
+          try {
+            const t = this.ctx.currentTime + when;
+            const osc = this.ctx.createOscillator();
+            const g = this.ctx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, t);
+            g.gain.setValueAtTime(0, t);
+            g.gain.linearRampToValueAtTime(gainVal, t + 0.005);
+            g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+            osc.connect(g);
+            g.connect(this.ctx.destination);
+            osc.start(t);
+            osc.stop(t + dur + 0.02);
+          } catch (e) {}
+        }
+        step() {
+          this.tone(110 + Math.random() * 30, 0.04, "triangle", 0.02);
+        }
+        pickup() {
+          this.tone(660, 0.07, "square", 0.08);
+          this.tone(880, 0.1, "square", 0.08, 0.05);
+        }
+        switch_() {
+          this.tone(1200, 0.04, "square", 0.07);
+        }
+        zap() {
+          this.tone(80, 0.3, "sawtooth", 0.15);
+          this.tone(60, 0.4, "sawtooth", 0.12, 0.1);
+        }
+        slip() {
+          this.tone(400, 0.08, "sawtooth", 0.15);
+          this.tone(200, 0.15, "sawtooth", 0.12, 0.08);
+        }
+        repair() {
+          [523, 659, 784, 1047].forEach((n, i) =>
+            this.tone(n, 0.15, "sine", 0.1, i * 0.09),
+          );
+        }
+        hurt() {
+          this.tone(120, 0.15, "square", 0.12);
+        }
+        win() {
+          [523, 659, 784, 1047, 1319].forEach((n, i) =>
+            this.tone(n, 0.18, "triangle", 0.1, i * 0.1),
+          );
+        }
+        bell() {
+          [880, 1047, 1319, 1047, 880].forEach((n, i) =>
+            this.tone(n, 0.35, "sine", 0.09, i * 0.18),
+          );
+        }
+        beep() {
+          this.tone(660, 0.06, "square", 0.09);
+        }
+        success() {
+          [659, 880, 1047].forEach((n, i) =>
+            this.tone(n, 0.12, "sine", 0.11, i * 0.06),
+          );
+        }
+        fail() {
+          [330, 262].forEach((n, i) =>
+            this.tone(n, 0.2, "sawtooth", 0.12, i * 0.1),
+          );
+        }
+        bgmTick() {
+          if (!this.enabled || !this.ctx) return;
+          this.musicTimer++;
+          if (this.musicTimer % 32 === 0) {
+            const notes = [262, 330, 392, 330, 294, 349, 440, 349];
+            const n = notes[this.musicStep++ % notes.length];
+            this.tone(n, 0.35, "triangle", 0.012);
+          }
+        }
+      }
+      const audio = new SoundEngine();
+
+      /* =========================================================
+   CHARACTERS
+========================================================= */
+      const CHARACTERS = {
+        nam: {
+          id: "nam",
+          name: "Nam",
+          title: "Học Sinh Năng Động",
+          desc: "🏃 Tốc độ +20%",
+          speedBonus: 1.2,
+          skill: "speed",
+          skin: "#fde68a",
+          hair: "#1e293b",
+          shirt: "#ef4444",
+          pants: "#1e40af",
+          accent: "#f97316",
+        },
+        mai: {
+          id: "mai",
+          name: "Mai",
+          title: "Cán Bộ Lớp Xanh",
+          desc: "♻️ Hồi +8 HP mỗi ngày",
+          speedBonus: 1.0,
+          skill: "regen",
+          skin: "#fde68a",
+          hair: "#78350f",
+          shirt: "#10b981",
+          pants: "#065f46",
+          accent: "#34d399",
+        },
+        minh: {
+          id: "minh",
+          name: "Minh",
+          title: "Đội Viên Cờ Đỏ",
+          desc: "🛡️ Chống chịu tốt hơn",
+          speedBonus: 1.0,
+          skill: "tough",
+          skin: "#fbbf24",
+          hair: "#0f172a",
+          shirt: "#f59e0b",
+          pants: "#7c2d12",
+          accent: "#fbbf24",
+        },
+        an: {
+          id: "an",
+          name: "An",
+          title: "CLB Tin Học",
+          desc: "💻 Quạt tay x2 + Minigame dễ hơn",
+          speedBonus: 1.05,
+          skill: "fan",
+          skin: "#fde68a",
+          hair: "#334155",
+          shirt: "#06b6d4",
+          pants: "#0c4a6e",
+          accent: "#38bdf8",
+        },
+      };
+
+      /* =========================================================
+   CANVAS & CONSTANTS
+========================================================= */
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+      ctx.imageSmoothingEnabled = false;
+      const W = 960,
+        H = 600;
+
+      // TIME CONSTANTS (in seconds)
+      const BREAK_DURATION = 30; // mỗi giờ ra chơi = 30s
+      const BREAKS_PER_DAY = 2; // 2 giờ ra chơi
+      const LESSON_DURATION = 60; // mỗi tiết học = 60s
+      const LESSONS_PER_DAY = 7; // 7 tiết
+      const TRANSITION_DURATION = 3; // 3s chuyển tiết
+
+      // Schedule: [type, duration]
+      // BREAK - LESSON1 - BREAK - LESSON2 - LESSON3 - LESSON4 - LESSON5 - LESSON6 - LESSON7
+      const DAY_SCHEDULE = [
+        { type: "BREAK", dur: BREAK_DURATION, label: "GIỜ RA CHƠI 1" },
+        { type: "LESSON", dur: LESSON_DURATION, label: "TIẾT 1" },
+        { type: "BREAK", dur: BREAK_DURATION, label: "GIỜ RA CHƠI 2" },
+        { type: "LESSON", dur: LESSON_DURATION, label: "TIẾT 2" },
+        { type: "LESSON", dur: LESSON_DURATION, label: "TIẾT 3" },
+        { type: "LESSON", dur: LESSON_DURATION, label: "TIẾT 4" },
+        { type: "LESSON", dur: LESSON_DURATION, label: "TIẾT 5" },
+        { type: "LESSON", dur: LESSON_DURATION, label: "TIẾT 6" },
+        { type: "LESSON", dur: LESSON_DURATION, label: "TIẾT 7" },
+      ];
+      const TOTAL_DAY_TIME =
+        DAY_SCHEDULE.reduce((s, x) => s + x.dur, 0) +
+        TRANSITION_DURATION * DAY_SCHEDULE.length;
+
+      /* =========================================================
+   MAP LAYOUT
+========================================================= */
+      const MAP = {
+        rooms: [
+          {
+            id: "10A3",
+            x: 40,
+            y: 60,
+            w: 270,
+            h: 170,
+            doorX: 175,
+            doorY: 230,
+            doorOpen: false,
+            lightsOn: true,
+            switchX: 65,
+            switchY: 82,
+          },
+          {
+            id: "11A3",
+            x: 345,
+            y: 60,
+            w: 270,
+            h: 170,
+            doorX: 480,
+            doorY: 230,
+            doorOpen: false,
+            lightsOn: true,
+            switchX: 370,
+            switchY: 82,
+          },
+          {
+            id: "12A3",
+            x: 650,
+            y: 60,
+            w: 270,
+            h: 170,
+            doorX: 785,
+            doorY: 230,
+            doorOpen: false,
+            lightsOn: true,
+            switchX: 675,
+            switchY: 82,
+          },
+        ],
+        corridor: { x: 20, y: 240, w: 920, h: 80 },
+        yard: { x: 20, y: 330, w: 920, h: 240 },
+        guardBooth: { x: 50, y: 440, w: 110, h: 110, npcX: 135, npcY: 495 },
+        greenBin: { x: 430, y: 350, w: 80, h: 50, cx: 470, cy: 375 },
+        drains: [
+          { x: 280, y: 540, clogged: false },
+          { x: 680, y: 540, clogged: false },
+        ],
+      };
+
+      /* =========================================================
+   SEATS - mỗi lớp có 6 ghế (2 hàng x 3 cột)
+========================================================= */
+      function generateSeats(room) {
+        const seats = [];
+        const cols = 3,
+          rows = 2;
+        const padX = 35,
+          padY = 70;
+        const availW = room.w - padX * 2 - 40;
+        const availH = room.h - padY - 20;
+        const stepX = availW / (cols - 1);
+        const stepY = availH / (rows - 1);
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            seats.push({
+              x: room.x + padX + c * stepX + 20,
+              y: room.y + padY + r * stepY,
+              w: 22,
+              h: 26,
+              occupied: false,
+            });
+          }
+        }
+        return seats;
+      }
+      MAP.rooms.forEach((r) => (r.seats = generateSeats(r)));
+
+      /* =========================================================
+   GAME STATE
+========================================================= */
+      let gameState = "MENU";
+      let selectedChar = CHARACTERS.nam;
+      let currentDay = 1;
+      let hp = 100;
+      let trashCleanedCount = 0;
+      let powerSavedCount = 0;
+      let lessonsCompleted = 0;
+      let currentWeather = "HOT";
+      let powerTripped = false;
+      let slipTimer = 0;
+      let screenShake = 0;
+      let flashRed = 0;
+      let transitionAlpha = 0;
+      let envMessage = "";
+      let envMessageTimer = 0;
+
+      // Schedule state
+      let scheduleIndex = 0; // index trong DAY_SCHEDULE
+      let scheduleTimer = 0; // thời gian đã trôi qua trong slot hiện tại
+      let inTransition = false; // đang trong 3s chuyển tiết
+      let transitionTimer = 0;
+      let transitionFrom = ""; // 'BREAK' | 'LESSON'
+      let transitionTo = "";
+
+      const player = {
+        x: 480,
+        y: 290,
+        w: 20,
+        h: 28,
+        speed: 200,
+        facing: "down",
+        isMoving: false,
+        animFrame: 0,
+        animTimer: 0,
+        trashHeld: 0,
+        maxTrash: 5,
+        fanning: false,
+        isInside: false,
+        seated: false,
+        seatRef: null,
+      };
+
+      const keys = {
+        Up: false,
+        Down: false,
+        Left: false,
+        Right: false,
+        Interact: false,
+        Fan: false,
+      };
+
+      let trashItems = [];
+      let puddles = [];
+      let rainParticles = [];
+      let particles = [];
+      let clouds = [];
+
+      // Minigame state
+      const minigame = {
+        active: false,
+        attempts: [], // 'ok' | 'fail'
+        currentAttempt: 0,
+        totalAttempts: 0,
+        markerPos: 0, // 0..100
+        markerDir: 1,
+        markerSpeed: 55, // %/s
+        zoneStart: 35,
+        zoneEnd: 65,
+        zoneWidth: 30,
+        lastLesson: -1,
+        resolved: false,
+      };
+
+      /* =========================================================
+   AVATAR PREVIEW
+========================================================= */
+      function drawCharPreview(cv, char) {
+        const c = cv.getContext("2d");
+        c.imageSmoothingEnabled = false;
+        c.clearRect(0, 0, cv.width, cv.height);
+        const px = cv.width / 16;
+        const S = (x, y, w, h, col) => {
+          c.fillStyle = col;
+          c.fillRect(x * px, y * px, w * px, h * px);
+        };
+        S(5, 2, 6, 5, char.skin);
+        S(4, 1, 8, 2, char.hair);
+        S(4, 2, 1, 3, char.hair);
+        S(11, 2, 1, 3, char.hair);
+        S(6, 4, 1, 1, "#0f172a");
+        S(9, 4, 1, 1, "#0f172a");
+        S(7, 6, 2, 1, "#b45309");
+        S(5, 7, 6, 5, char.shirt);
+        S(4, 8, 1, 3, char.shirt);
+        S(11, 8, 1, 3, char.shirt);
+        S(6, 12, 2, 3, char.pants);
+        S(9, 12, 2, 3, char.pants);
+        S(6, 15, 2, 1, "#0f172a");
+        S(9, 15, 2, 1, "#0f172a");
+      }
+
+      /* =========================================================
+   BUILD CHARACTER SELECT
+========================================================= */
+      function buildCharSelect() {
+        const grid = document.getElementById("char-grid");
+        grid.innerHTML = "";
+        Object.values(CHARACTERS).forEach((ch) => {
+          const div = document.createElement("div");
+          div.className =
+            "char-card" + (ch.id === selectedChar.id ? " selected" : "");
+          div.dataset.char = ch.id;
+          div.innerHTML = `
+            <div class="avatar-box"><canvas width="64" height="64"></canvas></div>
+            <div style="font-weight:800; font-size:13px; color:${ch.accent}; margin-bottom:2px;">${ch.name}</div>
+            <div style="font-size:9px; color:#94a3b8; margin-bottom:4px;">${ch.title}</div>
+            <div style="font-size:10px; color:#cbd5e1; text-align:center; line-height:1.3;">${ch.desc}</div>
+        `;
+          drawCharPreview(div.querySelector("canvas"), ch);
+          div.addEventListener("click", () => {
+            selectedChar = CHARACTERS[ch.id];
+            document
+              .querySelectorAll(".char-card")
+              .forEach((c) => c.classList.remove("selected"));
+            div.classList.add("selected");
+            audio.init();
+            audio.switch_();
+          });
+          grid.appendChild(div);
+        });
+      }
+      buildCharSelect();
+
+      /* =========================================================
+   ENVIRONMENT SPAWN
+========================================================= */
+      function pickWeather() {
+        if (currentDay === 1) return "HOT";
+        if (currentDay === 2) return "POLLUTION";
+        if (currentDay === 3) return "RAIN";
+        const pool = ["HOT", "POLLUTION", "RAIN", "HYBRID"];
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      function spawnDayEnvironment() {
+        currentWeather = pickWeather();
+        powerTripped = false;
+
+        MAP.rooms.forEach((r) => {
+          r.doorOpen = false;
+          r.lightsOn = true;
+          r.seats.forEach((s) => (s.occupied = false));
+        });
+
+        trashItems = [];
+        const trashCount =
+          currentWeather === "POLLUTION" || currentWeather === "HYBRID"
+            ? 12
+            : 4;
+        for (let i = 0; i < trashCount; i++) {
+          const inYard = Math.random() > 0.4;
+          trashItems.push({
+            x: 80 + Math.random() * 800,
+            y: inYard ? 340 + Math.random() * 200 : 250 + Math.random() * 60,
+            type: Math.random() > 0.5 ? "plastic" : "paper",
+            bob: Math.random() * Math.PI * 2,
+          });
+        }
+
+        puddles = [];
+        if (currentWeather === "RAIN" || currentWeather === "HYBRID") {
+          for (let i = 0; i < 7; i++) {
+            puddles.push({
+              x: 100 + Math.random() * 760,
+              y: 250 + Math.random() * 60,
+              r: 16 + Math.random() * 8,
+              phase: Math.random() * Math.PI * 2,
+            });
+          }
+          MAP.drains.forEach((d) => (d.clogged = true));
+        }
+
+        rainParticles = [];
+        for (let i = 0; i < 100; i++) {
+          rainParticles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            len: 10 + Math.random() * 10,
+            speed: 500 + Math.random() * 300,
+          });
+        }
+
+        clouds = [];
+        for (let i = 0; i < 5; i++) {
+          clouds.push({
+            x: Math.random() * W,
+            y: 10 + Math.random() * 40,
+            s: 0.5 + Math.random() * 0.5,
+            spd: 5 + Math.random() * 10,
+          });
+        }
+
+        envMessage = {
+          HOT: "☀️ TRỜI OI BỨC — Tắt hết thiết bị điện!",
+          POLLUTION: "☣️ KHÔNG KHÍ Ô NHIỄM — Nhặt rác mau!",
+          RAIN: "🌧️ MƯA PHÙN — Coi chừng vũng nước!",
+          HYBRID: "⚠️ THỜI TIẾT KHẮC NGHIỆT!",
+        }[currentWeather];
+        envMessageTimer = 3;
+      }
+
+      /* =========================================================
+   MINIGAME "GIỮ IM LẶNG"
+========================================================= */
+      function startMinigame() {
+        minigame.active = true;
+        minigame.currentAttempt = 0;
+        minigame.totalAttempts = 3;
+        minigame.attempts = [];
+        minigame.resolved = false;
+        minigame.markerPos = 0;
+        minigame.markerDir = 1;
+
+        // Zone difficulty
+        let zw = 30;
+        if (selectedChar.skill === "fan") zw = 40; // An dễ hơn
+        if (currentDay >= 4) zw = 22; // Ngày càng khó
+        if (currentDay >= 7) zw = 16;
+        minigame.zoneWidth = zw;
+
+        minigame.zoneStart = 20 + Math.random() * (60 - zw);
+        minigame.zoneEnd = minigame.zoneStart + zw;
+
+        // Speed tăng dần
+        minigame.markerSpeed = 50 + currentDay * 5 + Math.random() * 20;
+
+        updateMinigameUI();
+        document.getElementById("minigame-overlay").classList.add("active");
+        document.getElementById("mg-feedback").textContent = "";
+        document.getElementById("mg-feedback").className = "";
+      }
+
+      function updateMinigameUI() {
+        const zone = document.getElementById("mg-zone");
+        zone.style.left = minigame.zoneStart + "%";
+        zone.style.width = minigame.zoneWidth + "%";
+
+        const marker = document.getElementById("mg-marker");
+        marker.style.left = minigame.markerPos + "%";
+
+        const attempts = document.getElementById("mg-attempts");
+        attempts.innerHTML = "";
+        for (let i = 0; i < minigame.totalAttempts; i++) {
+          const dot = document.createElement("div");
+          dot.className = "mg-dot";
+          if (i < minigame.attempts.length) {
+            dot.classList.add(minigame.attempts[i]);
+          } else if (i === minigame.currentAttempt && !minigame.resolved) {
+            dot.classList.add("current");
+          }
+          attempts.appendChild(dot);
+        }
+      }
+
+      function minigameTap() {
+        if (!minigame.active || minigame.resolved) return;
+        const pos = minigame.markerPos;
+        const inZone = pos >= minigame.zoneStart && pos <= minigame.zoneEnd;
+        const result = inZone ? "ok" : "fail";
+        minigame.attempts.push(result);
+
+        const fb = document.getElementById("mg-feedback");
+        if (inZone) {
+          fb.textContent = "✓ IM LẶNG TỐT!";
+          fb.className = "mg-ok";
+          audio.success();
+        } else {
+          fb.textContent = "✗ PHÁT RA TIẾNG ĐỘNG!";
+          fb.className = "mg-fail";
+          audio.fail();
+        }
+
+        minigame.currentAttempt++;
+        updateMinigameUI();
+
+        if (minigame.currentAttempt >= minigame.totalAttempts) {
+          minigame.resolved = true;
+          setTimeout(resolveMinigame, 700);
+        } else {
+          // Reset marker cho lần tiếp theo với zone mới
+          setTimeout(() => {
+            if (!minigame.active) return;
+            minigame.markerPos = 0;
+            minigame.markerDir = 1;
+            minigame.zoneStart = 20 + Math.random() * (60 - minigame.zoneWidth);
+            minigame.zoneEnd = minigame.zoneStart + minigame.zoneWidth;
+            minigame.markerSpeed = 50 + currentDay * 5 + Math.random() * 20;
+            document.getElementById("mg-feedback").textContent = "";
+            document.getElementById("mg-feedback").className = "";
+            updateMinigameUI();
+          }, 500);
+        }
+      }
+
+      function resolveMinigame() {
+        const failCount = minigame.attempts.filter((a) => a === "fail").length;
+        const okCount = minigame.attempts.filter((a) => a === "ok").length;
+        minigame.active = false;
+        document.getElementById("minigame-overlay").classList.remove("active");
+
+        if (failCount === 0) {
+          // Hoàn hảo — không mất máu + thưởng
+          if (selectedChar.skill === "regen") hp = Math.min(100, hp + 2);
+          flashRed = 0;
+        } else {
+          // Mất máu theo số lần fail
+          const dmg =
+            failCount * 5 * (selectedChar.skill === "tough" ? 0.6 : 1);
+          hp -= dmg;
+          flashRed = 0.6;
+          screenShake = 6;
+          audio.hurt();
+          if (hp <= 0) {
+            gameOver(
+              "Bạn nói chuyện riêng quá nhiều trong giờ học và bị kiệt sức!",
+            );
+            return;
+          }
+        }
+      }
+
+      /* =========================================================
+   INTERACTION
+========================================================= */
+      function handleInteraction() {
+        if (gameState === "DIALOGUE") {
+          closeDialogue();
+          return;
+        }
+        if (gameState !== "PLAYING") return;
+        if (minigame.active) return;
+
+        // Switches
+        for (const room of MAP.rooms) {
+          if (dist(player.x, player.y, room.switchX, room.switchY) < 38) {
+            room.lightsOn = !room.lightsOn;
+            if (!room.lightsOn) {
+              powerSavedCount++;
+            }
+            audio.switch_();
+            return;
+          }
+        }
+        // Doors
+        for (const room of MAP.rooms) {
+          if (dist(player.x, player.y, room.doorX, room.doorY) < 38) {
+            room.doorOpen = !room.doorOpen;
+            audio.switch_();
+            return;
+          }
+        }
+        // Trash pickup
+        for (let i = trashItems.length - 1; i >= 0; i--) {
+          const t = trashItems[i];
+          if (dist(player.x, player.y, t.x, t.y) < 32) {
+            if (player.trashHeld >= player.maxTrash) {
+              showDialogue(
+                "Ba Lô",
+                "Túi rác đầy rồi! Mang đến Thùng Rác Xanh ở sân trường.",
+                "🎒",
+              );
+              return;
+            }
+            player.trashHeld++;
+            spawnPickupParticles(
+              t.x,
+              t.y,
+              t.type === "plastic" ? "#38bdf8" : "#fde047",
+            );
+            trashItems.splice(i, 1);
+            audio.pickup();
+            return;
+          }
+        }
+        // Green bin
+        if (
+          player.trashHeld > 0 &&
+          dist(player.x, player.y, MAP.greenBin.cx, MAP.greenBin.cy) < 65
+        ) {
+          trashCleanedCount += player.trashHeld;
+          player.trashHeld = 0;
+          audio.pickup();
+          spawnPickupParticles(MAP.greenBin.cx, MAP.greenBin.cy, "#10b981", 12);
+          showDialogue(
+            "♻️ Lớp Xanh",
+            "Tuyệt vời! Bạn đã phân loại rác đúng quy định!",
+            "♻️",
+          );
+          return;
+        }
+        // Guard
+        if (
+          dist(player.x, player.y, MAP.guardBooth.npcX, MAP.guardBooth.npcY) <
+          55
+        ) {
+          if (powerTripped) {
+            powerTripped = false;
+            audio.repair();
+            showDialogue(
+              "Bác Bảo Vệ",
+              "Bác đã sửa cầu dao rồi! Quạt máy lạnh chạy lại ngon lành. Nhớ tắt thiết bị khi ra chơi nghe cháu!",
+              "👴",
+            );
+          } else {
+            const tips = [
+              "Trường mình Xanh - Sạch - Đẹp là nhờ ý thức các cháu đó!",
+              "Nhớ phân loại rác trước khi bỏ vào thùng nghe cháu!",
+              "Vào lớp nhớ ngồi đúng chỗ và giữ trật tự nghe!",
+            ];
+            showDialogue(
+              "Bác Bảo Vệ",
+              tips[Math.floor(Math.random() * tips.length)],
+              "👴",
+            );
+          }
+          return;
+        }
+        // Drains
+        for (const d of MAP.drains) {
+          if (d.clogged && dist(player.x, player.y, d.x, d.y) < 42) {
+            d.clogged = false;
+            audio.pickup();
+            showDialogue(
+              "🚰 Thông cống",
+              "Bạn đã dọn rác làm tắc cống thoát nước!",
+              "🚰",
+            );
+            return;
+          }
+        }
+      }
+
+      /* =========================================================
+   PARTICLES
+========================================================= */
+      function spawnPickupParticles(x, y, color, count = 8) {
+        for (let i = 0; i < count; i++) {
+          particles.push({
+            x,
+            y,
+            vx: (Math.random() - 0.5) * 80,
+            vy: -60 - Math.random() * 80,
+            life: 0.6 + Math.random() * 0.4,
+            maxLife: 1,
+            color,
+            size: 3 + Math.random() * 2,
+          });
+        }
+      }
+      function spawnWeatherParticles() {
+        if (currentWeather === "POLLUTION" || currentWeather === "HYBRID") {
+          if (Math.random() < 0.15) {
+            particles.push({
+              x: Math.random() * W,
+              y: H + 5,
+              vx: (Math.random() - 0.5) * 10,
+              vy: -20 - Math.random() * 20,
+              life: 3 + Math.random() * 2,
+              maxLife: 5,
+              color: "rgba(120,80,140,0.5)",
+              size: 3 + Math.random() * 3,
+            });
+          }
+        }
+      }
+
+      /* =========================================================
+   HELPERS
+========================================================= */
+      function dist(x1, y1, x2, y2) {
+        return Math.hypot(x2 - x1, y2 - y1);
+      }
+
+      function currentSlot() {
+        return DAY_SCHEDULE[Math.min(scheduleIndex, DAY_SCHEDULE.length - 1)];
+      }
+
+      function isBreakPhase() {
+        return currentSlot().type === "BREAK";
+      }
+
+      function isLessonPhase() {
+        return currentSlot().type === "LESSON";
+      }
+
+      function lessonNumber() {
+        if (!isLessonPhase()) return 0;
+        let n = 0;
+        for (let i = 0; i <= scheduleIndex; i++) {
+          if (DAY_SCHEDULE[i].type === "LESSON") n++;
+        }
+        return n;
+      }
+
+      function playerInRoom() {
+        for (const r of MAP.rooms) {
+          if (
+            player.x > r.x &&
+            player.x < r.x + r.w &&
+            player.y > r.y &&
+            player.y < r.y + r.h
+          )
+            return r;
+        }
+        return null;
+      }
+
+      function findNearbySeat(room) {
+        if (!room) return null;
+        let best = null,
+          bestD = 42;
+        for (const s of room.seats) {
+          const d = dist(player.x, player.y, s.x, s.y);
+          if (d < bestD) {
+            bestD = d;
+            best = s;
+          }
+        }
+        return best;
+      }
+
+      /* =========================================================
+   UPDATE
+========================================================= */
+      let lastMinigameLesson = -1;
+
+      function updateGame(dt) {
+        if (screenShake > 0) screenShake = Math.max(0, screenShake - dt * 30);
+        if (flashRed > 0) flashRed = Math.max(0, flashRed - dt * 2);
+        if (envMessageTimer > 0) envMessageTimer -= dt;
+        if (transitionAlpha > 0)
+          transitionAlpha = Math.max(0, transitionAlpha - dt * 1.5);
+
+        audio.bgmTick();
+        spawnWeatherParticles();
+
+        // Particles
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.vy += 200 * dt;
+          p.life -= dt;
+          if (p.life <= 0) particles.splice(i, 1);
+        }
+        for (const c of clouds) {
+          c.x += c.spd * dt;
+          if (c.x > W + 80) c.x = -80;
+        }
+        if (currentWeather === "RAIN" || currentWeather === "HYBRID") {
+          for (const p of rainParticles) {
+            p.y += p.speed * dt;
+            p.x -= p.speed * 0.3 * dt;
+            if (p.y > H) {
+              p.y = -10;
+              p.x = Math.random() * W;
+            }
+            if (p.x < -10) p.x = W;
+          }
+        }
+        puddles.forEach((p) => (p.phase += dt * 3));
+
+        // Minigame marker animation
+        if (minigame.active && !minigame.resolved) {
+          minigame.markerPos += minigame.markerDir * minigame.markerSpeed * dt;
+          if (minigame.markerPos >= 100) {
+            minigame.markerPos = 100;
+            minigame.markerDir = -1;
+          }
+          if (minigame.markerPos <= 0) {
+            minigame.markerPos = 0;
+            minigame.markerDir = 1;
+          }
+          const marker = document.getElementById("mg-marker");
+          marker.style.left = minigame.markerPos + "%";
+        }
+
+        if (gameState !== "PLAYING") return;
+
+        // Schedule progression (pause during minigame)
+        if (!minigame.active) {
+          if (inTransition) {
+            transitionTimer += dt;
+            if (transitionTimer >= TRANSITION_DURATION) {
+              inTransition = false;
+              transitionTimer = 0;
+              scheduleIndex++;
+              scheduleTimer = 0;
+              if (scheduleIndex >= DAY_SCHEDULE.length) {
+                // Hết ngày
+                endDay();
+                return;
+              }
+              const slot = currentSlot();
+              if (slot.type === "LESSON") {
+                // Reset cửa sổ mất điện mỗi tiết? Giữ nguyên
+              }
+              audio.bell();
+              envMessage = slot.label + " BẮT ĐẦU!";
+              envMessageTimer = 2;
+            }
+          } else {
+            scheduleTimer += dt;
+            const slot = currentSlot();
+            if (scheduleTimer >= slot.dur) {
+              // Chuẩn bị chuyển tiết
+              inTransition = true;
+              transitionTimer = 0;
+              transitionFrom = slot.type;
+              const nextIdx = scheduleIndex + 1;
+              transitionTo =
+                nextIdx < DAY_SCHEDULE.length
+                  ? DAY_SCHEDULE[nextIdx].type
+                  : "END";
+              audio.bell();
+
+              // Nếu vừa kết thúc BREAK → kiểm tra mất điện
+              if (slot.type === "BREAK") {
+                const wasting = MAP.rooms.find((r) => r.lightsOn);
+                if (wasting) {
+                  powerTripped = true;
+                  audio.zap();
+                  screenShake = 8;
+                  flashRed = 0.6;
+                }
+              }
+              // Nếu vừa kết thúc LESSON → thưởng hoàn thành tiết
+              if (slot.type === "LESSON") {
+                lessonsCompleted++;
+              }
+            }
+          }
+        }
+
+        // Slip stun
+        if (slipTimer > 0) {
+          slipTimer -= dt;
+          return;
+        }
+
+        // Movement (không cho di chuyển khi đang trong minigame)
+        if (minigame.active) return;
+
+        let mx = 0,
+          my = 0;
+        if (keys.Up) my -= 1;
+        if (keys.Down) my += 1;
+        if (keys.Left) mx -= 1;
+        if (keys.Right) mx += 1;
+        if (mx && my) {
+          mx *= 0.7071;
+          my *= 0.7071;
+        }
+
+        let speedMult = selectedChar.speedBonus;
+        if (player.fanning) speedMult *= 0.5;
+        if (player.seated) speedMult = 0; // Ngồi thì không di chuyển
+        const spd = player.speed * speedMult * dt;
+        const nx = player.x + mx * spd;
+        const ny = player.y + my * spd;
+
+        if (nx > 55 && nx < W - 55) player.x = nx;
+        if (ny > 65 && ny < H - 40) player.y = ny;
+
+        if (mx !== 0 || my !== 0) {
+          player.isMoving = true;
+          if (Math.abs(mx) > Math.abs(my))
+            player.facing = mx > 0 ? "right" : "left";
+          else player.facing = my > 0 ? "down" : "up";
+          player.animTimer += dt;
+          if (player.animTimer > 0.14) {
+            player.animFrame = (player.animFrame + 1) % 4;
+            player.animTimer = 0;
+            if (player.animFrame % 2 === 0) audio.step();
+          }
+          // Rời ghế khi di chuyển
+          if (player.seated) {
+            player.seated = false;
+            player.seatRef = null;
+          }
+        } else {
+          player.isMoving = false;
+          player.animFrame = 0;
+        }
+
+        player.isInside = !!playerInRoom();
+        player.fanning =
+          keys.Fan && player.isInside && isLessonPhase() && !inTransition;
+
+        // Auto-seat: nếu đang trong giờ học và đứng gần ghế → nhấn E để ngồi
+        // (đã xử lý trong interaction)
+
+        // Slip on puddle
+        if (
+          (currentWeather === "RAIN" || currentWeather === "HYBRID") &&
+          !player.isInside
+        ) {
+          for (const p of puddles) {
+            if (
+              dist(player.x, player.y, p.x, p.y) < p.r + 6 &&
+              slipTimer <= 0
+            ) {
+              slipTimer = 0.9;
+              const dmg = selectedChar.skill === "tough" ? 8 : 15;
+              hp -= dmg;
+              audio.slip();
+              screenShake = 10;
+              flashRed = 0.7;
+              spawnPickupParticles(player.x, player.y, "#38bdf8", 14);
+              if (hp <= 0) {
+                gameOver("Bạn bị trượt té mạnh trên hành lang trơn trượt!");
+                return;
+              }
+              break;
+            }
+          }
+        }
+
+        // Environmental damage during class
+        if (isLessonPhase() && !inTransition && player.isInside) {
+          const room = playerInRoom();
+          if (room) {
+            if (currentWeather === "HOT" || currentWeather === "HYBRID") {
+              const hasCooling = !powerTripped;
+              const fanEff = player.fanning
+                ? selectedChar.skill === "fan"
+                  ? 2
+                  : 1
+                : 0;
+              if (!hasCooling && fanEff === 0) {
+                hp -= 4 * dt;
+                if (Math.random() < 0.06) {
+                  audio.hurt();
+                  screenShake = 3;
+                  flashRed = 0.4;
+                }
+              } else if (
+                !hasCooling &&
+                fanEff > 0 &&
+                selectedChar.skill !== "fan"
+              ) {
+                hp -= 1.5 * dt;
+              }
+            }
+            if (
+              (currentWeather === "POLLUTION" || currentWeather === "HYBRID") &&
+              room.doorOpen &&
+              trashItems.length > 4
+            ) {
+              hp -= 2.5 * dt;
+              if (Math.random() < 0.03) {
+                audio.hurt();
+                flashRed = 0.3;
+              }
+            }
+          }
+        }
+
+        // Minigame trigger: trong giờ học, mỗi tiết 1 lần, sau 10s
+        if (
+          isLessonPhase() &&
+          !inTransition &&
+          !minigame.active &&
+          !minigame.resolved
+        ) {
+          const lessonN = lessonNumber();
+          if (lessonN !== minigame.lastLesson && scheduleTimer > 8) {
+            minigame.lastLesson = lessonN;
+            startMinigame();
+          }
+        }
+        // Reset khi kết thúc tiết
+        if (isBreakPhase()) {
+          minigame.resolved = false;
+          minigame.lastLesson = -1;
+        }
+
+        if (hp <= 0) {
+          gameOver(
+            "Thời tiết khắc nghiệt và môi trường ô nhiễm đã làm bạn kiệt sức!",
+          );
+          return;
+        }
+      }
+
+      function endDay() {
+        currentDay++;
+        scheduleIndex = 0;
+        scheduleTimer = 0;
+        inTransition = false;
+        if (selectedChar.skill === "regen") hp = Math.min(100, hp + 8);
+        audio.win();
+        transitionAlpha = 1;
+        minigame.resolved = false;
+        minigame.lastLesson = -1;
+        spawnDayEnvironment();
+        envMessage = `NGÀY ${currentDay} BẮT ĐẦU!`;
+        envMessageTimer = 2.5;
+      }
+
+      /* =========================================================
+   DRAW HELPERS
+========================================================= */
+      function drawFloorTiles(x, y, w, h, baseColor, altColor, tileSize = 24) {
+        ctx.fillStyle = baseColor;
+        ctx.fillRect(x, y, w, h);
+        ctx.fillStyle = altColor;
+        for (let i = 0; i < w; i += tileSize) {
+          for (let j = 0; j < h; j += tileSize) {
+            if ((i / tileSize + j / tileSize) % 2 === 0) {
+              ctx.fillRect(x + i, y + j, tileSize, tileSize);
+            }
+          }
+        }
+      }
+
+      function drawShadow(x, y, w) {
+        ctx.fillStyle = "rgba(0,0,0,0.35)";
+        ctx.beginPath();
+        ctx.ellipse(x, y, w, w * 0.35, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      /* =========================================================
+   DRAW MAP
+========================================================= */
+      function drawMap(time) {
+        const grad = ctx.createLinearGradient(0, 0, 0, H);
+        if (currentWeather === "HOT") {
+          grad.addColorStop(0, "#7dd3fc");
+          grad.addColorStop(0.5, "#38bdf8");
+        } else if (currentWeather === "POLLUTION") {
+          grad.addColorStop(0, "#a78bfa");
+          grad.addColorStop(0.5, "#7c3aed");
+        } else if (currentWeather === "RAIN") {
+          grad.addColorStop(0, "#475569");
+          grad.addColorStop(0.5, "#64748b");
+        } else {
+          grad.addColorStop(0, "#7e22ce");
+          grad.addColorStop(0.5, "#a855f7");
+        }
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, 320);
+
+        // Clouds
+        ctx.fillStyle = "rgba(255,255,255,0.55)";
+        for (const c of clouds) {
+          ctx.beginPath();
+          ctx.ellipse(c.x, c.y, 40 * c.s, 14 * c.s, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.ellipse(
+            c.x - 22 * c.s,
+            c.y + 4,
+            26 * c.s,
+            10 * c.s,
+            0,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fill();
+          ctx.beginPath();
+          ctx.ellipse(
+            c.x + 22 * c.s,
+            c.y + 4,
+            26 * c.s,
+            10 * c.s,
+            0,
+            0,
+            Math.PI * 2,
+          );
+          ctx.fill();
+        }
+
+        // Yard
+        drawFloorTiles(0, 320, W, H - 320, "#22c55e", "#16a34a", 32);
+        ctx.fillStyle = "rgba(21,128,61,0.35)";
+        for (let i = 0; i < 60; i++) {
+          const gx = (i * 137) % W,
+            gy = 330 + ((i * 97) % (H - 340));
+          ctx.fillRect(gx, gy, 3, 6);
+        }
+
+        // Corridor
+        drawFloorTiles(
+          MAP.corridor.x,
+          MAP.corridor.y,
+          MAP.corridor.w,
+          MAP.corridor.h,
+          "#cbd5e1",
+          "#e2e8f0",
+          20,
+        );
+        ctx.strokeStyle = "#94a3b8";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(
+          MAP.corridor.x,
+          MAP.corridor.y,
+          MAP.corridor.w,
+          MAP.corridor.h,
+        );
+
+        // Classrooms
+        for (const r of MAP.rooms) {
+          const floorCol = r.lightsOn && !powerTripped ? "#fef3c7" : "#334155";
+          const floorAlt = r.lightsOn && !powerTripped ? "#fde68a" : "#1e293b";
+          drawFloorTiles(r.x, r.y, r.w, r.h, floorCol, floorAlt, 16);
+
+          ctx.strokeStyle = "#0f172a";
+          ctx.lineWidth = 4;
+          ctx.strokeRect(r.x, r.y, r.w, r.h);
+          ctx.strokeStyle = "#78350f";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(r.x + 1, r.y + 1, r.w - 2, r.h - 2);
+
+          // Blackboard
+          ctx.fillStyle = "#064e3b";
+          ctx.fillRect(r.x + r.w / 2 - 60, r.y + 8, 120, 32);
+          ctx.strokeStyle = "#065f46";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(r.x + r.w / 2 - 60, r.y + 8, 120, 32);
+          ctx.fillStyle = "#a7f3d0";
+          ctx.font = 'bold 16px "Press Start 2P"';
+          ctx.textAlign = "center";
+          ctx.fillText(r.id, r.x + r.w / 2, r.y + 30);
+          ctx.textAlign = "left";
+
+          // Switch
+          ctx.fillStyle = r.lightsOn ? "#ef4444" : "#10b981";
+          ctx.fillRect(r.switchX - 6, r.switchY - 6, 12, 12);
+          ctx.strokeStyle = "#0f172a";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(r.switchX - 6, r.switchY - 6, 12, 12);
+
+          // Fan (quạt trần)
+          if (r.lightsOn && !powerTripped) {
+            const fx = r.x + r.w / 2,
+              fy = r.y + 55;
+            ctx.fillStyle = "rgba(0,0,0,0.2)";
+            ctx.fillRect(fx - 1, fy - 1, 2, 2);
+            ctx.save();
+            ctx.translate(fx, fy);
+            ctx.rotate(time * 8);
+            ctx.fillStyle = "#94a3b8";
+            for (let i = 0; i < 4; i++) {
+              ctx.rotate(Math.PI / 2);
+              ctx.fillRect(0, -2, 20, 4);
+            }
+            ctx.restore();
+          }
+
+          // Seats
+          for (const s of r.seats) {
+            // Shadow
+            ctx.fillStyle = "rgba(0,0,0,0.25)";
+            ctx.fillRect(s.x - s.w / 2 + 1, s.y + s.h / 2 - 1, s.w, 5);
+            // Seat base (ghế gỗ)
+            ctx.fillStyle = "#78350f";
+            ctx.fillRect(s.x - s.w / 2, s.y - s.h / 2, s.w, s.h);
+            ctx.fillStyle = "#92400e";
+            ctx.fillRect(
+              s.x - s.w / 2 + 2,
+              s.y - s.h / 2 + 2,
+              s.w - 4,
+              s.h - 6,
+            );
+            // Backrest
+            ctx.fillStyle = "#a16207";
+            ctx.fillRect(s.x - s.w / 2, s.y - s.h / 2 - 3, s.w, 5);
+            ctx.strokeStyle = "#451a03";
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(s.x - s.w / 2, s.y - s.h / 2, s.w, s.h);
+            // Bàn (desk) nhỏ phía trước
+            ctx.fillStyle = "#a16207";
+            ctx.fillRect(s.x - s.w / 2 - 2, s.y + s.h / 2 - 6, s.w + 4, 4);
+            ctx.strokeStyle = "#451a03";
+            ctx.strokeRect(s.x - s.w / 2 - 2, s.y + s.h / 2 - 6, s.w + 4, 4);
+          }
+
+          // Door
+          const dc = r.doorOpen ? "#d97706" : "#78350f";
+          ctx.fillStyle = dc;
+          ctx.fillRect(r.doorX - 18, r.doorY - 6, 36, 12);
+          ctx.strokeStyle = "#0f172a";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(r.doorX - 18, r.doorY - 6, 36, 12);
+          ctx.fillStyle = "#fbbf24";
+          ctx.fillRect(r.doorX + (r.doorOpen ? 12 : -14), r.doorY - 2, 3, 4);
+        }
+
+        // Guard booth
+        ctx.fillStyle = "#0369a1";
+        ctx.fillRect(
+          MAP.guardBooth.x,
+          MAP.guardBooth.y,
+          MAP.guardBooth.w,
+          MAP.guardBooth.h,
+        );
+        ctx.strokeStyle = "#0c4a6e";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(
+          MAP.guardBooth.x,
+          MAP.guardBooth.y,
+          MAP.guardBooth.w,
+          MAP.guardBooth.h,
+        );
+        ctx.fillStyle = "#bae6fd";
+        ctx.fillRect(MAP.guardBooth.x + 15, MAP.guardBooth.y + 15, 80, 45);
+        ctx.strokeStyle = "#0369a1";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(MAP.guardBooth.x + 15, MAP.guardBooth.y + 15, 80, 45);
+        ctx.fillStyle = "#dc2626";
+        ctx.fillRect(
+          MAP.guardBooth.x - 6,
+          MAP.guardBooth.y - 8,
+          MAP.guardBooth.w + 12,
+          12,
+        );
+
+        // Green bin
+        const bx = MAP.greenBin.x,
+          by = MAP.greenBin.y,
+          bw = MAP.greenBin.w,
+          bh = MAP.greenBin.h;
+        ctx.fillStyle = "#15803d";
+        ctx.fillRect(bx, by, bw, bh);
+        ctx.fillStyle = "#16a34a";
+        ctx.fillRect(bx + 3, by + 3, bw - 6, bh - 6);
+        ctx.strokeStyle = "#052e16";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(bx, by, bw, bh);
+        ctx.fillStyle = "#65a30d";
+        ctx.fillRect(bx - 3, by - 6, bw + 6, 8);
+        ctx.strokeStyle = "#365314";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(bx - 3, by - 6, bw + 6, 8);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 22px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText("♻", bx + bw / 2, by + bh / 2 + 8);
+        ctx.textAlign = "left";
+
+        // Drains
+        for (const d of MAP.drains) {
+          ctx.fillStyle = d.clogged ? "#7f1d1d" : "#475569";
+          ctx.fillRect(d.x - 18, d.y - 12, 36, 24);
+          ctx.strokeStyle = "#0f172a";
+          ctx.lineWidth = 3;
+          ctx.strokeRect(d.x - 18, d.y - 12, 36, 24);
+          ctx.strokeStyle = d.clogged ? "#fca5a5" : "#94a3b8";
+          ctx.lineWidth = 1.5;
+          for (let i = -14; i <= 14; i += 6) {
+            ctx.beginPath();
+            ctx.moveTo(d.x + i, d.y - 10);
+            ctx.lineTo(d.x + i, d.y + 10);
+            ctx.stroke();
+          }
+          if (d.clogged) {
+            ctx.fillStyle = "#a16207";
+            ctx.font = "bold 10px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("TẮC", d.x, d.y + 4);
+            ctx.textAlign = "left";
+          }
+        }
+
+        // Puddles
+        if (currentWeather === "RAIN" || currentWeather === "HYBRID") {
+          for (const p of puddles) {
+            ctx.fillStyle = "rgba(56,189,248,0.55)";
+            ctx.beginPath();
+            ctx.ellipse(p.x, p.y, p.r, p.r * 0.55, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "rgba(186,230,253,0.7)";
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            const rip = (Math.sin(p.phase) + 1) * 0.5;
+            ctx.strokeStyle = `rgba(255,255,255,${0.4 - rip * 0.4})`;
+            ctx.beginPath();
+            ctx.ellipse(
+              p.x,
+              p.y,
+              p.r * (0.4 + rip * 0.4),
+              p.r * 0.55 * (0.4 + rip * 0.4),
+              0,
+              0,
+              Math.PI * 2,
+            );
+            ctx.stroke();
+          }
+        }
+
+        // Trash
+        for (const t of trashItems) {
+          const bob = Math.sin(time * 3 + t.bob) * 2;
+          drawShadow(t.x, t.y + 5, 7);
+          if (t.type === "plastic") {
+            ctx.fillStyle = "#0ea5e9";
+            ctx.fillRect(t.x - 4, t.y - 8 + bob, 8, 14);
+            ctx.fillStyle = "#38bdf8";
+            ctx.fillRect(t.x - 4, t.y - 8 + bob, 8, 4);
+            ctx.fillStyle = "#ffffff";
+            ctx.fillRect(t.x - 2, t.y - 10 + bob, 4, 3);
+          } else {
+            ctx.fillStyle = "#fde047";
+            ctx.fillRect(t.x - 6, t.y - 5 + bob, 12, 10);
+            ctx.strokeStyle = "#a16207";
+            ctx.lineWidth = 1;
+            ctx.strokeRect(t.x - 6, t.y - 5 + bob, 12, 10);
+            ctx.fillStyle = "#a16207";
+            ctx.fillRect(t.x - 4, t.y - 2 + bob, 8, 1);
+            ctx.fillRect(t.x - 4, t.y + 1 + bob, 6, 1);
+          }
+          if (
+            dist(player.x, player.y, t.x, t.y) < 40 &&
+            gameState === "PLAYING" &&
+            !minigame.active
+          ) {
+            ctx.strokeStyle = "rgba(250,204,21,0.8)";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(t.x, t.y, 16, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+      }
+
+      /* =========================================================
+   DRAW PLAYER
+========================================================= */
+      function drawPlayer(time) {
+        const px = 2.5;
+        const S = (x, y, w, h, col) => {
+          ctx.fillStyle = col;
+          ctx.fillRect(
+            Math.round(player.x + x * px),
+            Math.round(player.y + y * px),
+            Math.ceil(w * px),
+            Math.ceil(h * px),
+          );
+        };
+
+        drawShadow(player.x, player.y + 14, 11);
+
+        const walkPhase = Math.floor(player.animFrame / 2);
+        const legOffset = player.isMoving ? (walkPhase === 0 ? -1 : 1) : 0;
+
+        S(-4, 8 + legOffset, 3, 4, selectedChar.pants);
+        S(1, 8 - legOffset, 3, 4, selectedChar.pants);
+
+        S(-6, -2, 12, 12, selectedChar.shirt);
+        S(-3, -2, 6, 2, "#ffffff");
+        S(-6, 7, 12, 2, selectedChar.pants);
+
+        if (player.fanning) {
+          const fanPhase = Math.sin(time * 20) * 3;
+          S(-9, -1 + fanPhase, 3, 6, selectedChar.skin);
+          S(6, -1 - fanPhase, 3, 6, selectedChar.skin);
+          ctx.fillStyle = "#fde047";
+          ctx.beginPath();
+          ctx.arc(player.x + 10, player.y - 2 + fanPhase, 5, 0, Math.PI * 2);
+          ctx.fill();
+        } else if (player.seated) {
+          // tay đặt lên bàn
+          S(-9, 1, 3, 5, selectedChar.skin);
+          S(6, 1, 3, 5, selectedChar.skin);
+        } else {
+          S(-9, -1, 3, 7, selectedChar.skin);
+          S(6, -1, 3, 7, selectedChar.skin);
+        }
+
+        S(-6, -16, 12, 12, selectedChar.skin);
+        S(-7, -19, 14, 5, selectedChar.hair);
+        S(-7, -17, 2, 8, selectedChar.hair);
+        S(5, -17, 2, 8, selectedChar.hair);
+
+        ctx.fillStyle = "#0f172a";
+        const eyeY = player.y - 10;
+        if (player.facing === "down") {
+          ctx.fillRect(player.x - 4, eyeY, 2, 3);
+          ctx.fillRect(player.x + 2, eyeY, 2, 3);
+        } else if (player.facing === "left") {
+          ctx.fillRect(player.x - 5, eyeY, 2, 3);
+        } else if (player.facing === "right") {
+          ctx.fillRect(player.x + 3, eyeY, 2, 3);
+        }
+
+        if (player.trashHeld > 0) {
+          for (let i = 0; i < player.trashHeld; i++) {
+            ctx.fillStyle = i % 2 === 0 ? "#38bdf8" : "#fde047";
+            ctx.fillRect(
+              player.x + 13 + (i % 3) * 4,
+              player.y - 6 + Math.floor(i / 3) * 8,
+              4,
+              6,
+            );
+          }
+        }
+
+        if (player.fanning) {
+          ctx.strokeStyle = "rgba(56,189,248,0.5)";
+          ctx.lineWidth = 2;
+          for (let i = 0; i < 3; i++) {
+            const r = 22 + i * 6 + Math.sin(time * 6 + i) * 3;
+            ctx.beginPath();
+            ctx.arc(player.x, player.y - 6, r, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+        }
+      }
+
+      /* =========================================================
+   DRAW GUARD
+========================================================= */
+      function drawGuard(time) {
+        const x = MAP.guardBooth.npcX,
+          y = MAP.guardBooth.npcY;
+        const bob = Math.sin(time * 2) * 1.5;
+        drawShadow(x, y + 12, 9);
+        ctx.fillStyle = "#1e40af";
+        ctx.fillRect(x - 8, y - 6 + bob, 16, 16);
+        ctx.fillStyle = "#3b82f6";
+        ctx.fillRect(x - 8, y - 6 + bob, 16, 3);
+        ctx.fillStyle = "#fde68a";
+        ctx.fillRect(x - 6, y - 20 + bob, 12, 12);
+        ctx.fillStyle = "#1e3a8a";
+        ctx.fillRect(x - 7, y - 22 + bob, 14, 5);
+        ctx.fillStyle = "#0f172a";
+        ctx.fillRect(x - 8, y - 19 + bob, 16, 2);
+        ctx.fillStyle = "#0f172a";
+        ctx.fillRect(x - 3, y - 14 + bob, 2, 2);
+        ctx.fillRect(x + 1, y - 14 + bob, 2, 2);
+        if (gameState === "PLAYING" && powerTripped) {
+          ctx.fillStyle = `rgba(239,68,68,${0.6 + 0.4 * Math.sin(time * 10)})`;
+          ctx.beginPath();
+          ctx.arc(x, y - 30 + bob, 4, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = "#fff";
+          ctx.font = "bold 8px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText("!", x, y - 27 + bob);
+          ctx.textAlign = "left";
+        }
+      }
+
+      /* =========================================================
+   DRAW HUD
+========================================================= */
+      function drawHUD() {
+        // Top bar
+        ctx.fillStyle = "rgba(10,14,20,0.85)";
+        ctx.fillRect(8, 8, W - 16, 52);
+        ctx.strokeStyle = "#10b981";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(8, 8, W - 16, 52);
+
+        // HP
+        ctx.fillStyle = "#1e293b";
+        ctx.fillRect(18, 20, 150, 22);
+        const hpW = Math.max(0, (hp / 100) * 150);
+        const hpCol = hp > 55 ? "#10b981" : hp > 25 ? "#f59e0b" : "#ef4444";
+        ctx.fillStyle = hpCol;
+        ctx.fillRect(18, 20, hpW, 22);
+        ctx.strokeStyle = "#0f172a";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(18, 20, 150, 22);
+        ctx.fillStyle = "#ffffff";
+        ctx.font = 'bold 11px "Press Start 2P"';
+        ctx.textAlign = "left";
+        ctx.fillText(`HP ${Math.ceil(hp)}`, 24, 35);
+
+        // Day
+        ctx.fillStyle = "#38bdf8";
+        ctx.font = 'bold 11px "Press Start 2P"';
+        ctx.fillText(`NGÀY ${currentDay}`, 185, 35);
+
+        // Lesson / Break indicator
+        const slot = currentSlot();
+        const remain = Math.max(0, Math.ceil(slot.dur - scheduleTimer));
+        let phaseText, phaseCol;
+        if (inTransition) {
+          phaseText = "CHUYỂN TIẾT...";
+          phaseCol = "#c4b5fd";
+        } else if (slot.type === "BREAK") {
+          phaseText = `RA CHƠI ${remain}s`;
+          phaseCol = "#f59e0b";
+        } else {
+          const ln = lessonNumber();
+          phaseText = `TIẾT ${ln}/7 • ${remain}s`;
+          phaseCol = "#a855f7";
+        }
+        ctx.fillStyle = phaseCol;
+        ctx.fillText(phaseText, 320, 35);
+
+        // Weather
+        ctx.fillStyle = "#f43f5e";
+        const wText = {
+          HOT: "☀ OI BỨC",
+          POLLUTION: "☣ Ô NHIỄM",
+          RAIN: "🌧 MƯA",
+          HYBRID: "⚠ KHẮC NGHIỆT",
+        }[currentWeather];
+        ctx.fillText(wText, 630, 35);
+
+        // Trash
+        ctx.fillStyle = "#10b981";
+        ctx.fillText(`🗑 ${player.trashHeld}/${player.maxTrash}`, 840, 35);
+
+        // Progress bar of lessons
+        const doneLessons =
+          scheduleIndex === 0 && !isLessonPhase() && !inTransition
+            ? 0
+            : DAY_SCHEDULE.slice(
+                0,
+                inTransition
+                  ? scheduleIndex + 1
+                  : scheduleIndex + (slot.type === "LESSON" ? 0 : 0),
+              ).filter((s) => s.type === "LESSON").length;
+        ctx.fillStyle = "#1e293b";
+        ctx.fillRect(8, 64, W - 16, 6);
+        const progress =
+          (scheduleIndex +
+            (inTransition
+              ? transitionTimer / TRANSITION_DURATION
+              : scheduleTimer / slot.dur)) /
+          DAY_SCHEDULE.length;
+        ctx.fillStyle = "#10b981";
+        ctx.fillRect(8, 64, (W - 16) * Math.min(1, progress), 6);
+
+        // Power alert
+        if (powerTripped) {
+          const a = 0.7 + 0.3 * Math.sin(performance.now() / 150);
+          ctx.fillStyle = `rgba(239,68,68,${a})`;
+          ctx.font = 'bold 13px "Press Start 2P"';
+          ctx.textAlign = "center";
+          ctx.fillText("⚡ MẤT ĐIỆN — Nhờ Bác Bảo Vệ!", W / 2, 92);
+          ctx.textAlign = "left";
+        }
+
+        // Break / transition banner
+        if (inTransition) {
+          ctx.fillStyle = "rgba(15,23,42,0.85)";
+          ctx.fillRect(W / 2 - 220, 105, 440, 50);
+          ctx.strokeStyle = "#c4b5fd";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(W / 2 - 220, 105, 440, 50);
+          ctx.fillStyle = "#c4b5fd";
+          ctx.font = 'bold 14px "Press Start 2P"';
+          ctx.textAlign = "center";
+          ctx.fillText(
+            "🔔 " + (transitionTo === "LESSON" ? "VÀO LỚP HỌC!" : "RA CHƠI!"),
+            W / 2,
+            128,
+          );
+          ctx.font = 'bold 10px "Press Start 2P"';
+          ctx.fillText(
+            `Còn ${Math.ceil(TRANSITION_DURATION - transitionTimer)}s`,
+            W / 2,
+            146,
+          );
+          ctx.textAlign = "left";
+        }
+
+        // Env message
+        if (envMessageTimer > 0 && !inTransition) {
+          const a = Math.min(1, envMessageTimer);
+          ctx.fillStyle = `rgba(15,23,42,${0.9 * a})`;
+          ctx.fillRect(W / 2 - 240, 105, 480, 40);
+          ctx.strokeStyle = `rgba(250,204,21,${a})`;
+          ctx.lineWidth = 2;
+          ctx.strokeRect(W / 2 - 240, 105, 480, 40);
+          ctx.fillStyle = `rgba(250,204,21,${a})`;
+          ctx.font = 'bold 12px "Press Start 2P"';
+          ctx.textAlign = "center";
+          ctx.fillText(envMessage, W / 2, 130);
+          ctx.textAlign = "left";
+        }
+
+        // Hints
+        if (
+          gameState === "PLAYING" &&
+          !minigame.active &&
+          !inTransition &&
+          !player.fanning
+        ) {
+          let hint = null;
+
+          // Seat hint during lesson
+          if (isLessonPhase()) {
+            const room = playerInRoom();
+            if (room) {
+              const seat = findNearbySeat(room);
+              if (seat && !player.seated) hint = "[E] Ngồi vào ghế để học";
+            } else {
+              hint = "⚠ Vào lớp ngay! Cô giáo đang điểm danh!";
+            }
+          }
+
+          // Other hints
+          if (!hint) {
+            for (const r of MAP.rooms) {
+              if (dist(player.x, player.y, r.switchX, r.switchY) < 38) {
+                hint = "[E] Bật/Tắt công tắc";
+                break;
+              }
+              if (dist(player.x, player.y, r.doorX, r.doorY) < 38) {
+                hint = "[E] Mở/Đóng cửa lớp";
+                break;
+              }
+            }
+          }
+          if (!hint) {
+            for (const d of MAP.drains) {
+              if (d.clogged && dist(player.x, player.y, d.x, d.y) < 42) {
+                hint = "[E] Thông cống";
+                break;
+              }
+            }
+          }
+          if (
+            !hint &&
+            dist(player.x, player.y, MAP.guardBooth.npcX, MAP.guardBooth.npcY) <
+              55
+          ) {
+            hint = powerTripped ? "[E] Nhờ Bác sửa điện" : "[E] Nói chuyện";
+          }
+          if (
+            !hint &&
+            dist(player.x, player.y, MAP.greenBin.cx, MAP.greenBin.cy) < 65 &&
+            player.trashHeld > 0
+          ) {
+            hint = "[E] Bỏ rác vào thùng";
+          }
+          if (!hint) {
+            for (const t of trashItems) {
+              if (dist(player.x, player.y, t.x, t.y) < 32) {
+                hint = "[E] Nhặt rác";
+                break;
+              }
+            }
+          }
+          if (hint) {
+            ctx.font = 'bold 10px "Press Start 2P"';
+            const tw = ctx.measureText(hint).width;
+            ctx.fillStyle = "rgba(15,23,42,0.9)";
+            ctx.fillRect(W / 2 - tw / 2 - 12, H - 42, tw + 24, 28);
+            ctx.strokeStyle = hint.startsWith("⚠") ? "#ef4444" : "#10b981";
+            ctx.lineWidth = 2;
+            ctx.strokeRect(W / 2 - tw / 2 - 12, H - 42, tw + 24, 28);
+            ctx.fillStyle = hint.startsWith("⚠") ? "#ef4444" : "#10b981";
+            ctx.textAlign = "center";
+            ctx.fillText(hint, W / 2, H - 23);
+            ctx.textAlign = "left";
+          }
+        }
+
+        // "Seated" indicator
+        if (player.seated) {
+          ctx.fillStyle = "rgba(16,185,129,0.9)";
+          ctx.font = 'bold 10px "Press Start 2P"';
+          ctx.textAlign = "center";
+          ctx.fillText("✓ ĐANG NGỒI HỌC", W / 2, H - 60);
+          ctx.textAlign = "left";
+        }
+      }
+
+      /* =========================================================
+   DRAW PARTICLES + WEATHER
+========================================================= */
+      function drawParticles() {
+        for (const p of particles) {
+          const a = Math.max(0, p.life / p.maxLife);
+          ctx.globalAlpha = a;
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, p.size, p.size);
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      function drawRain() {
+        if (currentWeather === "RAIN" || currentWeather === "HYBRID") {
+          ctx.strokeStyle = "rgba(186,230,253,0.6)";
+          ctx.lineWidth = 1.5;
+          for (const p of rainParticles) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p.x - 2, p.y + p.len);
+            ctx.stroke();
+          }
+          ctx.fillStyle = "rgba(30,58,138,0.12)";
+          ctx.fillRect(0, 0, W, H);
+        }
+        if (currentWeather === "POLLUTION" || currentWeather === "HYBRID") {
+          ctx.fillStyle = "rgba(120,53,15,0.08)";
+          ctx.fillRect(0, 0, W, H);
+        }
+        if (currentWeather === "HOT") {
+          ctx.fillStyle = "rgba(251,146,60,0.06)";
+          ctx.fillRect(0, 0, W, H);
+        }
+      }
+
+      /* =========================================================
+   RENDER
+========================================================= */
+      function render(time) {
+        ctx.save();
+        if (screenShake > 0) {
+          ctx.translate(
+            (Math.random() - 0.5) * screenShake,
+            (Math.random() - 0.5) * screenShake,
+          );
+        }
+        ctx.clearRect(-20, -20, W + 40, H + 40);
+        ctx.fillStyle = "#000";
+        ctx.fillRect(-20, -20, W + 40, H + 40);
+
+        drawMap(time);
+        drawGuard(time);
+        drawPlayer(time);
+        drawParticles();
+        drawRain();
+
+        if (flashRed > 0) {
+          ctx.fillStyle = `rgba(239,68,68,${flashRed * 0.35})`;
+          ctx.fillRect(0, 0, W, H);
+        }
+
+        if (transitionAlpha > 0) {
+          ctx.fillStyle = `rgba(0,0,0,${transitionAlpha})`;
+          ctx.fillRect(0, 0, W, H);
+          if (transitionAlpha > 0.5) {
+            ctx.fillStyle = `rgba(16,185,129,${(transitionAlpha - 0.5) * 2})`;
+            ctx.font = 'bold 22px "Press Start 2P"';
+            ctx.textAlign = "center";
+            ctx.fillText(`NGÀY ${currentDay}`, W / 2, H / 2);
+            ctx.font = 'bold 11px "Press Start 2P"';
+            ctx.fillStyle = `rgba(250,204,21,${(transitionAlpha - 0.5) * 2})`;
+            ctx.fillText(envMessage || "", W / 2, H / 2 + 40);
+            ctx.textAlign = "left";
+          }
+        }
+
+        if (gameState === "PLAYING" || gameState === "DIALOGUE") {
+          drawHUD();
+        }
+
+        ctx.restore();
+      }
+
+      /* =========================================================
+   GAME LOOP
+========================================================= */
+      let lastTime = performance.now();
+      function loop(now) {
+        let dt = (now - lastTime) / 1000;
+        lastTime = now;
+        dt = Math.min(dt, 0.05);
+
+        if (gameState === "PLAYING" || gameState === "DIALOGUE") {
+          updateGame(dt);
+        } else {
+          if (screenShake > 0) screenShake = Math.max(0, screenShake - dt * 30);
+          for (const c of clouds) {
+            c.x += c.spd * dt;
+            if (c.x > W + 80) c.x = -80;
+          }
+          if (currentWeather === "RAIN" || currentWeather === "HYBRID") {
+            for (const p of rainParticles) {
+              p.y += p.speed * dt;
+              p.x -= p.speed * 0.3 * dt;
+              if (p.y > H) {
+                p.y = -10;
+                p.x = Math.random() * W;
+              }
+              if (p.x < -10) p.x = W;
+            }
+          }
+        }
+
+        render(now / 1000);
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+
+      /* =========================================================
+   DIALOGUE
+========================================================= */
+      function showDialogue(speaker, text, avatar = "👴") {
+        gameState = "DIALOGUE";
+        document.getElementById("dialogue-speaker").textContent = speaker;
+        document.getElementById("dialogue-text").textContent = text;
+        document.getElementById("dialogue-avatar").textContent = avatar;
+        document.getElementById("dialogue-box").classList.remove("hidden");
+      }
+      function closeDialogue() {
+        document.getElementById("dialogue-box").classList.add("hidden");
+        gameState = "PLAYING";
+      }
+      document
+        .getElementById("btn-close-dialogue")
+        .addEventListener("click", closeDialogue);
+
+      /* =========================================================
+   START / GAME OVER
+========================================================= */
+      function startGame() {
+        gameState = "PLAYING";
+        player.x = 480;
+        player.y = 290;
+        player.trashHeld = 0;
+        player.facing = "down";
+        player.seated = false;
+        player.seatRef = null;
+        hp = 100;
+        currentDay = 1;
+        trashCleanedCount = 0;
+        powerSavedCount = 0;
+        lessonsCompleted = 0;
+        scheduleIndex = 0;
+        scheduleTimer = 0;
+        inTransition = false;
+        transitionTimer = 0;
+        transitionAlpha = 1;
+        minigame.active = false;
+        minigame.resolved = false;
+        minigame.lastLesson = -1;
+        document.getElementById("minigame-overlay").classList.remove("active");
+        spawnDayEnvironment();
+        envMessage = "GIỜ RA CHƠI 1 BẮT ĐẦU!";
+        envMessageTimer = 2.5;
+      }
+
+      function gameOver(reason) {
+        gameState = "GAMEOVER";
+        minigame.active = false;
+        document.getElementById("minigame-overlay").classList.remove("active");
+        document.getElementById("game-over-reason").textContent = reason;
+        document.getElementById("stat-days").textContent = currentDay;
+        document.getElementById("stat-trash").textContent = trashCleanedCount;
+        document.getElementById("stat-power").textContent = powerSavedCount;
+        document.getElementById("stat-lessons").textContent = lessonsCompleted;
+        document.getElementById("game-over-screen").classList.remove("hidden");
+      }
+
+      /* =========================================================
+   UI EVENTS
+========================================================= */
+      document
+        .getElementById("btn-start-game")
+        .addEventListener("click", () => {
+          audio.init();
+          document.getElementById("char-select-screen").classList.add("hidden");
+          startGame();
+        });
+      document.getElementById("btn-restart").addEventListener("click", () => {
+        audio.init();
+        document.getElementById("game-over-screen").classList.add("hidden");
+        startGame();
+      });
+      document.getElementById("btn-help").addEventListener("click", () => {
+        document
+          .getElementById("instructions-modal")
+          .classList.remove("hidden");
+      });
+      document
+        .getElementById("btn-close-help")
+        .addEventListener("click", () => {
+          document.getElementById("instructions-modal").classList.add("hidden");
+        });
+      document.getElementById("btn-audio").addEventListener("click", () => {
+        audio.init();
+        audio.enabled = !audio.enabled;
+        document.getElementById("btn-audio").textContent = audio.enabled
+          ? "🔊"
+          : "🔇";
+      });
+
+      // Minigame button + tap
+      document.getElementById("mg-btn").addEventListener("click", (e) => {
+        e.preventDefault();
+        minigameTap();
+      });
+
+      /* =========================================================
+   KEYBOARD
+========================================================= */
+      window.addEventListener("keydown", (e) => {
+        audio.init();
+        const k = e.key.toLowerCase();
+
+        // Minigame input
+        if (
+          minigame.active &&
+          !minigame.resolved &&
+          (k === " " || k === "spacebar")
+        ) {
+          e.preventDefault();
+          minigameTap();
+          return;
+        }
+
+        if (k === "arrowup" || k === "w") keys.Up = true;
+        if (k === "arrowdown" || k === "s") keys.Down = true;
+        if (k === "arrowleft" || k === "a") keys.Left = true;
+        if (k === "arrowright" || k === "d") keys.Right = true;
+        if (k === "f") keys.Fan = true;
+        if (k === "e" || (k === " " && !minigame.active)) {
+          if (!keys.Interact) {
+            keys.Interact = true;
+            // Seat interaction: nếu đang trong giờ học và gần ghế → ngồi
+            if (
+              isLessonPhase() &&
+              !player.seated &&
+              gameState === "PLAYING" &&
+              !minigame.active
+            ) {
+              const room = playerInRoom();
+              if (room) {
+                const seat = findNearbySeat(room);
+                if (seat && !seat.occupied) {
+                  seat.occupied = true;
+                  player.seated = true;
+                  player.seatRef = seat;
+                  player.x = seat.x;
+                  player.y = seat.y - 4;
+                  audio.success();
+                  return;
+                }
+              }
+            } else if (player.seated) {
+              player.seated = false;
+              if (player.seatRef) player.seatRef.occupied = false;
+              player.seatRef = null;
+              return;
+            }
+            handleInteraction();
+          }
+        }
+        if (
+          ["arrowup", "arrowdown", "arrowleft", "arrowright", " "].includes(
+            e.key.toLowerCase(),
+          )
+        )
+          e.preventDefault();
+      });
+      window.addEventListener("keyup", (e) => {
+        const k = e.key.toLowerCase();
+        if (k === "arrowup" || k === "w") keys.Up = false;
+        if (k === "arrowdown" || k === "s") keys.Down = false;
+        if (k === "arrowleft" || k === "a") keys.Left = false;
+        if (k === "arrowright" || k === "d") keys.Right = false;
+        if (k === "f") keys.Fan = false;
+        if (k === "e" || k === " ") keys.Interact = false;
+      });
+
+      /* =========================================================
+   TOUCH
+========================================================= */
+      function bindTouch(id, key) {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        const down = (e) => {
+          e.preventDefault();
+          audio.init();
+          keys[key] = true;
+          if (key === "Interact") {
+            if (
+              isLessonPhase() &&
+              !player.seated &&
+              gameState === "PLAYING" &&
+              !minigame.active
+            ) {
+              const room = playerInRoom();
+              if (room) {
+                const seat = findNearbySeat(room);
+                if (seat && !seat.occupied) {
+                  seat.occupied = true;
+                  player.seated = true;
+                  player.seatRef = seat;
+                  player.x = seat.x;
+                  player.y = seat.y - 4;
+                  audio.success();
+                  return;
+                }
+              }
+            } else if (player.seated) {
+              player.seated = false;
+              if (player.seatRef) player.seatRef.occupied = false;
+              player.seatRef = null;
+              return;
+            }
+            handleInteraction();
+          }
+        };
+        const up = (e) => {
+          e.preventDefault();
+          keys[key] = false;
+        };
+        btn.addEventListener("touchstart", down, { passive: false });
+        btn.addEventListener("touchend", up, { passive: false });
+        btn.addEventListener("touchcancel", up, { passive: false });
+        btn.addEventListener("mousedown", down);
+        btn.addEventListener("mouseup", up);
+        btn.addEventListener("mouseleave", up);
+      }
+      bindTouch("touch-up", "Up");
+      bindTouch("touch-down", "Down");
+      bindTouch("touch-left", "Left");
+      bindTouch("touch-right", "Right");
+      bindTouch("touch-btn-e", "Interact");
+      bindTouch("touch-btn-f", "Fan");
+
+      document.addEventListener(
+        "touchmove",
+        (e) => {
+          if (e.target === canvas) e.preventDefault();
+        },
+        { passive: false },
+      );
+    </script>
+  </body>
+</html>
