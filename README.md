@@ -517,4 +517,3 @@ Dự án này không thể hoàn thành nếu thiếu sự hỗ trợ của:
 *Made with 💚 in Vietnam*
 
 </div>
-```
