@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#0a0e14" />
-    <title>Code for Green School: Cùng THPT Bình Chánh Sống Xanh</title>
+    <title>Code for Green School: CÙNG THPT Bình Chánh SỐNG XANH</title>
     <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Lexend:wght@400;600;800&display=swap");
@@ -1050,7 +1050,8 @@
                 "
               >
                 Tạo phòng và chia sẻ
-                <strong style="color: #10b981">mã phòng</strong>.
+                <strong style="color: #10b981">mã phòng</strong>. Bạn cũng có
+                thể mở 2 tab cùng máy để test!
               </p>
               <button
                 id="btn-create-room"
@@ -1230,14 +1231,14 @@
               <div
                 style="
                   background: #0f172a;
-                  border-left: 3px solid #ef4444;
+                  border-left: 3px solid #3b82f6;
                   padding: 10px 12px;
                   border-radius: 6px;
-                  margin-bottom: 8px;
                 "
               >
-                <strong style="color: #f87171">🧱 VẬT LÝ:</strong> Không đi
-                xuyên tường, bàn, ghế!
+                <strong style="color: #93c5fd">👥 CHƠI NHÓM:</strong> Tạo phòng,
+                chia sẻ mã 6 ký tự. Hỗ trợ cả
+                <strong>BroadcastChannel</strong> khi mở 2 tab cùng máy!
               </div>
             </div>
             <button
@@ -1474,7 +1475,7 @@
       const audio = new SoundEngine();
 
       /* =========================================================
-         CHARACTERS
+         CHARACTERS — với tạo hình riêng biệt
       ========================================================= */
       const CHARACTERS = {
         hung: {
@@ -1484,6 +1485,10 @@
           desc: "🏃 Tốc độ +20%",
           speedBonus: 1.2,
           skill: "speed",
+          height: 1.15,
+          width: 1.0,
+          hasGlasses: false,
+          hasLongHair: false, // ✅ Tóc ngắn
           skin: "#fde68a",
           hair: "#1e293b",
           shirt: "#ef4444",
@@ -1497,6 +1502,10 @@
           desc: "♻️ Hồi +8 HP/ngày",
           speedBonus: 1.0,
           skill: "regen",
+          height: 0.92,
+          width: 0.92,
+          hasGlasses: false,
+          hasLongHair: true, // ✅ TÓC DÀI cho Bảo Ngọc
           skin: "#fde68a",
           hair: "#78350f",
           shirt: "#10b981",
@@ -1510,6 +1519,10 @@
           desc: "🛡️ Chống chịu tốt",
           speedBonus: 1.0,
           skill: "tough",
+          height: 1.28,
+          width: 1.22,
+          hasGlasses: false,
+          hasLongHair: false, // ✅ Tóc ngắn
           skin: "#fbbf24",
           hair: "#0f172a",
           shirt: "#f59e0b",
@@ -1523,6 +1536,10 @@
           desc: "💻 Quạt x2 + Minigame dễ",
           speedBonus: 1.05,
           skill: "fan",
+          height: 1.12,
+          width: 1.0,
+          hasGlasses: true,
+          hasLongHair: false, // ✅ Tóc ngắn
           skin: "#fde68a",
           hair: "#334155",
           shirt: "#06b6d4",
@@ -1593,10 +1610,7 @@
       setTimeout(resizeCanvas, 50);
 
       /* =========================================================
-         MAP — Bốt bảo vệ + thùng rác chuyển xuống DƯỚI CÙNG
-         - Bốt bảo vệ: góc dưới TRÁI (x=50, y=760)
-         - Thùng rác: góc dưới PHẢI (x=1260, y=770)
-         - Cây xanh dịch vào trong để không đè
+         MAP
       ========================================================= */
       const MAP = {
         mainBuilding: {
@@ -1669,22 +1683,19 @@
             fanSwitchY: 185,
           },
         ],
-        // ✅ Bốt bảo vệ: GÓC DƯỚI TRÁI (không đè cây)
         guardBooth: { x: 40, y: 760, w: 120, h: 110, npcX: 100, npcY: 815 },
-        // ✅ Thùng rác xanh: GÓC DƯỚI PHẢI
         greenBin: { x: 1270, y: 780, w: 90, h: 60, cx: 1315, cy: 810 },
         drains: [
           { x: 400, y: 830, clogged: false },
           { x: 1000, y: 830, clogged: false },
         ],
-        // ✅ Cây xanh dọc theo 2 bên, đã dịch vào trong để không đè
         trees: [
           { x: 80, y: 520, r: 28 },
           { x: 80, y: 600, r: 28 },
           { x: 1320, y: 520, r: 28 },
           { x: 1320, y: 600, r: 28 },
-          { x: 200, y: 480, r: 24 }, // gần toà nhà
-          { x: 1200, y: 480, r: 24 }, // gần toà nhà
+          { x: 200, y: 480, r: 24 },
+          { x: 1200, y: 480, r: 24 },
         ],
         flowerBeds: [
           { x: 260, y: 490, w: 180, h: 30 },
@@ -1728,7 +1739,7 @@
       const PLAYER_BODY = { w: 20, h: 22, offsetX: -10, offsetY: -11 };
       let colliders = [];
 
-      // Player state cần có TRƯỚC rebuildColliders để tránh lỗi
+      // Player phải khai báo TRƯỚC rebuildColliders
       const player = {
         x: 700,
         y: 720,
@@ -1756,13 +1767,11 @@
 
       function rebuildColliders() {
         colliders = [];
-        // Viền ngoài
         colliders.push({ x: 0, y: 0, w: W, h: 80, type: "wall" });
         colliders.push({ x: 0, y: 0, w: 40, h: H, type: "wall" });
         colliders.push({ x: W - 40, y: 0, w: 40, h: H, type: "wall" });
         colliders.push({ x: 0, y: H - 40, w: W, h: 40, type: "wall" });
 
-        // Tường bao toà nhà chính
         const mb = MAP.mainBuilding;
         colliders.push({ x: mb.x, y: mb.y, w: 20, h: mb.h, type: "wall" });
         colliders.push({
@@ -1773,7 +1782,6 @@
           type: "wall",
         });
 
-        // Tường các lớp + cửa
         for (const r of MAP.rooms) {
           const doorLeft = r.doorX - r.doorW / 2;
           const doorRight = r.doorX + r.doorW / 2;
@@ -1824,7 +1832,6 @@
           }
         }
 
-        // Bốt bảo vệ
         colliders.push({
           x: MAP.guardBooth.x,
           y: MAP.guardBooth.y,
@@ -1839,8 +1846,6 @@
           h: 20,
           type: "furniture",
         });
-
-        // Thùng rác
         colliders.push({
           x: MAP.greenBin.x,
           y: MAP.greenBin.y,
@@ -1848,8 +1853,6 @@
           h: MAP.greenBin.h,
           type: "furniture",
         });
-
-        // Cống
         for (const d of MAP.drains) {
           colliders.push({
             x: d.x - 22,
@@ -1860,8 +1863,6 @@
             ref: d,
           });
         }
-
-        // Cột cờ
         colliders.push({
           x: MAP.flagPole.cx - 8,
           y: MAP.flagPole.cy - 8,
@@ -1869,8 +1870,6 @@
           h: 16,
           type: "furniture",
         });
-
-        // Cây
         for (const tree of MAP.trees) {
           colliders.push({
             x: tree.x - 8,
@@ -1880,8 +1879,6 @@
             type: "furniture",
           });
         }
-
-        // Bồn hoa
         for (const fb of MAP.flowerBeds) {
           colliders.push({
             x: fb.x,
@@ -1908,9 +1905,9 @@
       let powerTripped = false;
       let slipTimer = 0;
       let screenShake = 0;
-      let flashRed = 0;
-      let flashBlue = 0;
-      let flashGreen = 0;
+      let flashRed = 0,
+        flashBlue = 0,
+        flashGreen = 0;
       let transitionAlpha = 0;
       let envMessage = "";
       let envMessageTimer = 0;
@@ -2255,19 +2252,41 @@
       }
 
       /* =========================================================
-         AVATAR
+         AVATAR PREVIEW
       ========================================================= */
       function drawCharPreview(cv, char) {
         const c = cv.getContext("2d");
         c.imageSmoothingEnabled = false;
         c.clearRect(0, 0, cv.width, cv.height);
-        const px = cv.width / 16;
-        const S = (x, y, w, h, col) => {
+
+        const px = (cv.width / 16) * char.height * 0.85;
+        const bw = char.width;
+        const cx = cv.width / 2;
+        const cy = cv.height / 2;
+
+        const S = (dx, dy, w, h, col) => {
           c.fillStyle = col;
-          c.fillRect(x * px, y * px, w * px, h * px);
+          c.fillRect(
+            Math.round(cx + dx * px * bw - 4),
+            Math.round(cy + dy * px - 4),
+            Math.ceil(w * px * bw),
+            Math.ceil(h * px),
+          );
         };
+
+        // ✅ TÓC DÀI — vẽ SAU đầu (phía sau, dài xuống lưng)
+        if (char.hasLongHair) {
+          // Tóc dài phía sau đầu (rủ xuống 2 bên)
+          S(3, 2, 2, 10, char.hair); // tóc trái dài xuống
+          S(11, 2, 2, 10, char.hair); // tóc phải dài xuống
+          // Tóc đuôi dài phía dưới lưng
+          S(5, 8, 6, 6, char.hair); // tóc phủ sau lưng
+          S(4, 12, 8, 3, char.hair); // đuôi tóc dài tới lưng
+        }
+
+        // Đầu + tóc trên
         S(5, 2, 6, 5, char.skin);
-        S(4, 1, 8, 2, char.hair);
+        S(4, 1, 8, 2, char.hair); // mái tóc trên đầu
         S(4, 2, 1, 3, char.hair);
         S(11, 2, 1, 3, char.hair);
         S(6, 4, 1, 1, "#0f172a");
@@ -2280,6 +2299,21 @@
         S(9, 12, 2, 3, char.pants);
         S(6, 15, 2, 1, "#0f172a");
         S(9, 15, 2, 1, "#0f172a");
+
+        // Vẽ kính nếu có
+        if (char.hasGlasses) {
+          c.strokeStyle = "#0f172a";
+          c.lineWidth = Math.max(1, px * 0.35);
+          const gx1 = cx + 5 * px * bw - 4;
+          const gx2 = cx + 8 * px * bw - 4;
+          const gy = cy + 3.5 * px - 4;
+          c.strokeRect(gx1, gy, 3 * px * bw, 2 * px);
+          c.strokeRect(gx2, gy, 3 * px * bw, 2 * px);
+          c.beginPath();
+          c.moveTo(gx1 + 3 * px * bw, gy + 1 * px);
+          c.lineTo(gx2, gy + 1 * px);
+          c.stroke();
+        }
       }
 
       function buildCharSelect() {
@@ -2312,7 +2346,7 @@
       }
 
       /* =========================================================
-         MULTIPLAYER
+         MULTIPLAYER — PeerJS Cloud + BroadcastChannel fallback
       ========================================================= */
       const mp = {
         peer: null,
@@ -2324,6 +2358,24 @@
         active: false,
         hostConn: null,
         syncTimer: 0,
+        retryCount: 0,
+        broadcastChannel: null,
+        localClientId: null,
+      };
+
+      const PEER_CONFIG = {
+        host: "0.peerjs.com",
+        port: 443,
+        path: "/",
+        secure: true,
+        debug: 1,
+        config: {
+          iceServers: [
+            { urls: "stun:stun.l.google.com:19302" },
+            { urls: "stun:stun1.l.google.com:19302" },
+            { urls: "stun:stun2.l.google.com:19302" },
+          ],
+        },
       };
 
       function genRoomCode() {
@@ -2334,7 +2386,7 @@
         return code;
       }
       function codeToPeerId(code) {
-        return "cfg-eco-" + code.toLowerCase();
+        return "cfg-eco-thptbc-" + code.toLowerCase();
       }
 
       function initHost(code) {
@@ -2343,17 +2395,43 @@
             mp.peer.destroy();
           } catch (e) {}
         }
-        mp.peer = new Peer(codeToPeerId(code), { debug: 1 });
         mp.isHost = true;
         mp.roomCode = code;
         mp.connections = [];
+        mp.retryCount = 0;
+
+        try {
+          if (mp.broadcastChannel) mp.broadcastChannel.close();
+          mp.broadcastChannel = new BroadcastChannel("cfg-eco-" + code);
+          mp.broadcastChannel.onmessage = (ev) => {
+            if (!ev.data) return;
+            if (ev.data.type === "hello-from-client") {
+              addLocalClient(ev.data.clientId, ev.data.name, ev.data.charId);
+            } else if (ev.data.type === "state-from-client") {
+              if (otherPlayers[ev.data.clientId])
+                Object.assign(otherPlayers[ev.data.clientId], ev.data.state);
+            } else if (ev.data.type === "action-from-client") {
+              handleRemoteAction(ev.data.clientId, ev.data.action);
+            }
+          };
+        } catch (e) {}
+
+        try {
+          mp.peer = new Peer(codeToPeerId(code), PEER_CONFIG);
+        } catch (e) {
+          document.getElementById("host-status").textContent =
+            "⚠ Không hỗ trợ WebRTC";
+          return;
+        }
+
         mp.peer.on("open", () => {
           document.getElementById("host-room-code").textContent = code;
           document.getElementById("host-room-info").style.display = "block";
           document.getElementById("host-status").textContent =
-            "Đang chờ người chơi...";
+            "✓ Sẵn sàng! Chia sẻ mã phòng (hoặc mở 2 tab cùng máy).";
           updateHostPlayerList();
         });
+
         mp.peer.on("connection", (conn) => {
           conn.on("open", () => {
             mp.connections.push(conn);
@@ -2368,11 +2446,19 @@
             broadcastHostState();
           });
         });
+
         mp.peer.on("error", (err) => {
           const st = document.getElementById("host-status");
-          if (err.type === "unavailable-id")
-            st.textContent = "⚠ Mã phòng đã tồn tại!";
-          else st.textContent = "⚠ Lỗi: " + err.type;
+          if (err.type === "unavailable-id") {
+            st.textContent = "⚠ Mã tồn tại, đang tạo mã mới...";
+            setTimeout(() => {
+              if (mp.isHost) initHost(genRoomCode());
+            }, 1000);
+          } else if (err.type === "network" || err.type === "server-error") {
+            st.textContent = "⚠ Lỗi server PeerJS — vẫn chơi cùng máy được";
+          } else {
+            st.textContent = "⚠ Lỗi: " + err.type;
+          }
         });
       }
 
@@ -2382,23 +2468,73 @@
             mp.peer.destroy();
           } catch (e) {}
         }
-        mp.peer = new Peer({ debug: 1 });
         mp.isHost = false;
         mp.roomCode = code;
         mp.connections = [];
+        mp.retryCount = 0;
+
         const status = document.getElementById("join-status");
         status.style.display = "block";
         status.textContent = "⏳ Đang kết nối...";
         status.style.background = "#0f172a";
         status.style.borderLeftColor = "#facc15";
         status.style.color = "#fde047";
+
+        try {
+          if (mp.broadcastChannel) mp.broadcastChannel.close();
+          mp.broadcastChannel = new BroadcastChannel("cfg-eco-" + code);
+          const myClientId =
+            "client-" + Math.random().toString(36).slice(2, 10);
+          mp.localClientId = myClientId;
+          mp.broadcastChannel.onmessage = (ev) => {
+            if (!ev.data) return;
+            if (ev.data.type === "state-from-host") {
+              if (!otherPlayers["__host__"])
+                otherPlayers["__host__"] = { id: "__host__", remote: true };
+              Object.assign(otherPlayers["__host__"], ev.data.state);
+            } else if (ev.data.type === "players-from-host") {
+              Object.entries(ev.data.list).forEach(([id, p]) => {
+                if (!otherPlayers[id]) otherPlayers[id] = { id, remote: true };
+                Object.assign(otherPlayers[id], p);
+              });
+            } else if (ev.data.type === "start-from-host") {
+              document.getElementById("mp-modal").classList.add("hidden");
+              document
+                .getElementById("char-select-screen")
+                .classList.add("hidden");
+              mp.active = true;
+              startGame(true);
+            } else if (ev.data.type === "action-from-host") {
+              handleRemoteAction("host", ev.data.action);
+            }
+          };
+          setTimeout(() => {
+            try {
+              mp.broadcastChannel.postMessage({
+                type: "hello-from-client",
+                clientId: myClientId,
+                name: player.name,
+                charId: selectedChar.id,
+              });
+            } catch (e) {}
+          }, 200);
+        } catch (e) {}
+
+        try {
+          mp.peer = new Peer(PEER_CONFIG);
+        } catch (e) {
+          status.textContent = "⚠ Không hỗ trợ WebRTC";
+          return;
+        }
+
         mp.peer.on("open", (id) => {
-          mp.myId = id;
+          mp.myId = mp.myId || id;
           const conn = mp.peer.connect(codeToPeerId(code), { reliable: true });
           mp.hostConn = conn;
+
           conn.on("open", () => {
             mp.connected = true;
-            status.textContent = "✓ Đã kết nối!";
+            status.textContent = "✓ Đã kết nối! Chờ chủ phòng bắt đầu...";
             status.style.background = "#064e3b";
             status.style.borderLeftColor = "#10b981";
             status.style.color = "#6ee7b7";
@@ -2410,31 +2546,66 @@
             document.getElementById("btn-start-game").disabled = true;
             document.getElementById("btn-start-mp").disabled = true;
           });
+
           conn.on("data", (data) => handleRemoteData(conn, data));
           conn.on("close", () => {
-            status.textContent = "⚠ Mất kết nối!";
+            status.textContent = "⚠ Mất kết nối với chủ phòng!";
             status.style.background = "#7f1d1d";
             status.style.color = "#fecaca";
           });
         });
+
         mp.peer.on("error", (err) => {
-          status.style.display = "block";
           if (err.type === "peer-unavailable") {
-            status.textContent = "✗ Không tìm thấy phòng!";
+            status.textContent =
+              "⚠ Không tìm thấy phòng qua mạng. Nếu cùng máy với host, vẫn vào được!";
+            status.style.background = "#78350f";
+            status.style.color = "#fde047";
+          } else if (err.type === "network" || err.type === "server-error") {
+            status.textContent =
+              "⚠ Lỗi mạng. Nếu cùng máy với host, vẫn chơi được!";
+            status.style.background = "#78350f";
+            status.style.color = "#fde047";
+          } else {
+            status.textContent = "⚠ Lỗi: " + err.type;
             status.style.background = "#7f1d1d";
             status.style.color = "#fecaca";
-          } else status.textContent = "⚠ Lỗi: " + err.type;
+          }
         });
+      }
+
+      function addLocalClient(clientId, name, charId) {
+        if (!otherPlayers[clientId]) {
+          otherPlayers[clientId] = {
+            id: clientId,
+            name,
+            charId,
+            x: 600 + Math.random() * 200,
+            y: 380,
+            facing: "down",
+            isMoving: false,
+            animFrame: 0,
+            remote: true,
+            trashHeld: 0,
+            seated: false,
+            fanning: false,
+            temp: 50,
+          };
+          updateHostPlayerList();
+          broadcastHostState();
+        }
       }
 
       function updateHostPlayerList() {
         const list = document.getElementById("host-player-list");
         if (!list) return;
         list.innerHTML = "";
+
         const hostItem = document.createElement("div");
         hostItem.className = "player-item";
         hostItem.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${player.name} (Host)</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${selectedChar.name}</div>`;
         list.appendChild(hostItem);
+
         mp.connections.forEach((conn) => {
           const p = otherPlayers[conn.peer];
           const item = document.createElement("div");
@@ -2442,12 +2613,28 @@
           item.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${p ? p.name : "..."}</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${p ? CHARACTERS[p.charId]?.name || "?" : "?"}</div>`;
           list.appendChild(item);
         });
+
+        Object.values(otherPlayers).forEach((p) => {
+          if (p.id && p.id.startsWith("client-")) {
+            const item = document.createElement("div");
+            item.className = "player-item";
+            item.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${p.name} 📱</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${CHARACTERS[p.charId]?.name || "?"}</div>`;
+            list.appendChild(item);
+          }
+        });
+
         const btn = document.getElementById("btn-host-start");
-        btn.disabled = mp.connections.length < 1;
+        const totalPlayers =
+          mp.connections.length +
+          Object.values(otherPlayers).filter(
+            (p) => p.id && p.id.startsWith("client-"),
+          ).length +
+          1;
+        btn.disabled = totalPlayers < 2;
         btn.textContent =
-          mp.connections.length < 1
-            ? "▶ BẮT ĐẦU (CẦN ≥ 1)"
-            : `▶ BẮT ĐẦU (${mp.connections.length + 1}P)`;
+          totalPlayers < 2
+            ? "▶ BẮT ĐẦU (CẦN ≥ 1 NGƯỜI)"
+            : `▶ BẮT ĐẦU (${totalPlayers}P)`;
       }
 
       function handleRemoteData(conn, data) {
@@ -2556,11 +2743,25 @@
         Object.entries(otherPlayers).forEach(([id, p]) => {
           list[id] = p;
         });
+
         mp.connections.forEach((conn) => {
           if (!conn.open) return;
           conn.send({ type: "state", state: hostState });
           conn.send({ type: "players", list });
         });
+
+        try {
+          if (mp.broadcastChannel) {
+            mp.broadcastChannel.postMessage({
+              type: "state-from-host",
+              state: hostState,
+            });
+            mp.broadcastChannel.postMessage({
+              type: "players-from-host",
+              list,
+            });
+          }
+        } catch (e) {}
       }
 
       function broadcastMyState() {
@@ -2576,18 +2777,47 @@
           temp: bodyTemp,
         };
         if (mp.isHost) broadcastHostState();
-        else if (mp.hostConn && mp.hostConn.open)
-          mp.hostConn.send({ type: "state", state });
+        else {
+          if (mp.hostConn && mp.hostConn.open)
+            mp.hostConn.send({ type: "state", state });
+          try {
+            if (mp.broadcastChannel && mp.localClientId) {
+              mp.broadcastChannel.postMessage({
+                type: "state-from-client",
+                clientId: mp.localClientId,
+                state,
+              });
+            }
+          } catch (e) {}
+        }
       }
 
       function broadcastAction(action) {
         if (!mp.active) return;
-        if (mp.isHost)
+        if (mp.isHost) {
           mp.connections.forEach((c) => {
             if (c.open) c.send({ type: "action", from: "host", action });
           });
-        else if (mp.hostConn && mp.hostConn.open)
-          mp.hostConn.send({ type: "action", action });
+          try {
+            if (mp.broadcastChannel)
+              mp.broadcastChannel.postMessage({
+                type: "action-from-host",
+                action,
+              });
+          } catch (e) {}
+        } else {
+          if (mp.hostConn && mp.hostConn.open)
+            mp.hostConn.send({ type: "action", action });
+          try {
+            if (mp.broadcastChannel && mp.localClientId) {
+              mp.broadcastChannel.postMessage({
+                type: "action-from-client",
+                clientId: mp.localClientId,
+                action,
+              });
+            }
+          } catch (e) {}
+        }
       }
 
       /* =========================================================
@@ -3317,7 +3547,6 @@
           fanningAudioTimer = 0;
         }
 
-        // MINIGAME TIMER
         if (
           isLessonPhase() &&
           !inTransition &&
@@ -3336,7 +3565,6 @@
           minigameShownThisLesson = 0;
         }
 
-        // Slip
         if (currentWeather === "RAIN" && !player.isInside && slipTimer <= 0) {
           for (const p of puddles) {
             if (dist(player.x, player.y, p.x, p.y) < p.r + 8) {
@@ -3532,7 +3760,6 @@
       }
 
       function drawMap(time) {
-        // Bầu trời
         const skyGrad = ctx.createLinearGradient(0, 0, 0, 400);
         if (currentWeather === "HOT") {
           skyGrad.addColorStop(0, "#7dd3fc");
@@ -3547,7 +3774,6 @@
         ctx.fillStyle = skyGrad;
         ctx.fillRect(0, 0, W, 500);
 
-        // Mây
         ctx.fillStyle =
           currentWeather === "RAIN"
             ? "rgba(220,220,235,0.7)"
@@ -3580,7 +3806,6 @@
           ctx.fill();
         }
 
-        // Sân trường (bê tông)
         const yardY = 490;
         ctx.fillStyle = "#d1d5db";
         ctx.fillRect(0, yardY, W, H - yardY);
@@ -3599,7 +3824,6 @@
           ctx.stroke();
         }
 
-        // Vạch sân
         ctx.strokeStyle = "rgba(255,255,255,0.6)";
         ctx.lineWidth = 3;
         ctx.beginPath();
@@ -3613,7 +3837,7 @@
           ctx.stroke();
         }
 
-        // Toà nhà chính
+        // Toà nhà
         const mb = MAP.mainBuilding;
         ctx.fillStyle = "#f5d78a";
         ctx.fillRect(mb.x, mb.y + 40, mb.w, 100);
@@ -3625,7 +3849,6 @@
           ctx.fillRect(wx + 4, mb.y + 64, 52, 22);
           ctx.fillStyle = "#0f172a";
         }
-        // Mái đỏ
         ctx.fillStyle = "#a8362a";
         ctx.beginPath();
         ctx.moveTo(mb.x - 30, mb.y + 40);
@@ -3650,10 +3873,8 @@
         ctx.lineTo(mb.x + mb.w - 30, mb.y);
         ctx.lineTo(mb.x + mb.w + 30, mb.y + 40);
         ctx.stroke();
-        // Tường tầng 1
         ctx.fillStyle = "#f5d78a";
         ctx.fillRect(mb.x, mb.y + 140, mb.w, 100);
-        // Hàng hiên
         ctx.fillStyle = "#e8c46f";
         ctx.fillRect(mb.x, mb.y + 130, mb.w, 20);
         for (let i = 0; i < 12; i++) {
@@ -3667,7 +3888,7 @@
         ctx.fillStyle = "rgba(0,0,0,0.15)";
         ctx.fillRect(mb.x, mb.y + 240, mb.w, 15);
 
-        // Bảng tên trường
+        // Bảng tên
         const sign = MAP.schoolSign;
         ctx.fillStyle = "#1e3a8a";
         ctx.fillRect(sign.x, sign.y, sign.w, sign.h);
@@ -3688,7 +3909,7 @@
           },
         );
 
-        // 3 lớp học
+        // 3 lớp
         for (const r of MAP.rooms) {
           const floorCol = r.lightsOn && !powerTripped ? "#fef9c3" : "#475569";
           const floorAlt = r.lightsOn && !powerTripped ? "#fde68a" : "#334155";
@@ -3704,7 +3925,6 @@
           ctx.fillRect(r.x, r.y + r.h - wt, doorLeft - r.x, wt);
           ctx.fillRect(doorRight, r.y + r.h - wt, r.x + r.w - doorRight, wt);
 
-          // Bảng đen
           ctx.fillStyle = "#064e3b";
           ctx.fillRect(r.x + r.w / 2 - 80, r.y + 12, 160, 40);
           ctx.strokeStyle = "#065f46";
@@ -3719,7 +3939,6 @@
             baseline: "middle",
           });
 
-          // Công tắc đèn
           const sx = r.switchX,
             sy = r.switchY;
           ctx.fillStyle = "rgba(15,23,42,0.9)";
@@ -3743,7 +3962,6 @@
             baseline: "middle",
           });
 
-          // Công tắc quạt
           const fx = r.fanSwitchX,
             fy = r.fanSwitchY;
           ctx.fillStyle = "rgba(15,23,42,0.9)";
@@ -3767,7 +3985,6 @@
             baseline: "middle",
           });
 
-          // Quạt trần
           if (r.fansOn && !powerTripped) {
             const fanX = r.x + r.w / 2;
             const fanY = r.y + 60;
@@ -3791,7 +4008,6 @@
             ctx.restore();
           }
 
-          // Ghế
           for (const s of r.seats) {
             ctx.fillStyle = "rgba(0,0,0,0.3)";
             ctx.fillRect(s.x - s.w / 2 + 2, s.y + s.h / 2 - 2, s.w, 6);
@@ -3815,7 +4031,6 @@
             ctx.strokeRect(s.x - s.w / 2 - 3, s.y + s.h / 2 - 8, s.w + 6, 5);
           }
 
-          // Cửa lớp
           if (r.doorOpen) {
             ctx.fillStyle = "#d97706";
             ctx.fillRect(doorLeft, r.y + r.h - 10, doorRight - doorLeft, 8);
@@ -3849,7 +4064,6 @@
             ctx.fillRect(doorRight - 10, r.y + r.h - 8, 4, 6);
           }
 
-          // Hint cửa
           const doorCx = (doorLeft + doorRight) / 2;
           const doorCy = r.y + r.h;
           const nearDoor = dist(player.x, player.y, doorCx, doorCy) < 80;
@@ -3879,9 +4093,8 @@
           ctx.fillStyle = "#7c2d12";
           ctx.fillRect(fb.x, fb.y, fb.w, fb.h);
           ctx.fillStyle = "#22c55e";
-          for (let i = 0; i < fb.w - 10; i += 12) {
+          for (let i = 0; i < fb.w - 10; i += 12)
             ctx.fillRect(fb.x + 6 + i, fb.y + 4, 8, fb.h - 8);
-          }
           for (let i = 0; i < fb.w - 20; i += 24) {
             ctx.fillStyle = ["#f472b6", "#fbbf24", "#ef4444", "#a78bfa"][i % 4];
             ctx.beginPath();
@@ -3890,7 +4103,7 @@
           }
         }
 
-        // Cây xanh
+        // Cây
         for (const tree of MAP.trees) {
           ctx.fillStyle = "rgba(0,0,0,0.25)";
           ctx.beginPath();
@@ -3967,7 +4180,7 @@
         ctx.closePath();
         ctx.fill();
 
-        // Bốt bảo vệ (GÓC DƯỚI TRÁI)
+        // Bốt bảo vệ góc dưới trái
         const gb = MAP.guardBooth;
         ctx.fillStyle = "#0369a1";
         ctx.fillRect(gb.x - 8, gb.y - 15, gb.w + 16, 20);
@@ -3994,7 +4207,7 @@
           baseline: "middle",
         });
 
-        // Thùng rác xanh (GÓC DƯỚI PHẢI)
+        // Thùng rác góc dưới phải
         const bx = MAP.greenBin.x,
           by = MAP.greenBin.y;
         const bw = MAP.greenBin.w,
@@ -4036,16 +4249,15 @@
           }
         }
 
-        // Cổng trường
+        // Cổng
         const gate = MAP.gate;
         ctx.fillStyle = "#78350f";
         ctx.fillRect(gate.x, gate.y, gate.w, gate.h);
         ctx.fillStyle = "#a16207";
-        for (let i = 0; i < gate.w; i += 20) {
+        for (let i = 0; i < gate.w; i += 20)
           ctx.fillRect(gate.x + i, gate.y, 8, gate.h);
-        }
 
-        // Vũng nước mưa
+        // Vũng nước
         if (currentWeather === "RAIN") {
           for (const p of puddles) {
             ctx.fillStyle = "rgba(56,189,248,0.55)";
@@ -4092,17 +4304,45 @@
         name,
         isSelf,
       ) {
-        const px = 2.8;
+        const basePx = 2.8;
+        const px = basePx * char.height;
+        const bw = char.width;
+
         const S = (dx, dy, w, h, col) => {
           ctx.fillStyle = col;
           ctx.fillRect(
-            Math.round(x + dx * px),
+            Math.round(x + dx * px * bw),
             Math.round(y + dy * px),
-            Math.ceil(w * px),
+            Math.ceil(w * px * bw),
             Math.ceil(h * px),
           );
         };
-        drawShadow(x, y + 16, 12);
+
+        // Shadow
+        ctx.fillStyle = "rgba(0,0,0,0.35)";
+        ctx.beginPath();
+        ctx.ellipse(
+          x,
+          y + 14 * char.height,
+          12 * bw,
+          4 * char.height,
+          0,
+          0,
+          Math.PI * 2,
+        );
+        ctx.fill();
+
+        // ✅ TÓC DÀI — vẽ TRƯỚC thân để nằm phía sau
+        if (char.hasLongHair && facing !== "up") {
+          // Tóc rủ xuống 2 bên vai — phần đuôi tóc phủ lên lưng
+          // Đuôi tóc phía sau lưng (dưới cổ, trên áo)
+          S(-7, -8, 3, 14, char.hair); // dải tóc trái
+          S(4, -8, 3, 14, char.hair); // dải tóc phải
+          // Đuôi tóc phía dưới (rủ xuống qua vai)
+          S(-7, -4, 3, 10, char.hair);
+          S(4, -4, 3, 10, char.hair);
+        }
+
         const walkPhase = Math.floor(animFrame / 2);
         const legOffset = isMoving ? (walkPhase === 0 ? -1 : 1) : 0;
 
@@ -4116,23 +4356,27 @@
         S(-6, -2, 12, 12, char.shirt);
         S(-3, -2, 6, 2, "#ffffff");
         S(-6, 7, 12, 2, char.pants);
+
         if (fanning) {
           const fp = Math.sin(time * 20) * 3;
           S(-9, -1 + fp, 3, 6, char.skin);
           S(6, -1 - fp, 3, 6, char.skin);
           ctx.fillStyle = "#fde047";
           ctx.beginPath();
-          ctx.arc(x + 11, y - 2 + fp, 6, 0, Math.PI * 2);
+          ctx.arc(x + 11 * bw, y - 2 + fp, 6, 0, Math.PI * 2);
           ctx.fill();
           ctx.strokeStyle = "#92400e";
           ctx.lineWidth = 1.5;
           ctx.beginPath();
-          ctx.arc(x + 11, y - 2 + fp, 6, 0, Math.PI * 2);
+          ctx.arc(x + 11 * bw, y - 2 + fp, 6, 0, Math.PI * 2);
           ctx.stroke();
           for (let a = 0; a < Math.PI * 2; a += Math.PI / 3) {
             ctx.beginPath();
-            ctx.moveTo(x + 11, y - 2 + fp);
-            ctx.lineTo(x + 11 + Math.cos(a) * 6, y - 2 + fp + Math.sin(a) * 6);
+            ctx.moveTo(x + 11 * bw, y - 2 + fp);
+            ctx.lineTo(
+              x + 11 * bw + Math.cos(a) * 6,
+              y - 2 + fp + Math.sin(a) * 6,
+            );
             ctx.stroke();
           }
         } else if (seated) {
@@ -4142,17 +4386,57 @@
           S(-9, -1, 3, 7, char.skin);
           S(6, -1, 3, 7, char.skin);
         }
+
+        // Đầu
         S(-6, -16, 12, 12, char.skin);
+
+        // ✅ Tóc ngắn (mặc định) — mái trên đầu
         S(-7, -19, 14, 5, char.hair);
         S(-7, -17, 2, 8, char.hair);
         S(5, -17, 2, 8, char.hair);
+
+        // ✅ Nếu tóc dài, thêm phần tóc rủ 2 bên má xuống tận vai (che 2 bên mặt)
+        if (char.hasLongHair) {
+          // Tóc 2 bên dài hơn, rủ xuống tới vai
+          S(-8, -17, 3, 16, char.hair); // dải tóc bên trái dài xuống
+          S(5, -17, 3, 16, char.hair); // dải tóc bên phải dài xuống
+          // Đuôi tóc phía sau (rủ xuống lưng)
+          S(-7, -14, 2, 14, char.hair);
+          S(5, -14, 2, 14, char.hair);
+        }
+
+        // Mắt
         ctx.fillStyle = "#0f172a";
-        const eyeY = y - 10;
+        const eyeY = y - 10 * char.height;
         if (facing === "down") {
-          ctx.fillRect(x - 4, eyeY, 2, 3);
-          ctx.fillRect(x + 2, eyeY, 2, 3);
-        } else if (facing === "left") ctx.fillRect(x - 5, eyeY, 2, 3);
-        else if (facing === "right") ctx.fillRect(x + 3, eyeY, 2, 3);
+          ctx.fillRect(x - 4 * bw, eyeY, 2, 3);
+          ctx.fillRect(x + 2 * bw, eyeY, 2, 3);
+        } else if (facing === "left") {
+          ctx.fillRect(x - 5 * bw, eyeY, 2, 3);
+        } else if (facing === "right") {
+          ctx.fillRect(x + 3 * bw, eyeY, 2, 3);
+        }
+
+        // Kính
+        if (char.hasGlasses && facing !== "up") {
+          ctx.strokeStyle = "#0f172a";
+          ctx.lineWidth = 2;
+          const gy = eyeY - 1;
+          if (facing === "down") {
+            ctx.strokeRect(x - 5 * bw, gy, 5, 5);
+            ctx.strokeRect(x + 1 * bw, gy, 5, 5);
+            ctx.beginPath();
+            ctx.moveTo(x - 1 * bw, gy + 2);
+            ctx.lineTo(x + 1 * bw, gy + 2);
+            ctx.stroke();
+          } else if (facing === "left") {
+            ctx.strokeRect(x - 6 * bw, gy, 5, 5);
+          } else if (facing === "right") {
+            ctx.strokeRect(x + 2 * bw, gy, 5, 5);
+          }
+        }
+
+        // Hiệu ứng quạt
         if (fanning) {
           ctx.strokeStyle = "rgba(56,189,248,0.5)";
           ctx.lineWidth = 2;
@@ -4163,8 +4447,10 @@
             ctx.stroke();
           }
         }
+
+        // Tên
         if (name) {
-          drawTextOutlined(name, x, y - 27, {
+          drawTextOutlined(name, x, y - 27 * char.height, {
             font: "bold 14px Lexend, sans-serif",
             color: isSelf ? "#facc15" : "#6ee7b7",
             outlineColor: "#000000",
@@ -4442,12 +4728,12 @@
           const a = 0.85 + 0.15 * Math.sin(performance.now() / 100);
           let fanText;
           if (currentWeather === "RAIN") fanText = "💨 QUẠT TAY: LẠNH NHANH!";
-          else if (currentWeather === "HOT") {
+          else if (currentWeather === "HOT")
             fanText =
               bodyTemp <= 51
                 ? "💨 QUẠT TAY: ĐÃ ĐẠT MÁT (50°)"
                 : "💨 QUẠT TAY: ĐANG MÁT...";
-          } else fanText = "💨 QUẠT TAY: MÁT NHẸ";
+          else fanText = "💨 QUẠT TAY: MÁT NHẸ";
           drawTextOutlined(fanText, W / 2, 118, {
             font: 'bold 18px "Courier New", monospace',
             color: `rgba(56,189,248,${a})`,
@@ -4830,9 +5116,8 @@
         let dt = (now - lastTime) / 1000;
         lastTime = now;
         dt = Math.min(dt, 0.05);
-        if (gameState === "PLAYING" || gameState === "DIALOGUE") {
-          updateGame(dt);
-        } else {
+        if (gameState === "PLAYING" || gameState === "DIALOGUE") updateGame(dt);
+        else {
           if (screenShake > 0) screenShake = Math.max(0, screenShake - dt * 30);
           for (const c of clouds) {
             c.x += c.spd * dt;
@@ -4945,6 +5230,12 @@
           mp.connected = false;
           mp.isHost = false;
         }
+        if (mp.broadcastChannel) {
+          try {
+            mp.broadcastChannel.close();
+          } catch (e) {}
+          mp.broadcastChannel = null;
+        }
         document.getElementById("host-room-info").style.display = "none";
         document.getElementById("join-status").style.display = "none";
         document.getElementById("btn-start-game").disabled = false;
@@ -5006,10 +5297,14 @@
       document
         .getElementById("btn-host-start")
         .addEventListener("click", () => {
-          if (!mp.isHost || mp.connections.length < 1) return;
+          if (!mp.isHost) return;
           mp.connections.forEach((c) => {
             if (c.open) c.send({ type: "start" });
           });
+          try {
+            if (mp.broadcastChannel)
+              mp.broadcastChannel.postMessage({ type: "start-from-host" });
+          } catch (e) {}
           document.getElementById("mp-modal").classList.add("hidden");
           document.getElementById("char-select-screen").classList.add("hidden");
           mp.active = true;
