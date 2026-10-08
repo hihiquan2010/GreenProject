@@ -11,7 +11,6 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="#0a0e14" />
     <title>Code for Green School: CÙNG THPT Bình Chánh SỐNG XANH</title>
-    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Lexend:wght@400;600;800&display=swap");
       * {
@@ -922,6 +921,59 @@
         }
       }
     </style>
+    <!-- ✅ FIREBASE SDK -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+        onValue,
+        remove,
+        onDisconnect,
+        serverTimestamp,
+        update,
+        get,
+      } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+      // ================================================================
+      //  ⚠️⚠️⚠️ CONFIG FIREBASE ⚠️⚠️⚠️
+      // ================================================================
+      const firebaseConfig = {
+        apiKey: "AIzaSyA9K08fpDAX-zX06ve2zqeim5B4H89aS5w",
+        authDomain: "ecogame-c1bcd.firebaseapp.com",
+        databaseURL:
+          "https://ecogame-c1bcd-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "ecogame-c1bcd",
+        storageBucket: "ecogame-c1bcd.firebasestorage.app",
+        messagingSenderId: "336292376429",
+        appId: "1:336292376429:web:0c20c76d90c826a7dd3464",
+      };
+
+      // ================================================================
+
+      try {
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        window._fb = {
+          db,
+          ref,
+          set,
+          onValue,
+          remove,
+          onDisconnect,
+          serverTimestamp,
+          update,
+          get,
+        };
+        window._fbReady = true;
+        console.log("[Firebase] Ready");
+      } catch (e) {
+        console.error("[Firebase] Init error:", e);
+        window._fbReady = false;
+      }
+      window.dispatchEvent(new Event("fb-script-loaded"));
+    </script>
   </head>
   <body>
     <div id="game-wrap">
@@ -1174,9 +1226,9 @@
                   margin-bottom: 8px;
                 "
               >
-                <strong style="color: #6ee7b7">🪑 NGỒI GHẾ:</strong><br />
-                • <strong>Giờ RA CHƠI:</strong> Không cần ngồi.<br />
-                • <strong>Giờ HỌC:</strong> Phải ngồi đúng ghế.
+                <strong style="color: #6ee7b7">🪑 NGỒI GHẾ:</strong><br />•
+                <strong>Giờ RA CHƠI:</strong> Không cần ngồi.<br />•
+                <strong>Giờ HỌC:</strong> Phải ngồi đúng ghế.
               </div>
               <div
                 style="
@@ -1224,9 +1276,8 @@
                 "
               >
                 <strong style="color: #fbbf24">🌡️ NHIỆT ĐỘ & QUẠT:</strong
-                ><br />
-                • ☀️ NÓNG: Quạt làm mát VỀ 50°.<br />
-                • 🌧️ MƯA: Quạt làm mát XUỐNG DƯỚI 50° → hạ thân nhiệt!
+                ><br />• ☀️ NÓNG: Quạt làm mát VỀ 50°.<br />• 🌧️ MƯA: Quạt làm
+                mát XUỐNG DƯỚI 50° → hạ thân nhiệt!
               </div>
               <div
                 style="
@@ -1236,9 +1287,8 @@
                   border-radius: 6px;
                 "
               >
-                <strong style="color: #93c5fd">👥 CHƠI NHÓM:</strong> Tạo phòng,
-                chia sẻ mã 6 ký tự. Hỗ trợ cả
-                <strong>BroadcastChannel</strong> khi mở 2 tab cùng máy!
+                <strong style="color: #93c5fd">👥 CHƠI NHÓM:</strong> Tạo phòng
+                qua Firebase. Chia sẻ mã 6 ký tự cho bạn bè ở bất kỳ đâu!
               </div>
             </div>
             <button
@@ -1475,7 +1525,7 @@
       const audio = new SoundEngine();
 
       /* =========================================================
-         CHARACTERS — với tạo hình riêng biệt
+         CHARACTERS
       ========================================================= */
       const CHARACTERS = {
         hung: {
@@ -1488,7 +1538,7 @@
           height: 1.15,
           width: 1.0,
           hasGlasses: false,
-          hasLongHair: false, // ✅ Tóc ngắn
+          hasLongHair: false,
           skin: "#fde68a",
           hair: "#1e293b",
           shirt: "#ef4444",
@@ -1505,7 +1555,7 @@
           height: 0.92,
           width: 0.92,
           hasGlasses: false,
-          hasLongHair: true, // ✅ TÓC DÀI cho Bảo Ngọc
+          hasLongHair: true,
           skin: "#fde68a",
           hair: "#78350f",
           shirt: "#10b981",
@@ -1522,7 +1572,7 @@
           height: 1.28,
           width: 1.22,
           hasGlasses: false,
-          hasLongHair: false, // ✅ Tóc ngắn
+          hasLongHair: false,
           skin: "#fbbf24",
           hair: "#0f172a",
           shirt: "#f59e0b",
@@ -1539,7 +1589,7 @@
           height: 1.12,
           width: 1.0,
           hasGlasses: true,
-          hasLongHair: false, // ✅ Tóc ngắn
+          hasLongHair: false,
           skin: "#fde68a",
           hair: "#334155",
           shirt: "#06b6d4",
@@ -1580,9 +1630,6 @@
         { type: "LESSON", dur: LESSON_DURATION, label: "TIẾT 7" },
       ];
 
-      /* =========================================================
-         RESPONSIVE CANVAS
-      ========================================================= */
       function resizeCanvas() {
         const wrap = document.getElementById("game-wrap");
         const topBar = document.getElementById("top-bar");
@@ -1613,17 +1660,7 @@
          MAP
       ========================================================= */
       const MAP = {
-        mainBuilding: {
-          x: 100,
-          y: 100,
-          w: 1200,
-          h: 240,
-          roofColor: "#a8362a",
-          wallColor: "#f5d78a",
-          roofY: 100,
-          wallY: 140,
-          floors: 2,
-        },
+        mainBuilding: { x: 100, y: 100, w: 1200, h: 240 },
         corridor: { x: 30, y: 380, w: 1340, h: 110 },
         yard: { x: 30, y: 490, w: 1340, h: 380 },
         flagPole: { x: 700, y: 640, w: 8, h: 120, cx: 704, cy: 580 },
@@ -1739,7 +1776,6 @@
       const PLAYER_BODY = { w: 20, h: 22, offsetX: -10, offsetY: -11 };
       let colliders = [];
 
-      // Player phải khai báo TRƯỚC rebuildColliders
       const player = {
         x: 700,
         y: 720,
@@ -1771,7 +1807,6 @@
         colliders.push({ x: 0, y: 0, w: 40, h: H, type: "wall" });
         colliders.push({ x: W - 40, y: 0, w: 40, h: H, type: "wall" });
         colliders.push({ x: 0, y: H - 40, w: W, h: 40, type: "wall" });
-
         const mb = MAP.mainBuilding;
         colliders.push({ x: mb.x, y: mb.y, w: 20, h: mb.h, type: "wall" });
         colliders.push({
@@ -1781,7 +1816,6 @@
           h: mb.h,
           type: "wall",
         });
-
         for (const r of MAP.rooms) {
           const doorLeft = r.doorX - r.doorW / 2;
           const doorRight = r.doorX + r.doorW / 2;
@@ -1831,7 +1865,6 @@
             });
           }
         }
-
         colliders.push({
           x: MAP.guardBooth.x,
           y: MAP.guardBooth.y,
@@ -2034,7 +2067,6 @@
           joystick.dy = 0;
           knob.style.transform = "translate(0,0)";
         }
-
         zone.addEventListener(
           "touchstart",
           (e) => {
@@ -2107,7 +2139,6 @@
         audio.success();
         return true;
       }
-
       function standUp() {
         if (!player.seated) return false;
         const oldSeat = player.seatRef;
@@ -2115,7 +2146,6 @@
         player.seated = false;
         player.seatRef = null;
         rebuildColliders();
-
         const seatX = oldSeat ? oldSeat.x : player.x;
         const seatY = oldSeat ? oldSeat.y : player.y;
         const candidates = [
@@ -2148,11 +2178,9 @@
         audio.switch_();
         return true;
       }
-
       function forceStandUpIfPlaying() {
         if (player.seated) standUp();
       }
-
       function isPositionBlocked(px, py, ignoreSeat) {
         const test = getPlayerBounds(px, py);
         for (const c of colliders) {
@@ -2204,7 +2232,6 @@
             if (pressed) up(e);
           });
         }
-
         bindPress(btnE, () => {
           if (minigame.active && !minigame.resolved) {
             minigameTap();
@@ -2258,12 +2285,10 @@
         const c = cv.getContext("2d");
         c.imageSmoothingEnabled = false;
         c.clearRect(0, 0, cv.width, cv.height);
-
         const px = (cv.width / 16) * char.height * 0.85;
         const bw = char.width;
-        const cx = cv.width / 2;
-        const cy = cv.height / 2;
-
+        const cx = cv.width / 2,
+          cy = cv.height / 2;
         const S = (dx, dy, w, h, col) => {
           c.fillStyle = col;
           c.fillRect(
@@ -2273,20 +2298,14 @@
             Math.ceil(h * px),
           );
         };
-
-        // ✅ TÓC DÀI — vẽ SAU đầu (phía sau, dài xuống lưng)
         if (char.hasLongHair) {
-          // Tóc dài phía sau đầu (rủ xuống 2 bên)
-          S(3, 2, 2, 10, char.hair); // tóc trái dài xuống
-          S(11, 2, 2, 10, char.hair); // tóc phải dài xuống
-          // Tóc đuôi dài phía dưới lưng
-          S(5, 8, 6, 6, char.hair); // tóc phủ sau lưng
-          S(4, 12, 8, 3, char.hair); // đuôi tóc dài tới lưng
+          S(3, 2, 2, 10, char.hair);
+          S(11, 2, 2, 10, char.hair);
+          S(5, 8, 6, 6, char.hair);
+          S(4, 12, 8, 3, char.hair);
         }
-
-        // Đầu + tóc trên
         S(5, 2, 6, 5, char.skin);
-        S(4, 1, 8, 2, char.hair); // mái tóc trên đầu
+        S(4, 1, 8, 2, char.hair);
         S(4, 2, 1, 3, char.hair);
         S(11, 2, 1, 3, char.hair);
         S(6, 4, 1, 1, "#0f172a");
@@ -2299,14 +2318,12 @@
         S(9, 12, 2, 3, char.pants);
         S(6, 15, 2, 1, "#0f172a");
         S(9, 15, 2, 1, "#0f172a");
-
-        // Vẽ kính nếu có
         if (char.hasGlasses) {
           c.strokeStyle = "#0f172a";
           c.lineWidth = Math.max(1, px * 0.35);
-          const gx1 = cx + 5 * px * bw - 4;
-          const gx2 = cx + 8 * px * bw - 4;
-          const gy = cy + 3.5 * px - 4;
+          const gx1 = cx + 5 * px * bw - 4,
+            gx2 = cx + 8 * px * bw - 4,
+            gy = cy + 3.5 * px - 4;
           c.strokeRect(gx1, gy, 3 * px * bw, 2 * px);
           c.strokeRect(gx2, gy, 3 * px * bw, 2 * px);
           c.beginPath();
@@ -2346,37 +2363,45 @@
       }
 
       /* =========================================================
-         MULTIPLAYER — PeerJS Cloud + BroadcastChannel fallback
+         MULTIPLAYER — Firebase Realtime Database
       ========================================================= */
       const mp = {
-        peer: null,
-        connections: [],
+        fb: null,
+        db: null,
         isHost: false,
         roomCode: "",
         myId: "",
         connected: false,
         active: false,
-        hostConn: null,
+        unsubscribers: [],
         syncTimer: 0,
-        retryCount: 0,
-        broadcastChannel: null,
-        localClientId: null,
+        started: false,
       };
 
-      const PEER_CONFIG = {
-        host: "0.peerjs.com",
-        port: 443,
-        path: "/",
-        secure: true,
-        debug: 1,
-        config: {
-          iceServers: [
-            { urls: "stun:stun.l.google.com:19302" },
-            { urls: "stun:stun1.l.google.com:19302" },
-            { urls: "stun:stun2.l.google.com:19302" },
-          ],
-        },
-      };
+      let fbReady = false;
+      window.addEventListener("fb-script-loaded", () => {
+        if (window._fbReady && window._fb) {
+          mp.fb = window._fb;
+          mp.db = window._fb.db;
+          fbReady = true;
+          console.log("[MP] Firebase ready");
+        } else {
+          console.error("[MP] Firebase NOT ready - kiểm tra firebaseConfig!");
+          setTimeout(() => {
+            if (window._fbReady && window._fb) {
+              mp.fb = window._fb;
+              mp.db = window._fb.db;
+              fbReady = true;
+            }
+          }, 1000);
+        }
+      });
+      // Fallback nếu event đã xảy ra trước khi listener đăng ký
+      if (window._fbReady && window._fb) {
+        mp.fb = window._fb;
+        mp.db = window._fb.db;
+        fbReady = true;
+      }
 
       function genRoomCode() {
         const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -2385,317 +2410,391 @@
           code += chars[Math.floor(Math.random() * chars.length)];
         return code;
       }
-      function codeToPeerId(code) {
-        return "cfg-eco-thptbc-" + code.toLowerCase();
+      function genMyId() {
+        return "u_" + Math.random().toString(36).slice(2, 10);
       }
 
-      function initHost(code) {
-        if (mp.peer) {
+      function cleanupMP() {
+        // Detach listeners
+        mp.unsubscribers.forEach((u) => {
           try {
-            mp.peer.destroy();
+            u();
+          } catch (e) {}
+        });
+        mp.unsubscribers = [];
+        // Xóa player khỏi room
+        if (mp.connected && mp.roomCode && mp.myId && mp.fb) {
+          try {
+            if (mp.isHost) {
+              mp.fb.remove(mp.fb.ref(mp.db, "rooms/" + mp.roomCode));
+            } else {
+              mp.fb.remove(
+                mp.fb.ref(
+                  mp.db,
+                  "rooms/" + mp.roomCode + "/players/" + mp.myId,
+                ),
+              );
+              mp.fb.remove(
+                mp.fb.ref(
+                  mp.db,
+                  "rooms/" + mp.roomCode + "/clientStates/" + mp.myId,
+                ),
+              );
+            }
           } catch (e) {}
         }
-        mp.isHost = true;
-        mp.roomCode = code;
-        mp.connections = [];
-        mp.retryCount = 0;
+        mp.connected = false;
+        mp.active = false;
+        mp.started = false;
+        mp.isHost = false;
+        mp.roomCode = "";
+        mp.myId = "";
+      }
 
-        try {
-          if (mp.broadcastChannel) mp.broadcastChannel.close();
-          mp.broadcastChannel = new BroadcastChannel("cfg-eco-" + code);
-          mp.broadcastChannel.onmessage = (ev) => {
-            if (!ev.data) return;
-            if (ev.data.type === "hello-from-client") {
-              addLocalClient(ev.data.clientId, ev.data.name, ev.data.charId);
-            } else if (ev.data.type === "state-from-client") {
-              if (otherPlayers[ev.data.clientId])
-                Object.assign(otherPlayers[ev.data.clientId], ev.data.state);
-            } else if (ev.data.type === "action-from-client") {
-              handleRemoteAction(ev.data.clientId, ev.data.action);
-            }
-          };
-        } catch (e) {}
-
-        try {
-          mp.peer = new Peer(codeToPeerId(code), PEER_CONFIG);
-        } catch (e) {
-          document.getElementById("host-status").textContent =
-            "⚠ Không hỗ trợ WebRTC";
+      /* ============== HOST ============== */
+      function initHost(code) {
+        if (!fbReady) {
+          const st = document.getElementById("host-status");
+          st.textContent = "⚠ Firebase chưa sẵn sàng. Kiểm tra firebaseConfig!";
+          st.style.background = "#7f1d1d";
+          st.style.color = "#fecaca";
           return;
         }
+        cleanupMP();
+        mp.isHost = true;
+        mp.roomCode = code;
+        mp.myId = "host_" + genMyId();
+        mp.connected = true;
 
-        mp.peer.on("open", () => {
-          document.getElementById("host-room-code").textContent = code;
-          document.getElementById("host-room-info").style.display = "block";
-          document.getElementById("host-status").textContent =
-            "✓ Sẵn sàng! Chia sẻ mã phòng (hoặc mở 2 tab cùng máy).";
+        const roomRef = mp.fb.ref(mp.db, "rooms/" + code);
+
+        // Khởi tạo room
+        mp.fb.set(roomRef, {
+          host: mp.myId,
+          createdAt: mp.fb.serverTimestamp(),
+          started: false,
+        });
+
+        // Ghi thông tin host
+        const myRef = mp.fb.ref(mp.db, "rooms/" + code + "/players/" + mp.myId);
+        mp.fb.set(myRef, {
+          name: player.name,
+          charId: selectedChar.id,
+          isHost: true,
+          joinedAt: mp.fb.serverTimestamp(),
+        });
+        mp.fb.onDisconnect(myRef).remove();
+
+        // Nghe danh sách players
+        const playersRef = mp.fb.ref(mp.db, "rooms/" + code + "/players");
+        const unsubPlayers = mp.fb.onValue(playersRef, (snapshot) => {
+          const data = snapshot.val() || {};
+          const newList = {};
+          Object.entries(data).forEach(([id, p]) => {
+            if (id === mp.myId) return;
+            newList[id] = {
+              id,
+              name: p.name,
+              charId: p.charId,
+              x: p.x || 700,
+              y: p.y || 720,
+              facing: p.facing || "up",
+              isMoving: p.isMoving || false,
+              animFrame: p.animFrame || 0,
+              trashHeld: p.trashHeld || 0,
+              seated: p.seated || false,
+              fanning: p.fanning || false,
+              temp: p.temp !== undefined ? p.temp : 50,
+              remote: true,
+            };
+          });
+          otherPlayers = newList;
           updateHostPlayerList();
         });
+        mp.unsubscribers.push(unsubPlayers);
 
-        mp.peer.on("connection", (conn) => {
-          conn.on("open", () => {
-            mp.connections.push(conn);
-            updateHostPlayerList();
-            broadcastHostState();
-          });
-          conn.on("data", (data) => handleRemoteData(conn, data));
-          conn.on("close", () => {
-            mp.connections = mp.connections.filter((c) => c !== conn);
-            delete otherPlayers[conn.peer];
-            updateHostPlayerList();
-            broadcastHostState();
+        // Nghe client states
+        const clientStatesRef = mp.fb.ref(
+          mp.db,
+          "rooms/" + code + "/clientStates",
+        );
+        const unsubStates = mp.fb.onValue(clientStatesRef, (snapshot) => {
+          const data = snapshot.val() || {};
+          Object.entries(data).forEach(([id, st]) => {
+            if (otherPlayers[id]) Object.assign(otherPlayers[id], st);
           });
         });
+        mp.unsubscribers.push(unsubStates);
 
-        mp.peer.on("error", (err) => {
-          const st = document.getElementById("host-status");
-          if (err.type === "unavailable-id") {
-            st.textContent = "⚠ Mã tồn tại, đang tạo mã mới...";
-            setTimeout(() => {
-              if (mp.isHost) initHost(genRoomCode());
-            }, 1000);
-          } else if (err.type === "network" || err.type === "server-error") {
-            st.textContent = "⚠ Lỗi server PeerJS — vẫn chơi cùng máy được";
-          } else {
-            st.textContent = "⚠ Lỗi: " + err.type;
-          }
+        // Nghe actions từ clients
+        const actionsRef = mp.fb.ref(mp.db, "rooms/" + code + "/actions");
+        const unsubActions = mp.fb.onValue(actionsRef, (snapshot) => {
+          const data = snapshot.val() || {};
+          Object.entries(data).forEach(([actionId, act]) => {
+            if (act.from === mp.myId) return;
+            handleRemoteAction(act.from, act.action);
+            try {
+              mp.fb.remove(
+                mp.fb.ref(mp.db, "rooms/" + code + "/actions/" + actionId),
+              );
+            } catch (e) {}
+          });
         });
+        mp.unsubscribers.push(unsubActions);
+
+        // Nghe "started" để sync khi có client mới
+        const startedRef = mp.fb.ref(mp.db, "rooms/" + code + "/started");
+        const unsubStarted = mp.fb.onValue(startedRef, (snap) => {
+          mp.started = !!snap.val();
+        });
+        mp.unsubscribers.push(unsubStarted);
+
+        document.getElementById("host-room-code").textContent = code;
+        document.getElementById("host-room-info").style.display = "block";
+        document.getElementById("host-status").textContent =
+          "✓ Đã tạo phòng! Chia sẻ mã cho bạn bè.";
+        updateHostPlayerList();
+        console.log("[MP] Host ready:", code, mp.myId);
       }
 
+      /* ============== CLIENT ============== */
       function initJoin(code) {
-        if (mp.peer) {
-          try {
-            mp.peer.destroy();
-          } catch (e) {}
+        if (!fbReady) {
+          const st = document.getElementById("join-status");
+          st.style.display = "block";
+          st.textContent = "⚠ Firebase chưa sẵn sàng. Kiểm tra firebaseConfig!";
+          st.style.background = "#7f1d1d";
+          st.style.color = "#fecaca";
+          return;
         }
+        cleanupMP();
         mp.isHost = false;
         mp.roomCode = code;
-        mp.connections = [];
-        mp.retryCount = 0;
+        mp.myId = genMyId();
 
         const status = document.getElementById("join-status");
         status.style.display = "block";
-        status.textContent = "⏳ Đang kết nối...";
+        status.textContent = "⏳ Đang kiểm tra phòng...";
         status.style.background = "#0f172a";
         status.style.borderLeftColor = "#facc15";
         status.style.color = "#fde047";
 
-        try {
-          if (mp.broadcastChannel) mp.broadcastChannel.close();
-          mp.broadcastChannel = new BroadcastChannel("cfg-eco-" + code);
-          const myClientId =
-            "client-" + Math.random().toString(36).slice(2, 10);
-          mp.localClientId = myClientId;
-          mp.broadcastChannel.onmessage = (ev) => {
-            if (!ev.data) return;
-            if (ev.data.type === "state-from-host") {
-              if (!otherPlayers["__host__"])
-                otherPlayers["__host__"] = { id: "__host__", remote: true };
-              Object.assign(otherPlayers["__host__"], ev.data.state);
-            } else if (ev.data.type === "players-from-host") {
-              Object.entries(ev.data.list).forEach(([id, p]) => {
-                if (!otherPlayers[id]) otherPlayers[id] = { id, remote: true };
-                Object.assign(otherPlayers[id], p);
-              });
-            } else if (ev.data.type === "start-from-host") {
-              document.getElementById("mp-modal").classList.add("hidden");
-              document
-                .getElementById("char-select-screen")
-                .classList.add("hidden");
-              mp.active = true;
-              startGame(true);
-            } else if (ev.data.type === "action-from-host") {
-              handleRemoteAction("host", ev.data.action);
+        const roomRef = mp.fb.ref(mp.db, "rooms/" + code);
+
+        // Kiểm tra room tồn tại
+        mp.fb
+          .get(roomRef)
+          .then((snap) => {
+            const room = snap.val();
+            if (!room) {
+              status.textContent = "✗ Không tìm thấy phòng! Kiểm tra lại mã.";
+              status.style.background = "#7f1d1d";
+              status.style.color = "#fecaca";
+              return;
             }
-          };
-          setTimeout(() => {
-            try {
-              mp.broadcastChannel.postMessage({
-                type: "hello-from-client",
-                clientId: myClientId,
-                name: player.name,
-                charId: selectedChar.id,
-              });
-            } catch (e) {}
-          }, 200);
-        } catch (e) {}
-
-        try {
-          mp.peer = new Peer(PEER_CONFIG);
-        } catch (e) {
-          status.textContent = "⚠ Không hỗ trợ WebRTC";
-          return;
-        }
-
-        mp.peer.on("open", (id) => {
-          mp.myId = mp.myId || id;
-          const conn = mp.peer.connect(codeToPeerId(code), { reliable: true });
-          mp.hostConn = conn;
-
-          conn.on("open", () => {
-            mp.connected = true;
-            status.textContent = "✓ Đã kết nối! Chờ chủ phòng bắt đầu...";
-            status.style.background = "#064e3b";
-            status.style.borderLeftColor = "#10b981";
-            status.style.color = "#6ee7b7";
-            conn.send({
-              type: "hello",
-              name: player.name,
-              charId: selectedChar.id,
-            });
-            document.getElementById("btn-start-game").disabled = true;
-            document.getElementById("btn-start-mp").disabled = true;
-          });
-
-          conn.on("data", (data) => handleRemoteData(conn, data));
-          conn.on("close", () => {
-            status.textContent = "⚠ Mất kết nối với chủ phòng!";
+            if (room.started) {
+              status.textContent = "⚠ Phòng đã bắt đầu, không vào được nữa!";
+              status.style.background = "#78350f";
+              status.style.color = "#fde047";
+              return;
+            }
+            joinRoomConfirmed(code, status);
+          })
+          .catch((err) => {
+            console.error("Join error:", err);
+            status.textContent = "✗ Lỗi kết nối Firebase: " + err.message;
             status.style.background = "#7f1d1d";
             status.style.color = "#fecaca";
           });
-        });
-
-        mp.peer.on("error", (err) => {
-          if (err.type === "peer-unavailable") {
-            status.textContent =
-              "⚠ Không tìm thấy phòng qua mạng. Nếu cùng máy với host, vẫn vào được!";
-            status.style.background = "#78350f";
-            status.style.color = "#fde047";
-          } else if (err.type === "network" || err.type === "server-error") {
-            status.textContent =
-              "⚠ Lỗi mạng. Nếu cùng máy với host, vẫn chơi được!";
-            status.style.background = "#78350f";
-            status.style.color = "#fde047";
-          } else {
-            status.textContent = "⚠ Lỗi: " + err.type;
-            status.style.background = "#7f1d1d";
-            status.style.color = "#fecaca";
-          }
-        });
       }
 
-      function addLocalClient(clientId, name, charId) {
-        if (!otherPlayers[clientId]) {
-          otherPlayers[clientId] = {
-            id: clientId,
-            name,
-            charId,
-            x: 600 + Math.random() * 200,
-            y: 380,
-            facing: "down",
-            isMoving: false,
-            animFrame: 0,
-            remote: true,
-            trashHeld: 0,
-            seated: false,
-            fanning: false,
-            temp: 50,
-          };
-          updateHostPlayerList();
-          broadcastHostState();
-        }
-      }
+      function joinRoomConfirmed(code, status) {
+        mp.connected = true;
+        status.textContent = "✓ Đã vào phòng! Chờ chủ phòng bắt đầu...";
+        status.style.background = "#064e3b";
+        status.style.borderLeftColor = "#10b981";
+        status.style.color = "#6ee7b7";
 
-      function updateHostPlayerList() {
-        const list = document.getElementById("host-player-list");
-        if (!list) return;
-        list.innerHTML = "";
-
-        const hostItem = document.createElement("div");
-        hostItem.className = "player-item";
-        hostItem.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${player.name} (Host)</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${selectedChar.name}</div>`;
-        list.appendChild(hostItem);
-
-        mp.connections.forEach((conn) => {
-          const p = otherPlayers[conn.peer];
-          const item = document.createElement("div");
-          item.className = "player-item";
-          item.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${p ? p.name : "..."}</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${p ? CHARACTERS[p.charId]?.name || "?" : "?"}</div>`;
-          list.appendChild(item);
+        // Thêm player
+        const myRef = mp.fb.ref(mp.db, "rooms/" + code + "/players/" + mp.myId);
+        mp.fb.set(myRef, {
+          name: player.name,
+          charId: selectedChar.id,
+          isHost: false,
+          joinedAt: mp.fb.serverTimestamp(),
         });
+        mp.fb.onDisconnect(myRef).remove();
 
-        Object.values(otherPlayers).forEach((p) => {
-          if (p.id && p.id.startsWith("client-")) {
-            const item = document.createElement("div");
-            item.className = "player-item";
-            item.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${p.name} 📱</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${CHARACTERS[p.charId]?.name || "?"}</div>`;
-            list.appendChild(item);
-          }
+        // Nghe danh sách players
+        const playersRef = mp.fb.ref(mp.db, "rooms/" + code + "/players");
+        const unsubPlayers = mp.fb.onValue(playersRef, (snapshot) => {
+          const data = snapshot.val() || {};
+          const newList = {};
+          Object.entries(data).forEach(([id, p]) => {
+            if (id === mp.myId) return;
+            if (p.isHost) {
+              newList["__host__"] = {
+                id: "__host__",
+                name: p.name,
+                charId: p.charId,
+                x: 700,
+                y: 720,
+                facing: "up",
+                isMoving: false,
+                animFrame: 0,
+                trashHeld: 0,
+                seated: false,
+                fanning: false,
+                temp: 50,
+                remote: true,
+              };
+            } else {
+              newList[id] = {
+                id,
+                name: p.name,
+                charId: p.charId,
+                x: p.x || 700,
+                y: p.y || 720,
+                facing: p.facing || "up",
+                isMoving: p.isMoving || false,
+                animFrame: p.animFrame || 0,
+                trashHeld: p.trashHeld || 0,
+                seated: p.seated || false,
+                fanning: p.fanning || false,
+                temp: p.temp !== undefined ? p.temp : 50,
+                remote: true,
+              };
+            }
+          });
+          otherPlayers = newList;
         });
+        mp.unsubscribers.push(unsubPlayers);
 
-        const btn = document.getElementById("btn-host-start");
-        const totalPlayers =
-          mp.connections.length +
-          Object.values(otherPlayers).filter(
-            (p) => p.id && p.id.startsWith("client-"),
-          ).length +
-          1;
-        btn.disabled = totalPlayers < 2;
-        btn.textContent =
-          totalPlayers < 2
-            ? "▶ BẮT ĐẦU (CẦN ≥ 1 NGƯỜI)"
-            : `▶ BẮT ĐẦU (${totalPlayers}P)`;
-      }
+        // Nghe host state
+        const hostStateRef = mp.fb.ref(mp.db, "rooms/" + code + "/hostState");
+        const unsubHostState = mp.fb.onValue(hostStateRef, (snapshot) => {
+          const st = snapshot.val();
+          if (st && otherPlayers["__host__"])
+            Object.assign(otherPlayers["__host__"], st);
+        });
+        mp.unsubscribers.push(unsubHostState);
 
-      function handleRemoteData(conn, data) {
-        if (!data || !data.type) return;
-        if (mp.isHost) {
-          if (data.type === "hello") {
-            otherPlayers[conn.peer] = {
-              id: conn.peer,
-              name: data.name,
-              charId: data.charId,
-              x: 600 + Math.random() * 200,
-              y: 380,
-              facing: "down",
-              isMoving: false,
-              animFrame: 0,
-              remote: true,
-              trashHeld: 0,
-              seated: false,
-              fanning: false,
-              temp: 50,
-            };
-            updateHostPlayerList();
-            broadcastHostState();
-          } else if (data.type === "state") {
-            if (otherPlayers[conn.peer])
-              Object.assign(otherPlayers[conn.peer], data.state);
-          } else if (data.type === "action") {
-            mp.connections.forEach((c) => {
-              if (c !== conn && c.open)
-                c.send({
-                  type: "action",
-                  from: conn.peer,
-                  action: data.action,
-                });
-            });
-            handleRemoteAction(conn.peer, data.action);
-          }
-        } else {
-          if (data.type === "state") {
-            if (!otherPlayers["__host__"])
-              otherPlayers["__host__"] = { id: "__host__", remote: true };
-            Object.assign(otherPlayers["__host__"], data.state);
-          } else if (data.type === "players") {
-            Object.keys(otherPlayers).forEach((k) => {
-              if (k !== "__host__" && !data.list[k]) delete otherPlayers[k];
-            });
-            Object.entries(data.list).forEach(([id, p]) => {
-              if (!otherPlayers[id]) otherPlayers[id] = { id, remote: true };
-              Object.assign(otherPlayers[id], p);
-            });
-          } else if (data.type === "start") {
+        // Nghe client states
+        const clientStatesRef = mp.fb.ref(
+          mp.db,
+          "rooms/" + code + "/clientStates",
+        );
+        const unsubClientStates = mp.fb.onValue(clientStatesRef, (snapshot) => {
+          const data = snapshot.val() || {};
+          Object.entries(data).forEach(([id, st]) => {
+            if (id !== mp.myId && otherPlayers[id])
+              Object.assign(otherPlayers[id], st);
+          });
+        });
+        mp.unsubscribers.push(unsubClientStates);
+
+        // Nghe lệnh bắt đầu
+        const startedRef = mp.fb.ref(mp.db, "rooms/" + code + "/started");
+        const unsubStarted = mp.fb.onValue(startedRef, (snapshot) => {
+          if (snapshot.val() === true && !mp.active) {
             document.getElementById("mp-modal").classList.add("hidden");
             document
               .getElementById("char-select-screen")
               .classList.add("hidden");
             mp.active = true;
             startGame(true);
-          } else if (data.type === "action") {
-            handleRemoteAction(data.from, data.action);
           }
+        });
+        mp.unsubscribers.push(unsubStarted);
+
+        // Nghe actions
+        const actionsRef = mp.fb.ref(mp.db, "rooms/" + code + "/actions");
+        const unsubActions = mp.fb.onValue(actionsRef, (snapshot) => {
+          const data = snapshot.val() || {};
+          Object.entries(data).forEach(([actionId, act]) => {
+            if (act.from === mp.myId) return;
+            handleRemoteAction(act.from, act.action);
+            try {
+              mp.fb.remove(
+                mp.fb.ref(mp.db, "rooms/" + code + "/actions/" + actionId),
+              );
+            } catch (e) {}
+          });
+        });
+        mp.unsubscribers.push(unsubActions);
+
+        document.getElementById("btn-start-game").disabled = true;
+        document.getElementById("btn-start-mp").disabled = true;
+      }
+
+      /* ============== SYNC STATE ============== */
+      function broadcastMyState() {
+        if (!mp.active || !mp.connected || !mp.fb) return;
+        const state = {
+          x: player.x,
+          y: player.y,
+          facing: player.facing,
+          isMoving: player.isMoving,
+          animFrame: player.animFrame,
+          trashHeld: player.trashHeld,
+          seated: player.seated,
+          fanning: player.fanning,
+          temp: bodyTemp,
+        };
+        if (mp.isHost) {
+          mp.fb.set(
+            mp.fb.ref(mp.db, "rooms/" + mp.roomCode + "/hostState"),
+            state,
+          );
+        } else {
+          mp.fb.set(
+            mp.fb.ref(
+              mp.db,
+              "rooms/" + mp.roomCode + "/clientStates/" + mp.myId,
+            ),
+            state,
+          );
         }
+      }
+
+      function broadcastAction(action) {
+        if (!mp.active || !mp.connected || !mp.fb) return;
+        const actionId =
+          mp.myId +
+          "_" +
+          Date.now() +
+          "_" +
+          Math.random().toString(36).slice(2, 6);
+        mp.fb.set(
+          mp.fb.ref(mp.db, "rooms/" + mp.roomCode + "/actions/" + actionId),
+          {
+            from: mp.myId,
+            action,
+            time: mp.fb.serverTimestamp(),
+          },
+        );
+      }
+
+      /* ============== UPDATE HOST UI ============== */
+      function updateHostPlayerList() {
+        const list = document.getElementById("host-player-list");
+        if (!list) return;
+        list.innerHTML = "";
+        const hostItem = document.createElement("div");
+        hostItem.className = "player-item";
+        hostItem.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${player.name} (Host)</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${selectedChar.name}</div>`;
+        list.appendChild(hostItem);
+        Object.values(otherPlayers).forEach((p) => {
+          const item = document.createElement("div");
+          item.className = "player-item";
+          item.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${p.name || "Người chơi"}</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${CHARACTERS[p.charId]?.name || "?"}</div>`;
+          list.appendChild(item);
+        });
+        const btn = document.getElementById("btn-host-start");
+        const total = Object.keys(otherPlayers).length + 1;
+        btn.disabled = total < 2;
+        btn.textContent =
+          total < 2 ? "▶ BẮT ĐẦU (CẦN ≥ 1 NGƯỜI)" : `▶ BẮT ĐẦU (${total}P)`;
       }
 
       function handleRemoteAction(fromId, action) {
@@ -2720,103 +2819,6 @@
             (d) => d.x === action.drainX && d.y === action.drainY,
           );
           if (d) d.clogged = false;
-        }
-      }
-
-      function broadcastHostState() {
-        if (!mp.isHost) return;
-        const hostState = {
-          id: "__host__",
-          name: player.name,
-          charId: selectedChar.id,
-          x: player.x,
-          y: player.y,
-          facing: player.facing,
-          isMoving: player.isMoving,
-          animFrame: player.animFrame,
-          trashHeld: player.trashHeld,
-          seated: player.seated,
-          fanning: player.fanning,
-          temp: bodyTemp,
-        };
-        const list = {};
-        Object.entries(otherPlayers).forEach(([id, p]) => {
-          list[id] = p;
-        });
-
-        mp.connections.forEach((conn) => {
-          if (!conn.open) return;
-          conn.send({ type: "state", state: hostState });
-          conn.send({ type: "players", list });
-        });
-
-        try {
-          if (mp.broadcastChannel) {
-            mp.broadcastChannel.postMessage({
-              type: "state-from-host",
-              state: hostState,
-            });
-            mp.broadcastChannel.postMessage({
-              type: "players-from-host",
-              list,
-            });
-          }
-        } catch (e) {}
-      }
-
-      function broadcastMyState() {
-        const state = {
-          x: player.x,
-          y: player.y,
-          facing: player.facing,
-          isMoving: player.isMoving,
-          animFrame: player.animFrame,
-          trashHeld: player.trashHeld,
-          seated: player.seated,
-          fanning: player.fanning,
-          temp: bodyTemp,
-        };
-        if (mp.isHost) broadcastHostState();
-        else {
-          if (mp.hostConn && mp.hostConn.open)
-            mp.hostConn.send({ type: "state", state });
-          try {
-            if (mp.broadcastChannel && mp.localClientId) {
-              mp.broadcastChannel.postMessage({
-                type: "state-from-client",
-                clientId: mp.localClientId,
-                state,
-              });
-            }
-          } catch (e) {}
-        }
-      }
-
-      function broadcastAction(action) {
-        if (!mp.active) return;
-        if (mp.isHost) {
-          mp.connections.forEach((c) => {
-            if (c.open) c.send({ type: "action", from: "host", action });
-          });
-          try {
-            if (mp.broadcastChannel)
-              mp.broadcastChannel.postMessage({
-                type: "action-from-host",
-                action,
-              });
-          } catch (e) {}
-        } else {
-          if (mp.hostConn && mp.hostConn.open)
-            mp.hostConn.send({ type: "action", action });
-          try {
-            if (mp.broadcastChannel && mp.localClientId) {
-              mp.broadcastChannel.postMessage({
-                type: "action-from-client",
-                clientId: mp.localClientId,
-                action,
-              });
-            }
-          } catch (e) {}
         }
       }
 
@@ -2858,7 +2860,6 @@
         powerTripped = false;
         bodyTemp = 50;
         trashCleanedToday = 0;
-
         MAP.rooms.forEach((r) => {
           r.doorOpen = false;
           r.fansOn = currentWeather === "HOT";
@@ -2866,7 +2867,6 @@
           r.seats.forEach((s) => (s.occupied = false));
         });
         rebuildColliders();
-
         trashItems = [];
         const trashCount = currentWeather === "POLLUTION" ? 16 : 6;
         for (let i = 0; i < trashCount; i++) {
@@ -2878,7 +2878,6 @@
             bob: Math.random() * Math.PI * 2,
           });
         }
-
         puddles = [];
         if (currentWeather === "RAIN") {
           for (let i = 0; i < 10; i++) {
@@ -2891,7 +2890,6 @@
           }
           MAP.drains.forEach((d) => (d.clogged = true));
         }
-
         rainParticles = [];
         if (currentWeather === "RAIN") {
           for (let i = 0; i < 140; i++) {
@@ -2903,7 +2901,6 @@
             });
           }
         }
-
         clouds = [];
         for (let i = 0; i < 7; i++) {
           clouds.push({
@@ -2913,7 +2910,6 @@
             spd: 5 + Math.random() * 10,
           });
         }
-
         envMessage = {
           HOT: "☀️ HÔM NAY TRỜI OI BỨC — Tắt thiết bị điện!",
           POLLUTION: "☣️ HÔM NAY KHÔNG KHÍ Ô NHIỄM — Nhặt rác!",
@@ -2928,7 +2924,6 @@
       function scheduleNextMinigame() {
         minigameTimer = MINIGAME_INTERVAL;
       }
-
       function startMinigame() {
         minigame.active = true;
         minigame.currentAttempt = 0;
@@ -2955,7 +2950,6 @@
         audio.remind();
         minigameShownThisLesson++;
       }
-
       function updateMinigameUI() {
         const zone = document.getElementById("mg-zone");
         zone.style.left = minigame.zoneStart + "%";
@@ -2974,7 +2968,6 @@
           attempts.appendChild(dot);
         }
       }
-
       function minigameTap() {
         if (!minigame.active || minigame.resolved) return;
         const pos = minigame.markerPos;
@@ -3009,7 +3002,6 @@
           }, 500);
         }
       }
-
       function resolveMinigame() {
         const failCount = minigame.attempts.filter((a) => a === "fail").length;
         minigame.active = false;
@@ -3423,7 +3415,6 @@
         if (slipTimer > 0) slipTimer -= dt;
         if (minigame.active) return;
 
-        // Movement
         let mx = 0,
           my = 0;
         if (keys.Up) my -= 1;
@@ -3450,13 +3441,11 @@
             my = 0;
           }
         }
-
         if (slipTimer > 0 && player.slipVel > 0) {
           mx = player.slipDirX * player.slipVel;
           my = player.slipDirY * player.slipVel;
           player.slipVel = Math.max(0, player.slipVel - dt * 2);
         }
-
         let speedMult = selectedChar.speedBonus;
         if (player.fanning) speedMult *= 0.5;
         if (player.seated) speedMult = 0;
@@ -3535,7 +3524,6 @@
           isLessonPhase() &&
           !inTransition &&
           player.seated;
-
         if (player.fanning) {
           fanningEffectTimer = 0.15;
           fanningAudioTimer -= dt;
@@ -3593,15 +3581,12 @@
           }
         }
 
-        // TEMPERATURE
         const room = playerInRoom();
         const fanMult = selectedChar.skill === "fan" ? 2 : 1;
-
         if (isLessonPhase() && !inTransition && room && player.seated) {
           const fanOn = room.fansOn && !powerTripped;
           const manualFan = player.fanning;
           let tempDelta = 0;
-
           if (currentWeather === "HOT") {
             if (bodyTemp < 50) tempDelta += 2 * dt;
             else {
@@ -3632,13 +3617,11 @@
                 tempDelta = (50 - bodyTemp) / dt;
             }
           }
-
           if (bodyTemp > 50 && tempDelta < 0) tempDelta *= 1.3;
           if (bodyTemp < 50 && tempDelta > 0) tempDelta *= 1.3;
           bodyTemp = Math.max(0, Math.min(100, bodyTemp + tempDelta));
           if (currentWeather === "HOT" && bodyTemp < 50) bodyTemp = 50;
           if (currentWeather === "POLLUTION" && bodyTemp < 50) bodyTemp = 50;
-
           if (bodyTemp > 85) {
             hp -= 4 * dt;
             if (Math.random() < 0.08) {
@@ -3654,7 +3637,6 @@
               flashBlue = 0.5;
             }
           } else if (bodyTemp < 30) hp -= 1 * dt;
-
           if (
             currentWeather === "POLLUTION" &&
             room.doorOpen &&
@@ -3680,7 +3662,7 @@
 
         if (mp.active) {
           mp.syncTimer += dt;
-          if (mp.syncTimer > 0.05) {
+          if (mp.syncTimer > 0.1) {
             broadcastMyState();
             mp.syncTimer = 0;
           }
@@ -3740,17 +3722,14 @@
         ctx.textBaseline = "alphabetic";
         ctx.textAlign = "left";
       }
-
       function drawFloorTiles(x, y, w, h, baseColor, altColor, tileSize = 24) {
         ctx.fillStyle = baseColor;
         ctx.fillRect(x, y, w, h);
         ctx.fillStyle = altColor;
-        for (let i = 0; i < w; i += tileSize) {
-          for (let j = 0; j < h; j += tileSize) {
+        for (let i = 0; i < w; i += tileSize)
+          for (let j = 0; j < h; j += tileSize)
             if ((i / tileSize + j / tileSize) % 2 === 0)
               ctx.fillRect(x + i, y + j, tileSize, tileSize);
-          }
-        }
       }
       function drawShadow(x, y, w) {
         ctx.fillStyle = "rgba(0,0,0,0.35)";
@@ -3837,7 +3816,6 @@
           ctx.stroke();
         }
 
-        // Toà nhà
         const mb = MAP.mainBuilding;
         ctx.fillStyle = "#f5d78a";
         ctx.fillRect(mb.x, mb.y + 40, mb.w, 100);
@@ -3888,7 +3866,6 @@
         ctx.fillStyle = "rgba(0,0,0,0.15)";
         ctx.fillRect(mb.x, mb.y + 240, mb.w, 15);
 
-        // Bảng tên
         const sign = MAP.schoolSign;
         ctx.fillStyle = "#1e3a8a";
         ctx.fillRect(sign.x, sign.y, sign.w, sign.h);
@@ -3909,16 +3886,14 @@
           },
         );
 
-        // 3 lớp
         for (const r of MAP.rooms) {
           const floorCol = r.lightsOn && !powerTripped ? "#fef9c3" : "#475569";
           const floorAlt = r.lightsOn && !powerTripped ? "#fde68a" : "#334155";
           drawFloorTiles(r.x, r.y, r.w, r.h, floorCol, floorAlt, 20);
-
           ctx.fillStyle = "#78350f";
           const wt = 8;
-          const doorLeft = r.doorX - r.doorW / 2;
-          const doorRight = r.doorX + r.doorW / 2;
+          const doorLeft = r.doorX - r.doorW / 2,
+            doorRight = r.doorX + r.doorW / 2;
           ctx.fillRect(r.x, r.y, r.w, wt);
           ctx.fillRect(r.x, r.y, wt, r.h);
           ctx.fillRect(r.x + r.w - wt, r.y, wt, r.h);
@@ -3986,8 +3961,8 @@
           });
 
           if (r.fansOn && !powerTripped) {
-            const fanX = r.x + r.w / 2;
-            const fanY = r.y + 60;
+            const fanX = r.x + r.w / 2,
+              fanY = r.y + 60;
             ctx.save();
             ctx.translate(fanX, fanY);
             ctx.rotate(time * 8);
@@ -4007,7 +3982,6 @@
             }
             ctx.restore();
           }
-
           for (const s of r.seats) {
             ctx.fillStyle = "rgba(0,0,0,0.3)";
             ctx.fillRect(s.x - s.w / 2 + 2, s.y + s.h / 2 - 2, s.w, 6);
@@ -4030,7 +4004,6 @@
             ctx.strokeStyle = "#451a03";
             ctx.strokeRect(s.x - s.w / 2 - 3, s.y + s.h / 2 - 8, s.w + 6, 5);
           }
-
           if (r.doorOpen) {
             ctx.fillStyle = "#d97706";
             ctx.fillRect(doorLeft, r.y + r.h - 10, doorRight - doorLeft, 8);
@@ -4063,7 +4036,6 @@
             ctx.fillStyle = "#fbbf24";
             ctx.fillRect(doorRight - 10, r.y + r.h - 8, 4, 6);
           }
-
           const doorCx = (doorLeft + doorRight) / 2;
           const doorCy = r.y + r.h;
           const nearDoor = dist(player.x, player.y, doorCx, doorCy) < 80;
@@ -4088,7 +4060,6 @@
           }
         }
 
-        // Bồn hoa
         for (const fb of MAP.flowerBeds) {
           ctx.fillStyle = "#7c2d12";
           ctx.fillRect(fb.x, fb.y, fb.w, fb.h);
@@ -4102,8 +4073,6 @@
             ctx.fill();
           }
         }
-
-        // Cây
         for (const tree of MAP.trees) {
           ctx.fillStyle = "rgba(0,0,0,0.25)";
           ctx.beginPath();
@@ -4137,7 +4106,6 @@
           ctx.fill();
         }
 
-        // Cột cờ
         const fp = MAP.flagPole;
         ctx.fillStyle = "#9ca3af";
         ctx.fillRect(fp.cx - 30, fp.cy + 30, 60, 20);
@@ -4162,25 +4130,24 @@
         ctx.lineTo(fp.cx + 3, fp.cy - 30);
         ctx.closePath();
         ctx.fill();
-        const starX = fp.cx + 30;
-        const starY = fp.cy - 54 + flagWave * 0.5;
+        const starX = fp.cx + 30,
+          starY = fp.cy - 54 + flagWave * 0.5;
         ctx.fillStyle = "#facc15";
         ctx.beginPath();
         for (let i = 0; i < 5; i++) {
           const angle = -Math.PI / 2 + (i * Math.PI * 2) / 5;
-          const outerX = starX + Math.cos(angle) * 8;
-          const outerY = starY + Math.sin(angle) * 8;
+          const outerX = starX + Math.cos(angle) * 8,
+            outerY = starY + Math.sin(angle) * 8;
           if (i === 0) ctx.moveTo(outerX, outerY);
           else ctx.lineTo(outerX, outerY);
           const innerAngle = angle + Math.PI / 5;
-          const innerX = starX + Math.cos(innerAngle) * 3.5;
-          const innerY = starY + Math.sin(innerAngle) * 3.5;
+          const innerX = starX + Math.cos(innerAngle) * 3.5,
+            innerY = starY + Math.sin(innerAngle) * 3.5;
           ctx.lineTo(innerX, innerY);
         }
         ctx.closePath();
         ctx.fill();
 
-        // Bốt bảo vệ góc dưới trái
         const gb = MAP.guardBooth;
         ctx.fillStyle = "#0369a1";
         ctx.fillRect(gb.x - 8, gb.y - 15, gb.w + 16, 20);
@@ -4207,7 +4174,6 @@
           baseline: "middle",
         });
 
-        // Thùng rác góc dưới phải
         const bx = MAP.greenBin.x,
           by = MAP.greenBin.y;
         const bw = MAP.greenBin.w,
@@ -4232,7 +4198,6 @@
         ctx.fillText("♻", bx + bw / 2, by + bh / 2 + 8);
         ctx.textAlign = "left";
 
-        // Cống
         for (const d of MAP.drains) {
           ctx.fillStyle = d.clogged ? "#7f1d1d" : "#475569";
           ctx.fillRect(d.x - 22, d.y - 15, 44, 30);
@@ -4248,8 +4213,6 @@
             ctx.stroke();
           }
         }
-
-        // Cổng
         const gate = MAP.gate;
         ctx.fillStyle = "#78350f";
         ctx.fillRect(gate.x, gate.y, gate.w, gate.h);
@@ -4257,7 +4220,6 @@
         for (let i = 0; i < gate.w; i += 20)
           ctx.fillRect(gate.x + i, gate.y, 8, gate.h);
 
-        // Vũng nước
         if (currentWeather === "RAIN") {
           for (const p of puddles) {
             ctx.fillStyle = "rgba(56,189,248,0.55)";
@@ -4269,8 +4231,6 @@
             ctx.stroke();
           }
         }
-
-        // Rác
         for (const t of trashItems) {
           const bob = Math.sin(time * 3 + t.bob) * 2;
           drawShadow(t.x, t.y + 6, 8);
@@ -4307,7 +4267,6 @@
         const basePx = 2.8;
         const px = basePx * char.height;
         const bw = char.width;
-
         const S = (dx, dy, w, h, col) => {
           ctx.fillStyle = col;
           ctx.fillRect(
@@ -4317,8 +4276,6 @@
             Math.ceil(h * px),
           );
         };
-
-        // Shadow
         ctx.fillStyle = "rgba(0,0,0,0.35)";
         ctx.beginPath();
         ctx.ellipse(
@@ -4332,20 +4289,14 @@
         );
         ctx.fill();
 
-        // ✅ TÓC DÀI — vẽ TRƯỚC thân để nằm phía sau
         if (char.hasLongHair && facing !== "up") {
-          // Tóc rủ xuống 2 bên vai — phần đuôi tóc phủ lên lưng
-          // Đuôi tóc phía sau lưng (dưới cổ, trên áo)
-          S(-7, -8, 3, 14, char.hair); // dải tóc trái
-          S(4, -8, 3, 14, char.hair); // dải tóc phải
-          // Đuôi tóc phía dưới (rủ xuống qua vai)
+          S(-7, -8, 3, 14, char.hair);
+          S(4, -8, 3, 14, char.hair);
           S(-7, -4, 3, 10, char.hair);
           S(4, -4, 3, 10, char.hair);
         }
-
         const walkPhase = Math.floor(animFrame / 2);
         const legOffset = isMoving ? (walkPhase === 0 ? -1 : 1) : 0;
-
         if (seated) {
           S(-4, 6, 3, 3, char.pants);
           S(1, 6, 3, 3, char.pants);
@@ -4356,7 +4307,6 @@
         S(-6, -2, 12, 12, char.shirt);
         S(-3, -2, 6, 2, "#ffffff");
         S(-6, 7, 12, 2, char.pants);
-
         if (fanning) {
           const fp = Math.sin(time * 20) * 3;
           S(-9, -1 + fp, 3, 6, char.skin);
@@ -4386,38 +4336,23 @@
           S(-9, -1, 3, 7, char.skin);
           S(6, -1, 3, 7, char.skin);
         }
-
-        // Đầu
         S(-6, -16, 12, 12, char.skin);
-
-        // ✅ Tóc ngắn (mặc định) — mái trên đầu
         S(-7, -19, 14, 5, char.hair);
         S(-7, -17, 2, 8, char.hair);
         S(5, -17, 2, 8, char.hair);
-
-        // ✅ Nếu tóc dài, thêm phần tóc rủ 2 bên má xuống tận vai (che 2 bên mặt)
         if (char.hasLongHair) {
-          // Tóc 2 bên dài hơn, rủ xuống tới vai
-          S(-8, -17, 3, 16, char.hair); // dải tóc bên trái dài xuống
-          S(5, -17, 3, 16, char.hair); // dải tóc bên phải dài xuống
-          // Đuôi tóc phía sau (rủ xuống lưng)
+          S(-8, -17, 3, 16, char.hair);
+          S(5, -17, 3, 16, char.hair);
           S(-7, -14, 2, 14, char.hair);
           S(5, -14, 2, 14, char.hair);
         }
-
-        // Mắt
         ctx.fillStyle = "#0f172a";
         const eyeY = y - 10 * char.height;
         if (facing === "down") {
           ctx.fillRect(x - 4 * bw, eyeY, 2, 3);
           ctx.fillRect(x + 2 * bw, eyeY, 2, 3);
-        } else if (facing === "left") {
-          ctx.fillRect(x - 5 * bw, eyeY, 2, 3);
-        } else if (facing === "right") {
-          ctx.fillRect(x + 3 * bw, eyeY, 2, 3);
-        }
-
-        // Kính
+        } else if (facing === "left") ctx.fillRect(x - 5 * bw, eyeY, 2, 3);
+        else if (facing === "right") ctx.fillRect(x + 3 * bw, eyeY, 2, 3);
         if (char.hasGlasses && facing !== "up") {
           ctx.strokeStyle = "#0f172a";
           ctx.lineWidth = 2;
@@ -4429,14 +4364,9 @@
             ctx.moveTo(x - 1 * bw, gy + 2);
             ctx.lineTo(x + 1 * bw, gy + 2);
             ctx.stroke();
-          } else if (facing === "left") {
-            ctx.strokeRect(x - 6 * bw, gy, 5, 5);
-          } else if (facing === "right") {
-            ctx.strokeRect(x + 2 * bw, gy, 5, 5);
-          }
+          } else if (facing === "left") ctx.strokeRect(x - 6 * bw, gy, 5, 5);
+          else if (facing === "right") ctx.strokeRect(x + 2 * bw, gy, 5, 5);
         }
-
-        // Hiệu ứng quạt
         if (fanning) {
           ctx.strokeStyle = "rgba(56,189,248,0.5)";
           ctx.lineWidth = 2;
@@ -4447,8 +4377,6 @@
             ctx.stroke();
           }
         }
-
-        // Tên
         if (name) {
           drawTextOutlined(name, x, y - 27 * char.height, {
             font: "bold 14px Lexend, sans-serif",
@@ -4545,7 +4473,7 @@
             p.x,
             p.y,
             ch,
-            p.facing || "down",
+            p.facing || "up",
             p.animFrame || 0,
             p.isMoving || false,
             p.seated || false,
@@ -4596,7 +4524,6 @@
         ctx.strokeStyle = "#10b981";
         ctx.lineWidth = 3;
         ctx.strokeRect(15, 15, 700, 76);
-
         ctx.fillStyle = "#1e293b";
         ctx.fillRect(28, 28, 200, 28);
         const hpW = Math.max(0, (hp / 100) * 200);
@@ -4613,7 +4540,6 @@
           outlineWidth: 3,
           baseline: "middle",
         });
-
         ctx.fillStyle = "#1e293b";
         ctx.fillRect(28, 60, 200, 24);
         const tempGrad = ctx.createLinearGradient(28, 0, 228, 0);
@@ -4648,7 +4574,6 @@
           outlineWidth: 3,
           baseline: "middle",
         });
-
         drawTextOutlined(`NGÀY ${currentDay}`, 250, 47, {
           font: 'bold 16px "Courier New", monospace',
           color: "#38bdf8",
@@ -4656,7 +4581,6 @@
           outlineWidth: 3,
           baseline: "middle",
         });
-
         const slot = currentSlot();
         const remain = Math.max(0, Math.ceil(slot.dur - scheduleTimer));
         let phaseText, phaseCol;
@@ -4677,7 +4601,6 @@
           outlineWidth: 3,
           baseline: "middle",
         });
-
         const wText = {
           HOT: "☀ OI BỨC",
           POLLUTION: "☣ Ô NHIỄM",
@@ -4697,7 +4620,6 @@
           outlineWidth: 3,
           baseline: "middle",
         });
-
         ctx.fillStyle = "#1e293b";
         ctx.fillRect(15, 96, 700, 6);
         const progress =
@@ -4708,7 +4630,6 @@
           DAY_SCHEDULE.length;
         ctx.fillStyle = "#10b981";
         ctx.fillRect(15, 96, 700 * Math.min(1, progress), 6);
-
         if (trashCleanedToday > 0) {
           drawTextOutlined(
             `🌿 Đã dọn: ${trashCleanedToday} (${Math.min(60, trashCleanedToday * 5)}% giảm ô nhiễm ngày mai)`,
@@ -4723,7 +4644,6 @@
             },
           );
         }
-
         if (player.fanning) {
           const a = 0.85 + 0.15 * Math.sin(performance.now() / 100);
           let fanText;
@@ -4743,7 +4663,6 @@
             baseline: "middle",
           });
         }
-
         if (mp.active) {
           ctx.fillStyle = "rgba(10,14,20,0.92)";
           ctx.fillRect(W - 220, 15, 205, 76);
@@ -4772,7 +4691,6 @@
             baseline: "middle",
           });
         }
-
         if (powerTripped) {
           const a = 0.7 + 0.3 * Math.sin(performance.now() / 150);
           drawTextOutlined("⚡ MẤT ĐIỆN — Nhờ Bác Bảo Vệ!", W / 2, 135, {
@@ -4805,7 +4723,6 @@
             baseline: "middle",
           });
         }
-
         if (
           isLessonPhase() &&
           !inTransition &&
@@ -4840,7 +4757,6 @@
             );
           }
         }
-
         if (inTransition) {
           ctx.fillStyle = "rgba(15,23,42,0.92)";
           ctx.fillRect(W / 2 - 280, 185, 560, 60);
@@ -4874,7 +4790,6 @@
             },
           );
         }
-
         if (envMessageTimer > 0 && !inTransition) {
           const a = Math.min(1, envMessageTimer);
           ctx.fillStyle = `rgba(15,23,42,${0.94 * a})`;
@@ -4891,7 +4806,6 @@
             baseline: "middle",
           });
         }
-
         if (
           gameState === "PLAYING" &&
           !minigame.active &&
@@ -5002,7 +4916,6 @@
         }
         ctx.globalAlpha = 1;
       }
-
       function drawFloatingTexts() {
         for (const ft of floatingTexts) {
           const a = Math.max(0, ft.life / ft.maxLife);
@@ -5018,7 +4931,6 @@
           ctx.globalAlpha = 1;
         }
       }
-
       function drawRain() {
         if (currentWeather === "RAIN") {
           ctx.strokeStyle = "rgba(186,230,253,0.6)";
@@ -5051,7 +4963,6 @@
           ctx.fillRect(0, 0, W, H);
         }
       }
-
       function render(time) {
         ctx.save();
         if (screenShake > 0)
@@ -5191,6 +5102,7 @@
         envMessage = `NGÀY 1 — ${currentWeather === "HOT" ? "☀️ OI BỨC" : currentWeather === "POLLUTION" ? "☣️ Ô NHIỄM" : "🌧️ MƯA PHÙN"} — GIỜ RA CHƠI!`;
         envMessageTimer = 3.5;
         if (!isMP) mp.active = false;
+        if (isMP) setTimeout(() => broadcastMyState(), 500);
       }
 
       function gameOver(reason) {
@@ -5221,21 +5133,7 @@
       });
       document.getElementById("btn-close-mp").addEventListener("click", () => {
         document.getElementById("mp-modal").classList.add("hidden");
-        if (mp.peer && !mp.active) {
-          try {
-            mp.peer.destroy();
-          } catch (e) {}
-          mp.peer = null;
-          mp.connections = [];
-          mp.connected = false;
-          mp.isHost = false;
-        }
-        if (mp.broadcastChannel) {
-          try {
-            mp.broadcastChannel.close();
-          } catch (e) {}
-          mp.broadcastChannel = null;
-        }
+        if (!mp.active) cleanupMP();
         document.getElementById("host-room-info").style.display = "none";
         document.getElementById("join-status").style.display = "none";
         document.getElementById("btn-start-game").disabled = false;
@@ -5298,16 +5196,16 @@
         .getElementById("btn-host-start")
         .addEventListener("click", () => {
           if (!mp.isHost) return;
-          mp.connections.forEach((c) => {
-            if (c.open) c.send({ type: "start" });
-          });
-          try {
-            if (mp.broadcastChannel)
-              mp.broadcastChannel.postMessage({ type: "start-from-host" });
-          } catch (e) {}
+          if (mp.fb && mp.roomCode) {
+            mp.fb.set(
+              mp.fb.ref(mp.db, "rooms/" + mp.roomCode + "/started"),
+              true,
+            );
+          }
           document.getElementById("mp-modal").classList.add("hidden");
           document.getElementById("char-select-screen").classList.add("hidden");
           mp.active = true;
+          mp.started = true;
           startGame(true);
         });
       document.getElementById("btn-restart").addEventListener("click", () => {
@@ -5420,6 +5318,10 @@
         },
         { passive: false },
       );
+
+      window.addEventListener("beforeunload", () => {
+        cleanupMP();
+      });
     </script>
   </body>
 </html>
