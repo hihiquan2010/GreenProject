@@ -1,4 +1,4 @@
-```markdown
+
 <div align="center">
 
 # 🌱 Code for Green School: Eco Survival
