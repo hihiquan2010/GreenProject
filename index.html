@@ -12,7 +12,7 @@
     <meta name="theme-color" content="#0a0e14" />
     <title>Code for Green School: CÙNG THPT Bình Chánh SỐNG XANH</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Lexend:wght@400;600;800&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Press+Start+2P&display=swap");
       * {
         margin: 0;
         padding: 0;
@@ -30,7 +30,7 @@
         background: #0a0e14;
         color: #f0f6fc;
         font-family:
-          "Lexend", "Segoe UI", "Arial", "Helvetica Neue", sans-serif;
+          "Be Vietnam Pro", "Segoe UI", "Arial", sans-serif;
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
@@ -49,7 +49,7 @@
         text-transform: uppercase;
       }
       .pixel-font-vi {
-        font-family: "Lexend", "Segoe UI", "Arial", sans-serif;
+        font-family: "Be Vietnam Pro", "Segoe UI", "Arial", sans-serif;
         font-weight: 800;
         letter-spacing: 0.5px;
         text-transform: uppercase;
@@ -126,7 +126,7 @@
         gap: 4px;
       }
       .btn {
-        font-family: "Lexend", sans-serif;
+        font-family: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
         font-weight: 700;
         border-radius: 10px;
         cursor: pointer;
@@ -387,7 +387,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-family: "Press Start 2P", "Courier New", monospace;
+        font-family: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
         font-size: 13px;
         font-weight: 900;
         border: 2px solid;
@@ -409,7 +409,7 @@
         font-size: 7px;
         margin-top: 1px;
         opacity: 0.9;
-        font-family: "Lexend", sans-serif;
+        font-family: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
         font-weight: 700;
       }
       #mob-btn-e {
@@ -473,7 +473,7 @@
         display: flex;
       }
       .mg-title {
-        font-family: "Lexend", sans-serif;
+        font-family: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
         font-weight: 800;
         color: #facc15;
         font-size: 16px;
@@ -527,7 +527,7 @@
         padding: 16px 42px;
         background: linear-gradient(135deg, #10b981, #059669);
         color: #fff;
-        font-family: "Lexend", sans-serif;
+        font-family: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
         font-weight: 800;
         font-size: 16px;
         border: none;
@@ -545,7 +545,7 @@
       }
       #mg-feedback {
         margin-top: 14px;
-        font-family: "Lexend", sans-serif;
+        font-family: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
         font-weight: 800;
         font-size: 15px;
         min-height: 20px;
@@ -610,7 +610,7 @@
         border: 2px solid #334155;
         border-radius: 10px;
         color: #fff;
-        font-family: "Courier New", monospace;
+        font-family: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
         font-size: 18px;
         letter-spacing: 4px;
         text-align: center;
@@ -665,7 +665,7 @@
         border: 2px dashed #10b981;
         border-radius: 10px;
         padding: 14px;
-        font-family: "Courier New", monospace;
+        font-family: "Be Vietnam Pro", "Segoe UI", Arial, sans-serif;
         font-size: 26px;
         letter-spacing: 8px;
         font-weight: 900;
@@ -1078,7 +1078,7 @@
                   letter-spacing: 1px;
                   text-transform: none;
                   padding: 12px 14px;
-                  font-family: &quot;Lexend&quot;, sans-serif;
+                  font-family: &quot;Be Vietnam Pro&quot;, &quot;Segoe UI&quot;, Arial, sans-serif;
                   font-weight: 700;
                 "
               />
@@ -1324,6 +1324,19 @@
               <div
                 style="
                   background: #0f172a;
+                  border-left: 3px solid #06b6d4;
+                  padding: 10px 12px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #67e8f9">👩‍🏫 GIÁO VIÊN:</strong> Mỗi
+                tiết có giáo viên bộ môn vào lớp giảng kiến thức theo khối 11.
+                Mỗi môn có hiệu ứng âm thanh riêng; có thể tắt bằng nút âm thanh.
+              </div>
+              <div
+                style="
+                  background: #0f172a;
                   border-left: 3px solid #fbbf24;
                   padding: 10px 12px;
                   border-radius: 6px;
@@ -1428,7 +1441,7 @@
               <div
                 id="stat-player-name"
                 style="
-                  font-family: &quot;Press Start 2P&quot;, monospace;
+                  font-family: &quot;Be Vietnam Pro&quot;, &quot;Segoe UI&quot;, Arial, sans-serif;
                   font-size: 12px;
                   color: #10b981;
                   margin-bottom: 8px;
@@ -1465,7 +1478,7 @@
             >
               <div
                 style="
-                  font-family: &quot;Press Start 2P&quot;, monospace;
+                  font-family: &quot;Be Vietnam Pro&quot;, &quot;Segoe UI&quot;, Arial, sans-serif;
                   font-size: 11px;
                   color: #fbbf24;
                   margin-bottom: 4px;
@@ -1594,6 +1607,65 @@
             osc.start(t);
             osc.stop(t + dur + 0.02);
           } catch (e) {}
+        }
+        noise(dur, filterType, frequency, gainVal, when = 0) {
+          if (!this.enabled || !this.ctx) return;
+          try {
+            const startAt = this.ctx.currentTime + when;
+            const length = Math.ceil(this.ctx.sampleRate * dur);
+            const buffer = this.ctx.createBuffer(1, length, this.ctx.sampleRate);
+            const channel = buffer.getChannelData(0);
+            for (let i = 0; i < length; i++)
+              channel[i] = Math.random() * 2 - 1;
+
+            const source = this.ctx.createBufferSource();
+            const filter = this.ctx.createBiquadFilter();
+            const gain = this.ctx.createGain();
+            source.buffer = buffer;
+            filter.type = filterType;
+            filter.frequency.value = frequency;
+            gain.gain.setValueAtTime(gainVal, startAt);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startAt + dur);
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(this.ctx.destination);
+            source.start(startAt);
+            source.stop(startAt + dur);
+          } catch (error) {
+            console.error("Không phát được hiệu ứng môn học:", error);
+          }
+        }
+        subjectCue(subject) {
+          if (!this.enabled || !this.ctx) return;
+          switch (subject) {
+            case "toan":
+              this.noise(0.16, "bandpass", 1800, 0.035);
+              this.noise(0.08, "highpass", 3400, 0.018, 0.16);
+              break;
+            case "ly":
+              this.tone(620, 0.09, "sine", 0.035);
+              this.tone(980, 0.12, "triangle", 0.025, 0.08);
+              break;
+            case "anh":
+              this.tone(440, 0.12, "sine", 0.025);
+              this.tone(554, 0.14, "sine", 0.022, 0.11);
+              break;
+            case "hoa":
+              this.tone(1320, 0.07, "sine", 0.035);
+              this.tone(1760, 0.09, "sine", 0.025, 0.08);
+              this.tone(1480, 0.07, "sine", 0.02, 0.17);
+              break;
+            case "sinh":
+              this.tone(1050, 0.08, "sine", 0.025);
+              this.tone(1397, 0.1, "sine", 0.022, 0.09);
+              this.tone(1175, 0.12, "sine", 0.02, 0.2);
+              break;
+            case "tin":
+              this.noise(0.035, "highpass", 2600, 0.025);
+              this.noise(0.035, "highpass", 3200, 0.02, 0.07);
+              this.noise(0.035, "highpass", 2200, 0.022, 0.14);
+              break;
+          }
         }
         step() {
           this.tone(110 + Math.random() * 30, 0.04, "triangle", 0.02);
@@ -2109,6 +2181,290 @@
         },
       ];
 
+      const TEACHERS_DATABASE = {
+        toan: [
+          ["Đoàn Văn Mùi", "male"],
+          ["Quách Nguyễn Thị Kim Ngân", "female"],
+          ["Lê Hữu Quang", "male"],
+          ["Nguyễn Hữu Quảng", "male"],
+          ["Hoàng Thị Danh", "female"],
+          ["Lê Thị Thanh Phương", "female"],
+          ["Nguyễn Thanh Liêm", "male"],
+          ["Phạm Thu An", "female"],
+          ["Lê Anh Tuấn", "male"],
+          ["Huỳnh Thị Thanh Bình", "female"],
+          ["Phạm Thị Ngọc Tú", "female"],
+        ].map(([name, gender], index) => ({
+          id: `toan_${index + 1}`,
+          name,
+          gender,
+        })),
+        ly: [
+          ["Nguyễn Minh Hiếu", "male"],
+          ["Phạm Trần Hồng Phước", "male"],
+          ["Võ Thị Hồng Thuý", "female"],
+          ["Nguyễn Thanh Phong", "male"],
+          ["Phạm Phước Duy", "male"],
+          ["Huỳnh Thị Bích Trâm", "female"],
+          ["Ngô Thành Nghĩa", "male"],
+          ["Nguyễn Hoàng Huy", "male"],
+          ["Trương Văn Hên", "male"],
+        ].map(([name, gender], index) => ({
+          id: `ly_${index + 1}`,
+          name,
+          gender,
+        })),
+        anh: [
+          ["Phạm Kim Ngân", "female"],
+          ["Nguyễn Lê Lâm Tuyền", "female"],
+          ["Nguyễn Thị Kim Cương", "female"],
+          ["Võ Thị Kiều", "female"],
+          ["Phạm Thị Ngọc Huyền", "female"],
+          ["Trần Nguyễn Phương Anh", "female"],
+          ["Trần Kiều Minh", "female"],
+        ].map(([name, gender], index) => ({
+          id: `anh_${index + 1}`,
+          name,
+          gender,
+        })),
+        hoa: [
+          ["Lương Thành Tâm", "male"],
+          ["Phạm Hồng Thái", "male"],
+          ["Võ Thị Thanh Ngọc", "female"],
+          ["Nguyễn Thương Nhã", "female"],
+          ["Nguyễn Thị Bích Quyên", "female"],
+          ["Mai Thị Ngọc Linh", "female"],
+          ["Phạm Thị Kiều Chinh", "female"],
+        ].map(([name, gender], index) => ({
+          id: `hoa_${index + 1}`,
+          name,
+          gender,
+        })),
+        sinh: [
+          ["Huỳnh Thị Mỹ Hiệp", "female"],
+          ["Trần Thị Bình Minh", "female"],
+          ["Nguyễn Ngọc Thảo", "female"],
+          ["Huỳnh Huy", "male"],
+          ["Nguyễn Ngọc Điệp", "male"],
+        ].map(([name, gender], index) => ({
+          id: `sinh_${index + 1}`,
+          name,
+          gender,
+        })),
+        tin: [
+          ["Nguyễn Hương Thủy", "female"],
+          ["Đoàn Minh Giang", "male"],
+          ["Phan Thị Thanh Thảo", "female"],
+          ["Nguyễn Phương Mai", "female"],
+          ["Phạm Hoàng Hồng Phương", "female"],
+        ].map(([name, gender], index) => ({
+          id: `tin_${index + 1}`,
+          name,
+          gender,
+        })),
+      };
+
+      const SUBJECT_KNOWLEDGE = {
+        toan: {
+          name: "Toán học",
+          icon: "📐",
+          color: "#3b82f6",
+          lessons: {
+            10: [
+              "Mệnh đề là câu khẳng định có giá trị đúng hoặc sai; mệnh đề chứa biến cần xác định biến trước.",
+              "Các phép toán tập hợp gồm hợp, giao, hiệu và phần bù.",
+              "Miền nghiệm của bất phương trình bậc nhất hai ẩn là một nửa mặt phẳng.",
+              "Định lý cosin: a² = b² + c² − 2bc·cos A.",
+              "Định lý sin: a/sin A = b/sin B = c/sin C = 2R.",
+              "Tích vô hướng của hai vectơ: a⃗·b⃗ = |a⃗||b⃗|cos(a⃗,b⃗).",
+              "Hàm số bậc hai y = ax² + bx + c có đồ thị là một parabol.",
+            ],
+            11: [
+              "Hàm số lượng giác sin, cos, tan, cot có tính tuần hoàn.",
+              "Cấp số cộng có số hạng tổng quát uₙ = u₁ + (n−1)d.",
+              "Cấp số nhân có số hạng tổng quát uₙ = u₁qⁿ⁻¹.",
+              "Đạo hàm của xⁿ là nxⁿ⁻¹; đạo hàm của sin x là cos x.",
+              "Tiếp tuyến đồ thị tại x₀ có phương trình y = f′(x₀)(x−x₀)+f(x₀).",
+              "Trong không gian, đường thẳng vuông góc mặt phẳng nếu vuông góc hai đường cắt nhau thuộc mặt phẳng.",
+            ],
+            12: [
+              "Hàm số đồng biến trên khoảng nếu đạo hàm dương trên khoảng đó.",
+              "Cực trị thường được xác định khi đạo hàm đổi dấu qua điểm tới hạn.",
+              "logₐ(bc) = logₐb + logₐc với các điều kiện xác định phù hợp.",
+              "Nguyên hàm của xⁿ là xⁿ⁺¹/(n+1)+C khi n ≠ −1.",
+              "Tích phân xác định: ∫ₐᵇ f(x)dx = F(b)−F(a).",
+              "Số phức z=a+bi có môđun |z|=√(a²+b²).",
+            ],
+          },
+        },
+        ly: {
+          name: "Vật lí",
+          icon: "⚛️",
+          color: "#8b5cf6",
+          lessons: {
+            10: [
+              "Chuyển động thẳng đều: v=s/t và x=x₀+vt.",
+              "Chuyển động biến đổi đều: v=v₀+at; v²−v₀²=2as.",
+              "Rơi tự do gần mặt đất: v=gt và h=½gt².",
+              "Định luật II Newton: hợp lực tác dụng bằng khối lượng nhân gia tốc, F=ma.",
+              "Định luật Hooke: độ lớn lực đàn hồi tỉ lệ với độ biến dạng của lò xo.",
+              "Động lượng p⃗=mv⃗; hệ kín bảo toàn tổng động lượng.",
+            ],
+            11: [
+              "Định luật Coulomb: F=k|q₁q₂|/r².",
+              "Cường độ điện trường được xác định bởi E=F/q.",
+              "Định luật Ohm cho đoạn mạch: I=U/R.",
+              "Định luật Jun–Lenxơ: nhiệt lượng tỏa ra Q=I²Rt.",
+              "Lực từ lên dây dẫn mang dòng điện: F=BIl sin α.",
+              "Lực Lorentz tác dụng lên điện tích chuyển động có độ lớn |q|vB sin α.",
+            ],
+            12: [
+              "Dao động điều hòa: x=Acos(ωt+φ).",
+              "Con lắc lò xo: ω=√(k/m), chu kỳ T=2π√(m/k).",
+              "Sóng cơ: vận tốc truyền sóng v=λf.",
+              "Dòng điện xoay chiều có thể biểu diễn u=U₀cos(ωt+φ).",
+              "Mạch RLC nối tiếp có tổng trở Z=√(R²+(ZL−ZC)²).",
+              "Máy biến áp lí tưởng: U₁/U₂=N₁/N₂.",
+            ],
+          },
+        },
+        anh: {
+          name: "Tiếng Anh",
+          icon: "🇬🇧",
+          color: "#ef4444",
+          lessons: {
+            10: [
+              "Present simple: S + V(s/es), dùng cho thói quen và sự thật hiển nhiên.",
+              "Present continuous: S + am/is/are + V-ing, diễn tả hành động đang xảy ra.",
+              "Past simple: S + V-ed/V2, diễn tả hành động đã kết thúc trong quá khứ.",
+              "Comparatives: tính từ ngắn + -er than; more + tính từ dài + than.",
+              "Gerund (V-ing) có thể làm chủ ngữ: Swimming is good for health.",
+              "Relative clauses thường dùng who, whom, which và that.",
+            ],
+            11: [
+              "Past perfect: S + had + V3/ed, diễn tả hành động xảy ra trước một hành động quá khứ khác.",
+              "Present perfect: S + have/has + V3/ed.",
+              "Câu điều kiện loại 1: If + hiện tại đơn, mệnh đề chính + will + động từ nguyên mẫu.",
+              "Câu điều kiện loại 2 dùng quá khứ đơn ở mệnh đề if và would + động từ.",
+              "Động từ khuyết thiếu gồm can, could, may, might, must và should.",
+              "Phân biệt stop doing (ngừng việc đang làm) và stop to do (dừng lại để làm việc khác).",
+            ],
+            12: [
+              "Câu điều kiện loại 3: If + past perfect, would have + past participle.",
+              "Câu bị động hoàn thành: S + have/has been + V3/ed.",
+              "Câu chẻ nhấn mạnh: It is/was ... that ...",
+              "Đảo ngữ có thể dùng sau trạng từ phủ định: Never have I seen...",
+              "Mệnh đề quan hệ không xác định được ngăn cách bằng dấu phẩy.",
+              "Phrasal verbs: give up, look after, turn on và turn off.",
+            ],
+          },
+        },
+        hoa: {
+          name: "Hóa học",
+          icon: "🧪",
+          color: "#10b981",
+          lessons: {
+            10: [
+              "Nguyên tử gồm hạt nhân (proton, neutron) và các electron chuyển động xung quanh.",
+              "Số hiệu nguyên tử Z bằng số proton; nguyên tử trung hòa có số electron bằng số proton.",
+              "Đồng vị có cùng số proton nhưng khác số neutron.",
+              "Liên kết ion hình thành do lực hút giữa các ion trái dấu.",
+              "Liên kết cộng hóa trị hình thành khi các nguyên tử dùng chung electron.",
+              "Phản ứng oxi hóa–khử có sự thay đổi số oxi hóa của các nguyên tố.",
+            ],
+            11: [
+              "pH = −log[H⁺]; dung dịch axit có pH nhỏ hơn 7 ở điều kiện quy ước.",
+              "Phản ứng trao đổi ion xảy ra khi tạo kết tủa, chất khí hoặc chất điện li yếu.",
+              "Amoniac NH₃ có tính bazơ và có thể phản ứng với axit tạo muối amoni.",
+              "Ankan có công thức chung CₙH₂ₙ₊₂ và đặc trưng bởi phản ứng thế.",
+              "Anken có liên kết đôi C=C và thường tham gia phản ứng cộng.",
+              "CO₂ có thể phản ứng với dung dịch bazơ tạo muối cacbonat hoặc hiđrocacbonat.",
+            ],
+            12: [
+              "Este có nhóm chức –COO– và có thể bị thủy phân trong môi trường axit hoặc bazơ.",
+              "Amino axit chứa đồng thời nhóm amino và nhóm carboxyl nên có tính lưỡng tính.",
+              "Liên kết peptit có dạng –CO–NH–.",
+              "Phản ứng trùng hợp và trùng ngưng là các phương pháp tạo polime.",
+              "Kim loại có tính khử; mức độ hoạt động có thể so sánh qua dãy điện hóa.",
+              "Điều chế kim loại có thể dùng nhiệt luyện, thủy luyện hoặc điện phân.",
+            ],
+          },
+        },
+        sinh: {
+          name: "Sinh học",
+          icon: "🧬",
+          color: "#84cc16",
+          lessons: {
+            10: [
+              "Tế bào là đơn vị cấu trúc và chức năng cơ bản của cơ thể sống.",
+              "Tế bào nhân sơ chưa có nhân hoàn chỉnh; tế bào nhân thực có nhân được bao bọc.",
+              "Màng sinh chất điều chỉnh sự trao đổi chất giữa tế bào và môi trường.",
+              "Enzyme là chất xúc tác sinh học, làm tăng tốc độ phản ứng.",
+              "Hô hấp tế bào giải phóng năng lượng từ các chất hữu cơ.",
+              "Nguyên phân tạo các tế bào con có bộ nhiễm sắc thể giống tế bào mẹ.",
+            ],
+            11: [
+              "Ở thực vật, nước được hấp thụ qua rễ, vận chuyển trong mạch gỗ và thoát qua lá.",
+              "Quang hợp chuyển năng lượng ánh sáng thành năng lượng hóa học trong chất hữu cơ.",
+              "Auxin và gibberellin là các hoocmôn thực vật tham gia điều hòa sinh trưởng.",
+              "Động vật trao đổi khí bằng các cơ quan như mang, phổi hoặc bề mặt cơ thể.",
+              "Hệ tuần hoàn kín giữ máu lưu thông trong hệ mạch.",
+              "Cân bằng nội môi giúp duy trì ổn định môi trường bên trong cơ thể.",
+            ],
+            12: [
+              "ADN lưu trữ thông tin di truyền; gen là một đoạn ADN mang thông tin chức năng.",
+              "Phiên mã tổng hợp ARN dựa trên mạch khuôn của ADN.",
+              "Dịch mã sử dụng thông tin trên mARN để tổng hợp chuỗi polypeptide.",
+              "Đột biến gen là biến đổi trong cấu trúc của gen, có thể phát sinh do thay, thêm hoặc mất nucleotide.",
+              "Quy luật phân li của Mendel mô tả sự phân li của các alen khi hình thành giao tử.",
+              "Định luật Hardy–Weinberg mô tả trạng thái cân bằng di truyền của quần thể trong điều kiện nhất định.",
+            ],
+          },
+        },
+        tin: {
+          name: "Tin học",
+          icon: "💻",
+          color: "#06b6d4",
+          lessons: {
+            10: [
+              "Dữ liệu số được biểu diễn bằng bit; 8 bit tạo thành một byte.",
+              "Hệ nhị phân dùng hai chữ số 0 và 1 để biểu diễn số.",
+              "Thuật toán là một dãy hữu hạn các bước giải quyết bài toán.",
+              "Trong Python, biến dùng để tham chiếu đến dữ liệu và không cần khai báo kiểu tường minh.",
+              "Cấu trúc rẽ nhánh if/elif/else lựa chọn lệnh dựa trên điều kiện.",
+              "Vòng lặp for và while hỗ trợ thực hiện lặp lại một nhóm lệnh.",
+            ],
+            11: [
+              "Hệ điều hành quản lí tài nguyên phần cứng và cung cấp môi trường chạy chương trình.",
+              "LAN thường kết nối thiết bị trong phạm vi cục bộ; WAN kết nối trên phạm vi rộng hơn.",
+              "TCP/IP là bộ giao thức nền tảng cho trao đổi dữ liệu trên Internet.",
+              "Mật khẩu mạnh nên dài, khó đoán và không dùng lại giữa các dịch vụ.",
+              "Trong Python, dictionary lưu dữ liệu theo cặp khóa–giá trị.",
+              "Mở tệp cần chọn đúng chế độ đọc/ghi và đóng tệp sau khi sử dụng.",
+            ],
+            12: [
+              "Cơ sở dữ liệu quan hệ tổ chức dữ liệu trong các bảng có liên kết.",
+              "Khóa chính định danh duy nhất một bản ghi; khóa ngoại tham chiếu bảng khác.",
+              "SQL SELECT truy vấn dữ liệu; INSERT, UPDATE và DELETE thay đổi dữ liệu.",
+              "INNER JOIN kết hợp những bản ghi có khóa khớp ở hai bảng.",
+              "Chuẩn hóa giúp giảm dư thừa và hạn chế bất thường khi cập nhật dữ liệu.",
+              "HTML tạo cấu trúc trang web; CSS định dạng; JavaScript bổ sung tương tác.",
+            ],
+          },
+        },
+      };
+
+      const SUBJECT_SCHEDULE = [
+        "toan",
+        "ly",
+        "anh",
+        "hoa",
+        "sinh",
+        "tin",
+        "toan",
+      ];
+      const ROOM_GRADE = { "10A3": 10, "11A3": 11, "12A3": 12 };
+
       function getAvailableNPCs() {
         const playerLastName = selectedChar.name.split(" ").slice(-1)[0];
         return NPC_POOL.filter((npc) => !npc.name.endsWith(playerLastName));
@@ -2118,19 +2474,46 @@
          NPC STATE
       ========================================================= */
       let npcEntities = [];
+      let teacherEntities = [];
+      let teachersUsedToday = new Set();
+      const NPC_SPEED = 45;
+      const NPC_WANDER_COOLDOWN = 2.5;
+      const NPC_DETECT_RADIUS = 15;
+      const NPC_MIN_DIST_FROM_NPC = 120;
+      const NPC_MIN_DIST_WHILE_MOVING = 100;
+      const NPC_MIN_DIST_FROM_INTERACTABLE = 150;
+      const NPC_MOVING_MIN_DIST_FROM_INTERACTABLE = 70;
+      const TRASH_MIN_DIST_FROM_INTERACTABLE = 60;
+      const TRASH_MIN_DIST_FROM_TRASH = 35;
 
-      function isPositionSafeForNPC(px, py) {
-        const safeDistance = 80;
+      function resetNPCSeatReservations() {
+        for (const room of MAP.rooms) {
+          for (const seat of room.seats) {
+            seat.occupied = false;
+            delete seat.npcReservation;
+          }
+          delete room.npcExitReservation;
+        }
+        for (const npc of npcEntities) {
+          npc.seatRef = null;
+          npc.targetSeatRef = null;
+          npc.roomRef = null;
+          npc.isSeated = false;
+        }
+      }
+
+      function isPositionSafeForNPC(px, py, ignoreNPC = null) {
+        const safeDistance = NPC_MIN_DIST_FROM_INTERACTABLE;
         const inYard = py > 490 && py < 850 && px > 40 && px < 1360;
         const inCorridor = py > 380 && py < 490 && px > 40 && px < 1360;
         if (!inYard && !inCorridor) return false;
+        if (dist(px, py, player.x, player.y) < 55) return false;
 
         for (const room of MAP.rooms) {
           if (
-            Math.hypot(px - room.switchX, py - room.switchY) < safeDistance ||
-            Math.hypot(px - room.fanSwitchX, py - room.fanSwitchY) <
-              safeDistance ||
-            Math.hypot(px - room.doorX, py - room.doorY) < safeDistance ||
+            dist(px, py, room.switchX, room.switchY) < safeDistance ||
+            dist(px, py, room.fanSwitchX, room.fanSwitchY) < safeDistance ||
+            dist(px, py, room.doorX, room.doorY) < safeDistance ||
             (px > room.x - 20 &&
               px < room.x + room.w + 20 &&
               py > room.y - 20 &&
@@ -2141,77 +2524,604 @@
         }
 
         if (
-          Math.hypot(px - MAP.greenBin.cx, py - MAP.greenBin.cy) <
-            safeDistance + 20 ||
-          Math.hypot(px - MAP.guardBooth.npcX, py - MAP.guardBooth.npcY) <
-            safeDistance + 20 ||
-          Math.hypot(px - MAP.flagPole.cx, py - MAP.flagPole.cy) < safeDistance
+          dist(px, py, MAP.greenBin.cx, MAP.greenBin.cy) <
+            safeDistance + 30 ||
+          dist(px, py, MAP.guardBooth.npcX, MAP.guardBooth.npcY) <
+            safeDistance + 30 ||
+          dist(px, py, MAP.flagPole.cx, MAP.flagPole.cy) <
+            safeDistance - 20
         ) {
           return false;
         }
         for (const drain of MAP.drains) {
-          if (Math.hypot(px - drain.x, py - drain.y) < safeDistance)
+          if (dist(px, py, drain.x, drain.y) < safeDistance)
             return false;
         }
         for (const tree of MAP.trees) {
-          if (Math.hypot(px - tree.x, py - tree.y) < safeDistance - 20)
+          if (dist(px, py, tree.x, tree.y) < safeDistance - 40)
             return false;
         }
         for (const bed of MAP.flowerBeds) {
           if (
-            Math.hypot(px - (bed.x + bed.w / 2), py - (bed.y + bed.h / 2)) <
-            safeDistance - 10
+            dist(px, py, bed.x + bed.w / 2, bed.y + bed.h / 2) <
+            safeDistance - 30
           ) {
             return false;
           }
         }
         if (
-          npcEntities.some((npc) => Math.hypot(px - npc.x, py - npc.y) < 90)
+          npcEntities.some(
+            (npc) =>
+              npc !== ignoreNPC &&
+              dist(px, py, npc.x, npc.y) < NPC_MIN_DIST_FROM_NPC,
+          )
         ) {
           return false;
         }
         return true;
       }
 
+      function isNPCPositionClearOfInteractables(
+        px,
+        py,
+        minDistance,
+        ignoreDoors = false,
+      ) {
+        for (const room of MAP.rooms) {
+          if (
+            dist(px, py, room.switchX, room.switchY) < minDistance ||
+            dist(px, py, room.fanSwitchX, room.fanSwitchY) < minDistance ||
+            (!ignoreDoors &&
+              dist(px, py, room.doorX, room.doorY) < minDistance)
+          ) {
+            return false;
+          }
+        }
+        if (
+          dist(px, py, MAP.greenBin.cx, MAP.greenBin.cy) < minDistance + 30 ||
+          dist(px, py, MAP.guardBooth.npcX, MAP.guardBooth.npcY) <
+            minDistance + 30 ||
+          dist(px, py, MAP.flagPole.cx, MAP.flagPole.cy) <
+            minDistance - 20
+        ) {
+          return false;
+        }
+        for (const drain of MAP.drains) {
+          if (dist(px, py, drain.x, drain.y) < minDistance) return false;
+        }
+        for (const tree of MAP.trees) {
+          if (dist(px, py, tree.x, tree.y) < minDistance - 40) return false;
+        }
+        for (const bed of MAP.flowerBeds) {
+          if (
+            dist(px, py, bed.x + bed.w / 2, bed.y + bed.h / 2) <
+            minDistance - 30
+          ) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      function npcBounds(x, y) {
+        return { x: x - 6, y: y - 5, w: 12, h: 10 };
+      }
+
+      function isInsideNPCRoomRoute(x, y, room) {
+        return (
+          (x > room.x - 20 &&
+            x < room.x + room.w + 20 &&
+            y > room.y - 20 &&
+            y < room.y + room.h + 20) ||
+          (x > room.doorX - room.doorW / 2 - 30 &&
+            x < room.doorX + room.doorW / 2 + 30 &&
+            y > room.doorY - 30 &&
+            y < room.doorY + 90)
+        );
+      }
+
+      function canNPCOccupy(
+        x,
+        y,
+        npc,
+        targetSeat = null,
+        routeRoom = null,
+      ) {
+        const bounds = npcBounds(x, y);
+        const targetRoom =
+          routeRoom ||
+          (targetSeat
+            ? MAP.rooms.find((room) => room.seats.includes(targetSeat))
+            : npc.leavingRoomRef);
+        const insideRoomRoute =
+          targetRoom && isInsideNPCRoomRoute(x, y, targetRoom);
+        for (const collider of colliders) {
+          if (
+            collider.type === "door" &&
+            targetRoom?.id === collider.roomId &&
+            targetRoom.doorOpen
+          ) {
+            continue;
+          }
+          if (collider.ref === targetSeat) continue;
+          if (rectsOverlap(bounds, collider)) return false;
+        }
+
+        for (const other of npcEntities) {
+          if (other === npc) continue;
+          if (rectsOverlap(bounds, npcBounds(other.x, other.y))) return false;
+          if (
+            !targetSeat &&
+            !insideRoomRoute &&
+            dist(x, y, other.x, other.y) < NPC_MIN_DIST_WHILE_MOVING
+          ) {
+            return false;
+          }
+        }
+        if (
+          dist(x, y, player.x, player.y) < 55 ||
+          rectsOverlap(bounds, getPlayerBounds(player.x, player.y))
+        )
+          return false;
+        if (
+          !insideRoomRoute &&
+          !isNPCPositionClearOfInteractables(
+            x,
+            y,
+            NPC_MOVING_MIN_DIST_FROM_INTERACTABLE,
+            Boolean(targetSeat),
+          )
+        ) {
+          return false;
+        }
+        return true;
+      }
+
+      function findNPCPath(npc, targetX, targetY, targetSeat = null) {
+        const cellSize = 20;
+        const columns = Math.ceil(W / cellSize);
+        const rows = Math.ceil(H / cellSize);
+        const cellCount = columns * rows;
+        const cellX = (x) => Math.max(0, Math.min(columns - 1, Math.round(x / cellSize)));
+        const cellY = (y) => Math.max(0, Math.min(rows - 1, Math.round(y / cellSize)));
+        const startX = cellX(npc.x);
+        const startY = cellY(npc.y);
+        const goalX = cellX(targetX);
+        const goalY = cellY(targetY);
+        const start = startY * columns + startX;
+        const goal = goalY * columns + goalX;
+        const routeRoom =
+          (targetSeat &&
+            MAP.rooms.find((room) => room.seats.includes(targetSeat))) ||
+          npc.leavingRoomRef;
+        const previous = new Int32Array(cellCount);
+        previous.fill(-1);
+        const queue = new Int32Array(cellCount);
+        let queueEnd = 0;
+        let queueIndex = 0;
+        queue[queueEnd++] = start;
+        previous[start] = start;
+
+        while (queueIndex < queueEnd && previous[goal] === -1) {
+          const current = queue[queueIndex++];
+          const x = current % columns;
+          const y = Math.floor(current / columns);
+          const neighbors = [
+            [x - 1, y],
+            [x + 1, y],
+            [x, y - 1],
+            [x, y + 1],
+          ];
+          for (const [nextX, nextY] of neighbors) {
+            if (
+              nextX < 0 ||
+              nextX >= columns ||
+              nextY < 0 ||
+              nextY >= rows
+            ) {
+              continue;
+            }
+            const next = nextY * columns + nextX;
+            if (previous[next] !== -1) continue;
+            const px = nextX * cellSize;
+            const py = nextY * cellSize;
+            const isGoal = next === goal;
+            if (
+              !canNPCOccupy(
+                px,
+                py,
+                npc,
+                isGoal ? targetSeat : null,
+                routeRoom,
+              )
+            ) {
+              continue;
+            }
+            previous[next] = current;
+            queue[queueEnd++] = next;
+          }
+        }
+
+        if (previous[goal] === -1) return null;
+        const path = [];
+        for (let cell = goal; cell !== start; cell = previous[cell]) {
+          path.push({
+            x: (cell % columns) * cellSize,
+            y: Math.floor(cell / columns) * cellSize,
+          });
+        }
+        path.reverse();
+        path.push({ x: targetX, y: targetY });
+        return path;
+      }
+
+      function setNPCTarget(npc, x, y, targetSeat = null) {
+        const path = findNPCPath(npc, x, y, targetSeat);
+        if (!path) return false;
+        npc.targetX = x;
+        npc.targetY = y;
+        npc.targetSeatRef = targetSeat;
+        npc.path = path;
+        npc.pathIndex = 0;
+        npc.pathRetryCooldown = 0;
+        return true;
+      }
+
+      function pickWanderTarget(npc) {
+        const wanderZones = [
+          { x: 200, y: 550 },
+          { x: 350, y: 620 },
+          { x: 500, y: 700 },
+          { x: 700, y: 750 },
+          { x: 900, y: 700 },
+          { x: 1100, y: 620 },
+          { x: 1200, y: 550 },
+          { x: 600, y: 620 },
+          { x: 800, y: 620 },
+          { x: 300, y: 420 },
+          { x: 480, y: 430 },
+          { x: 700, y: 420 },
+          { x: 900, y: 430 },
+          { x: 1150, y: 420 },
+        ];
+        const candidates = wanderZones
+          .filter(
+            (point) =>
+              dist(npc.x, npc.y, point.x, point.y) >= 150 &&
+              isPositionSafeForNPC(point.x, point.y, npc),
+          )
+          .sort(() => Math.random() - 0.5);
+
+        for (const point of candidates) {
+          if (setNPCTarget(npc, point.x, point.y)) return true;
+        }
+        for (let attempt = 0; attempt < 20; attempt++) {
+          const x = 150 + Math.random() * 1100;
+          const y = 400 + Math.random() * 400;
+          if (isPositionSafeForNPC(x, y, npc) && setNPCTarget(npc, x, y))
+            return true;
+        }
+        return false;
+      }
+
+      function findNearestFreeSeat(npc) {
+        let bestSeat = null;
+        let bestRoom = null;
+        let bestDistance = Infinity;
+        let lowestRoomLoad = Infinity;
+        for (const room of MAP.rooms) {
+          const roomLoad = room.seats.filter(
+            (seat) => seat.occupied || seat.npcReservation,
+          ).length;
+          if (roomLoad > lowestRoomLoad) continue;
+          for (const seat of room.seats) {
+            if (
+              seat.occupied ||
+              (seat.npcReservation && seat.npcReservation !== npc)
+            ) {
+              continue;
+            }
+            const tooCloseToAnotherSeat = npcEntities.some(
+              (other) =>
+                other !== npc &&
+                (other.seatRef || other.targetSeatRef) &&
+                dist(
+                  seat.x,
+                  seat.y,
+                  (other.seatRef || other.targetSeatRef).x,
+                  (other.seatRef || other.targetSeatRef).y,
+                ) < 40,
+            );
+            if (tooCloseToAnotherSeat) continue;
+            const distance = dist(npc.x, npc.y, seat.x, seat.y);
+            if (
+              roomLoad < lowestRoomLoad ||
+              (roomLoad === lowestRoomLoad && distance < bestDistance)
+            ) {
+              lowestRoomLoad = roomLoad;
+              bestDistance = distance;
+              bestSeat = seat;
+              bestRoom = room;
+            }
+          }
+        }
+        return bestSeat ? { seat: bestSeat, room: bestRoom } : null;
+      }
+
+      function releaseNPCSeat(npc) {
+        if (npc.seatRef) npc.seatRef.occupied = false;
+        if (npc.targetSeatRef?.npcReservation === npc)
+          delete npc.targetSeatRef.npcReservation;
+        npc.seatRef = null;
+        npc.targetSeatRef = null;
+        npc.roomRef = null;
+      }
+
+      function npcStandUp(npc) {
+        npc.leavingRoomRef =
+          npc.roomRef ||
+          MAP.rooms.find((room) => room.seats.includes(npc.seatRef)) ||
+          null;
+        if (npc.seatRef) {
+          npc.seatRef.occupied = false;
+          npc.seatRef = null;
+        }
+        npc.roomRef = null;
+        npc.isSeated = false;
+        npc.path = [];
+        npc.pathIndex = 0;
+
+        const standOffsets = [
+          { dx: 0, dy: 35 },
+          { dx: 35, dy: 30 },
+          { dx: -35, dy: 30 },
+          { dx: 40, dy: 0 },
+          { dx: -40, dy: 0 },
+        ];
+        const standingPosition = standOffsets
+          .map((offset) => ({ x: npc.x + offset.dx, y: npc.y + offset.dy }))
+          .find(
+            (point) =>
+              dist(point.x, point.y, player.x, player.y) >= 40 &&
+              canNPCOccupy(point.x, point.y, npc),
+          );
+        if (standingPosition) {
+          npc.x = standingPosition.x;
+          npc.y = standingPosition.y;
+        }
+        npc.wanderCooldown = 1;
+        pickWanderTarget(npc);
+      }
+
+      function moveNPC(npc, dt) {
+        if (
+          npc.leavingRoomRef &&
+          !isInsideNPCRoomRoute(npc.x, npc.y, npc.leavingRoomRef)
+        ) {
+          if (npc.leavingRoomRef.npcExitReservation === npc) {
+            delete npc.leavingRoomRef.npcExitReservation;
+          }
+          npc.leavingRoomRef = null;
+        }
+        if (npc.wanderCooldown > 0) {
+          npc.wanderCooldown = Math.max(0, npc.wanderCooldown - dt);
+          npc.isMoving = false;
+          return;
+        }
+
+        if (npc.pathRetryCooldown > 0)
+          npc.pathRetryCooldown = Math.max(0, npc.pathRetryCooldown - dt);
+        let waypoint = npc.path?.[npc.pathIndex];
+        if (!waypoint) {
+          npc.isMoving = false;
+          npc.animFrame = 0;
+          npc.wanderCooldown = NPC_WANDER_COOLDOWN + Math.random() * 2;
+          if (npc.targetSeatRef) {
+            const seat = npc.targetSeatRef;
+            if (seat.npcReservation === npc && !seat.occupied) {
+              seat.occupied = true;
+              delete seat.npcReservation;
+              npc.seatRef = seat;
+              npc.roomRef = MAP.rooms.find((room) =>
+                room.seats.includes(seat),
+              );
+              npc.x = seat.x;
+              npc.y = seat.y + 6;
+              npc.facing = "up";
+              npc.isSeated = true;
+            }
+            npc.targetSeatRef = null;
+          } else {
+            pickWanderTarget(npc);
+          }
+          return;
+        }
+
+        while (
+          waypoint &&
+          dist(npc.x, npc.y, waypoint.x, waypoint.y) < NPC_DETECT_RADIUS
+        ) {
+          npc.pathIndex++;
+          waypoint = npc.path[npc.pathIndex];
+        }
+        if (!waypoint) {
+          npc.pathIndex = npc.path.length;
+          moveNPC(npc, dt);
+          return;
+        }
+
+        const dx = waypoint.x - npc.x;
+        const dy = waypoint.y - npc.y;
+        const step = NPC_SPEED * dt;
+        const moves = [
+          {
+            x: npc.x + Math.sign(dx) * Math.min(Math.abs(dx), step),
+            y: npc.y,
+            distance: Math.abs(dx),
+          },
+          {
+            x: npc.x,
+            y: npc.y + Math.sign(dy) * Math.min(Math.abs(dy), step),
+            distance: Math.abs(dy),
+          },
+        ].sort((a, b) => b.distance - a.distance);
+        const next = moves.find(
+          (candidate) =>
+            canNPCOccupy(
+              candidate.x,
+              candidate.y,
+              npc,
+              npc.targetSeatRef,
+            ),
+        );
+        if (!next) {
+          if (npc.pathRetryCooldown <= 0) {
+            const targetSeat = npc.targetSeatRef;
+            if (targetSeat) {
+              setNPCTarget(npc, targetSeat.x, targetSeat.y + 6, targetSeat);
+              npc.pathRetryCooldown = 0.4;
+            } else {
+              npc.pathRetryCooldown = 0.4;
+              pickWanderTarget(npc);
+            }
+          }
+          npc.isMoving = false;
+          return;
+        }
+
+        const movedHorizontally = Math.abs(next.x - npc.x) > 0.01;
+        npc.x = next.x;
+        npc.y = next.y;
+        if (movedHorizontally)
+          npc.facing = dx > 0 ? "right" : "left";
+        else npc.facing = dy > 0 ? "down" : "up";
+        npc.isMoving = true;
+        npc.animTimer += dt;
+        if (npc.animTimer >= 0.18) {
+          npc.animFrame = (npc.animFrame + 1) % 4;
+          npc.animTimer = 0;
+        }
+      }
+
+      function updateNPCs(dt) {
+        if (inTransition || inPreparation) {
+          for (const npc of npcEntities) npc.isMoving = false;
+          return;
+        }
+
+        const lessonTime = isLessonPhase();
+        const breakTime = isBreakPhase();
+        for (const npc of npcEntities) {
+          if (npc.role === "mystic_special") {
+            npc.isMoving = false;
+            continue;
+          }
+          if (lessonTime) {
+            if (npc.isSeated) continue;
+            if (!npc.targetSeatRef) {
+              if (npc.pathRetryCooldown > 0) {
+                npc.pathRetryCooldown = Math.max(
+                  0,
+                  npc.pathRetryCooldown - dt,
+                );
+                npc.isMoving = false;
+                continue;
+              }
+              const target = findNearestFreeSeat(npc);
+              if (!target) {
+                npc.isMoving = false;
+                continue;
+              }
+              if (!target.room.doorOpen) {
+                target.room.doorOpen = true;
+                rebuildColliders();
+              }
+              target.seat.npcReservation = npc;
+              if (
+                !setNPCTarget(
+                  npc,
+                  target.seat.x,
+                  target.seat.y + 6,
+                  target.seat,
+                )
+              ) {
+                delete target.seat.npcReservation;
+                npc.targetSeatRef = null;
+                npc.pathRetryCooldown = 0.5;
+                npc.isMoving = false;
+                continue;
+              }
+              npc.wanderCooldown = 0;
+            }
+            moveNPC(npc, dt);
+          } else if (breakTime) {
+            if (npc.isSeated) {
+              const room = npc.roomRef;
+              if (
+                room?.npcExitReservation &&
+                room.npcExitReservation !== npc
+              ) {
+                continue;
+              }
+              if (room) room.npcExitReservation = npc;
+              npcStandUp(npc);
+            } else {
+              moveNPC(npc, dt);
+            }
+          }
+        }
+      }
+
       function spawnNPCsForDay() {
+        resetNPCSeatReservations();
         npcEntities = [];
+        if (currentWeather === "RAIN") spawnMysticNPC();
         const available = getAvailableNPCs();
         const numNPCs = Math.min(8, available.length);
         const shuffled = [...available].sort(() => Math.random() - 0.5);
         const chosen = shuffled.slice(0, numNPCs);
 
         const candidatePositions = [
-          { x: 320, y: 550 },
-          { x: 500, y: 620 },
-          { x: 900, y: 550 },
-          { x: 1080, y: 620 },
-          { x: 400, y: 700 },
-          { x: 1000, y: 700 },
+          { x: 300, y: 680 },
+          { x: 500, y: 680 },
+          { x: 900, y: 680 },
+          { x: 1100, y: 700 },
+          { x: 1150, y: 680 },
           { x: 800, y: 780 },
           { x: 600, y: 780 },
-          { x: 250, y: 400 },
-          { x: 480, y: 400 },
-          { x: 920, y: 400 },
-          { x: 1150, y: 400 },
-          { x: 480, y: 550 },
-          { x: 900, y: 500 },
-          { x: 600, y: 640 },
-        ].sort(() => Math.random() - 0.5);
-        const safePositions = candidatePositions.filter((pos) =>
-          isPositionSafeForNPC(pos.x, pos.y),
-        );
+          { x: 650, y: 825 },
+          { x: 350, y: 780 },
+          { x: 1000, y: 780 },
+        ];
+        for (let x = 180; x <= 1220; x += 40) {
+          for (let y = 520; y <= 840; y += 40) {
+            candidatePositions.push({ x, y });
+          }
+        }
+        candidatePositions.sort(() => Math.random() - 0.5);
 
         for (const npc of chosen) {
-          let pos = safePositions.find((candidate) =>
-            isPositionSafeForNPC(candidate.x, candidate.y),
-          );
-          if (pos) {
-            safePositions.splice(safePositions.indexOf(pos), 1);
-          } else {
-            for (let attempt = 0; attempt < 60; attempt++) {
+          let pos = null;
+          let bestSpacing = -Infinity;
+          for (const candidate of candidatePositions) {
+            if (!isPositionSafeForNPC(candidate.x, candidate.y)) continue;
+            const spacing = npcEntities.length
+              ? Math.min(
+                  ...npcEntities.map((other) =>
+                    dist(candidate.x, candidate.y, other.x, other.y),
+                  ),
+                )
+              : Infinity;
+            if (spacing > bestSpacing) {
+              pos = candidate;
+              bestSpacing = spacing;
+            }
+          }
+          if (!pos) {
+            for (let attempt = 0; attempt < 500; attempt++) {
               const candidate = {
-                x: 200 + Math.random() * 1000,
-                y: 500 + Math.random() * 300,
+                x: 180 + Math.random() * 1040,
+                y: 520 + Math.random() * 320,
               };
               if (isPositionSafeForNPC(candidate.x, candidate.y)) {
                 pos = candidate;
@@ -2229,6 +3139,15 @@
             animFrame: 0,
             animTimer: 0,
             isMoving: false,
+            targetX: pos.x,
+            targetY: pos.y,
+            wanderCooldown: Math.random() * 3,
+            seatRef: null,
+            targetSeatRef: null,
+            roomRef: null,
+            path: [],
+            pathIndex: 0,
+            pathRetryCooldown: 0,
             coatColor: npc.role === "mystic" ? "#1e293b" : "#475569",
             hoodColor: npc.role === "mystic" ? "#0f172a" : "#334155",
             talkedToToday: false,
@@ -2237,8 +3156,6 @@
             bob: Math.random() * Math.PI * 2,
           });
         }
-
-        if (currentWeather === "RAIN") spawnMysticNPC();
       }
 
       function spawnMysticNPC() {
@@ -2261,9 +3178,16 @@
           { x: 550, y: 720 },
           { x: 850, y: 720 },
         ].sort(() => Math.random() - 0.5);
-        const pos = mysticPositions.find((candidate) =>
+        let pos = mysticPositions.find((candidate) =>
           isPositionSafeForNPC(candidate.x, candidate.y),
         );
+        for (let attempt = 0; !pos && attempt < 200; attempt++) {
+          const candidate = {
+            x: 180 + Math.random() * 1040,
+            y: 520 + Math.random() * 320,
+          };
+          if (isPositionSafeForNPC(candidate.x, candidate.y)) pos = candidate;
+        }
         if (!pos) return;
 
         npcEntities.push({
@@ -2276,6 +3200,15 @@
           animFrame: 0,
           animTimer: 0,
           isMoving: false,
+          targetX: pos.x,
+          targetY: pos.y,
+          wanderCooldown: Number.MAX_SAFE_INTEGER,
+          seatRef: null,
+          targetSeatRef: null,
+          roomRef: null,
+          path: [],
+          pathIndex: 0,
+          pathRetryCooldown: 0,
           coatColor: "#020617",
           hoodColor: "#0f172a",
           talkedToToday: false,
@@ -2865,7 +3798,7 @@
          SEAT HELPERS
       ========================================================= */
       function sitDown(room, seat) {
-        if (!room || !seat || seat.occupied) return false;
+        if (!room || !seat || seat.occupied || seat.npcReservation) return false;
         seat.occupied = true;
         player.seated = true;
         player.seatRef = seat;
@@ -3004,10 +3937,10 @@
         const room = playerInRoom();
         if (room) {
           const seat = findNearbySeat(room);
-          if (seat && !seat.occupied) {
+          if (seat && !seat.occupied && !seat.npcReservation) {
             sitDown(room, seat);
             return;
-          } else if (seat && seat.occupied) {
+          } else if (seat && (seat.occupied || seat.npcReservation)) {
             audio.fail();
             return;
           }
@@ -3629,7 +4562,7 @@
       }
 
       function isPositionSafeForTrash(px, py) {
-        const minDistance = 40;
+        const minDistance = TRASH_MIN_DIST_FROM_INTERACTABLE;
         const inYard = py > 505 && py < 840 && px > 60 && px < 1340;
         const inCorridor = py > 385 && py < 485 && px > 60 && px < 1340;
         if (!inYard && !inCorridor) return false;
@@ -3653,7 +4586,7 @@
           Math.hypot(px - MAP.flagPole.cx, py - MAP.flagPole.cy) <
             50 + minDistance ||
           Math.hypot(px - MAP.greenBin.cx, py - MAP.greenBin.cy) <
-            minDistance + 50 ||
+            minDistance + 60 ||
           (px > MAP.guardBooth.x - minDistance &&
             px < MAP.guardBooth.x + MAP.guardBooth.w + minDistance &&
             py > MAP.guardBooth.y - minDistance &&
@@ -3679,13 +4612,19 @@
               px < room.x + room.w + 20 &&
               py > room.y - 20 &&
               py < room.y + room.h + 20) ||
-            Math.hypot(px - room.doorX, py - room.doorY) < minDistance
+            dist(px, py, room.doorX, room.doorY) < minDistance ||
+            dist(px, py, room.switchX, room.switchY) < minDistance ||
+            dist(px, py, room.fanSwitchX, room.fanSwitchY) < minDistance
           ) {
             return false;
           }
         }
         for (const trash of trashItems) {
-          if (Math.hypot(px - trash.x, py - trash.y) < 25) return false;
+          if (
+            dist(px, py, trash.x, trash.y) < TRASH_MIN_DIST_FROM_TRASH
+          ) {
+            return false;
+          }
         }
         return true;
       }
@@ -3702,6 +4641,7 @@
 
         MAP.rooms.forEach((r) => {
           r.doorOpen = false;
+          delete r.npcExitReservation;
           r.fansOn = currentWeather === "HOT";
           r.lightsOn = true;
           r.seats.forEach((s) => (s.occupied = false));
@@ -4216,6 +5156,119 @@
           if (DAY_SCHEDULE[i].type === "LESSON") n++;
         return n;
       }
+      function pickTeacherForLesson(subject, usedTeacherIds) {
+        const pool = TEACHERS_DATABASE[subject] || [];
+        const available = pool.filter(
+          (teacher) => !usedTeacherIds.has(teacher.id),
+        );
+        const candidates = available.length ? available : pool;
+        return candidates[Math.floor(Math.random() * candidates.length)] || null;
+      }
+      function spawnTeacherForLesson(lessonIndex, room) {
+        if (!room) return null;
+        const subject =
+          SUBJECT_SCHEDULE[(lessonIndex - 1) % SUBJECT_SCHEDULE.length];
+        const subjectData = SUBJECT_KNOWLEDGE[subject];
+        if (!subjectData) return null;
+
+        const teacher = pickTeacherForLesson(subject, teachersUsedToday);
+        if (!teacher) return null;
+        teachersUsedToday.add(teacher.id);
+        room.doorOpen = true;
+        rebuildColliders();
+        const podiumX = room.x + room.w / 2;
+        const podiumY = room.y + 70;
+        const entity = {
+          ...teacher,
+          subject,
+          subjectData,
+          grade: ROOM_GRADE[room.id] || 10,
+          roomId: room.id,
+          x: room.doorX,
+          y: room.doorY + 70,
+          targetX: podiumX,
+          targetY: podiumY,
+          facing: "down",
+          animFrame: 0,
+          animTimer: 0,
+          isMoving: true,
+          hasEntered: false,
+          speechTimer: 0,
+          speechIndex: -1,
+          speechInterval: 4.5,
+          currentSpeech: "",
+          bubbleLife: 0,
+          bubbleMaxLife: 5,
+          skin: teacher.gender === "female" ? "#fde68a" : "#fbbf24",
+          hair: teacher.gender === "female" ? "#1e293b" : "#0f172a",
+          shirt: teacher.gender === "female" ? "#ec4899" : "#1e40af",
+          accent: subjectData.color,
+          coatColor: teacher.gender === "female" ? "#ec4899" : "#1e40af",
+          hasLongHair: teacher.gender === "female",
+          hasGlasses: Math.random() > 0.6,
+          role: "teacher",
+        };
+        teacherEntities.push(entity);
+        return entity;
+      }
+      function getSpeechForTeacher(teacher) {
+        const lessons = teacher.subjectData?.lessons?.[teacher.grade] || [];
+        if (lessons.length === 0) return "Các em mở sách vở ra nhé!";
+        teacher.speechIndex = (teacher.speechIndex + 1) % lessons.length;
+        return lessons[teacher.speechIndex];
+      }
+      function updateTeachers(dt) {
+        for (const teacher of teacherEntities) {
+          if (!teacher.hasEntered) {
+            const dx = teacher.targetX - teacher.x;
+            const dy = teacher.targetY - teacher.y;
+            const distance = Math.hypot(dx, dy);
+            if (distance < 3) {
+              teacher.hasEntered = true;
+              teacher.isMoving = false;
+              teacher.facing = "down";
+              teacher.currentSpeech = getSpeechForTeacher(teacher);
+              teacher.bubbleLife = teacher.bubbleMaxLife;
+              audio.subjectCue(teacher.subject);
+            } else {
+              const step = Math.min(70 * dt, distance);
+              teacher.x += (dx / distance) * step;
+              teacher.y += (dy / distance) * step;
+              teacher.facing =
+                Math.abs(dx) > Math.abs(dy)
+                  ? dx > 0
+                    ? "right"
+                    : "left"
+                  : dy > 0
+                    ? "down"
+                    : "up";
+              teacher.isMoving = true;
+              teacher.animTimer += dt;
+              if (teacher.animTimer >= 0.18) {
+                teacher.animFrame = (teacher.animFrame + 1) % 4;
+                teacher.animTimer = 0;
+              }
+            }
+            continue;
+          }
+
+          teacher.speechTimer += dt;
+          if (teacher.speechTimer >= teacher.speechInterval) {
+            teacher.speechTimer %= teacher.speechInterval;
+            teacher.currentSpeech = getSpeechForTeacher(teacher);
+            teacher.bubbleLife = teacher.bubbleMaxLife;
+            audio.subjectCue(teacher.subject);
+          }
+          teacher.bubbleLife = Math.max(0, teacher.bubbleLife - dt);
+        }
+      }
+      function resetTeacherState() {
+        teacherEntities = [];
+        teachersUsedToday.clear();
+      }
+      function despawnTeachers() {
+        teacherEntities = [];
+      }
       function playerInRoom() {
         for (const r of MAP.rooms) {
           const margin = 10;
@@ -4269,6 +5322,15 @@
             blocked = true;
             break;
           }
+        if (!blocked) {
+          for (const npc of npcEntities) {
+            if (npc.isSeated || npc.role === "mystic_special") continue;
+            if (rectsOverlap(test, npcBounds(npc.x, npc.y))) {
+              blocked = true;
+              break;
+            }
+          }
+        }
         if (!blocked) newX = px + dx;
         else hitWall = true;
         test = getPlayerBounds(newX, py + dy);
@@ -4278,6 +5340,15 @@
             blocked = true;
             break;
           }
+        if (!blocked) {
+          for (const npc of npcEntities) {
+            if (npc.isSeated || npc.role === "mystic_special") continue;
+            if (rectsOverlap(test, npcBounds(npc.x, npc.y))) {
+              blocked = true;
+              break;
+            }
+          }
+        }
         if (!blocked) newY = py + dy;
         else hitWall = true;
         return { x: newX, y: newY, hit: hitWall };
@@ -4409,6 +5480,9 @@
               } else {
                 envMessage = currentSlot().label + " BẮT ĐẦU!";
               }
+              const lessonRoom =
+                MAP.rooms.find((room) => room.id === "11A3") || MAP.rooms[0];
+              spawnTeacherForLesson(lessonNumber(), lessonRoom);
               envMessageTimer = 3;
             }
           } else {
@@ -4436,6 +5510,7 @@
               if (slot.type === "LESSON") {
                 lessonsCompleted++;
                 updateQuestProgress("stay_in_class");
+                despawnTeachers();
               }
             }
           }
@@ -4443,6 +5518,8 @@
 
         if (slipTimer > 0) slipTimer -= dt;
         if (minigame.active) return;
+        updateNPCs(dt);
+        updateTeachers(dt);
 
         let mx = 0,
           my = 0;
@@ -4737,10 +5814,16 @@
       }
 
       function endDay() {
+        despawnTeachers();
+        teachersUsedToday.clear();
         currentDay++;
         scheduleIndex = 0;
         scheduleTimer = 0;
         inTransition = false;
+        inPreparation = false;
+        prepTimer = 0;
+        prepWarnings = { lights: [], fans: [] };
+        roomWarningCooldown = 0;
         forceStandUpIfPlaying();
         if (selectedChar.skill === "regen") hp = Math.min(100, hp + 8);
         audio.win();
@@ -4750,6 +5833,7 @@
         bodyTemp = 50;
         standingOutsideSeatTimer = 0;
         standingWarningShown = false;
+        resetNPCSeatReservations();
         spawnDayEnvironment();
         scheduleNextMinigame();
         let note = "";
@@ -4765,14 +5849,14 @@
       ========================================================= */
       function drawTextOutlined(text, x, y, options = {}) {
         const {
-          font = 'bold 14px "Courier New", monospace',
+          font = 'bold 14px "Be Vietnam Pro", sans-serif',
           color = "#ffffff",
           outlineColor = "#000000",
           outlineWidth = 3,
           align = "left",
           baseline = "alphabetic",
         } = options;
-        ctx.font = font;
+        ctx.font = canvasFont(font);
         ctx.textAlign = align;
         ctx.textBaseline = baseline;
         ctx.lineWidth = outlineWidth;
@@ -4784,6 +5868,12 @@
         ctx.fillText(text, x, y);
         ctx.textBaseline = "alphabetic";
         ctx.textAlign = "left";
+      }
+
+      function canvasFont(font) {
+        return font
+          .replace(/"Courier New", monospace/g, '"Be Vietnam Pro", sans-serif')
+          .replace(/\bLexend\b/g, '"Be Vietnam Pro"');
       }
       function drawFloorTiles(x, y, w, h, baseColor, altColor, tileSize = 24) {
         ctx.fillStyle = baseColor;
@@ -5329,9 +6419,15 @@
           drawShadow(npc.x, npc.y + 14, 11);
 
           if (!isSeated) {
+            const walkPhase = Math.floor((npc.animFrame || 0) / 2);
+            const legOffset = npc.isMoving
+              ? walkPhase === 0
+                ? -1
+                : 1
+              : 0;
             ctx.fillStyle = "#334155";
-            ctx.fillRect(npc.x - 8, npc.y + 8, 6, 8);
-            ctx.fillRect(npc.x + 2, npc.y + 8, 6, 8);
+            ctx.fillRect(npc.x - 8, npc.y + 8 + legOffset, 6, 8);
+            ctx.fillRect(npc.x + 2, npc.y + 8 - legOffset, 6, 8);
           }
 
           ctx.fillStyle = npc.coatColor || "#475569";
@@ -5363,8 +6459,16 @@
             ctx.fillStyle = "#1e293b";
             ctx.fillRect(npc.x - 9, npc.y - 36, 18, 6);
             ctx.fillStyle = "#0f172a";
-            ctx.fillRect(npc.x - 4, npc.y - 28, 2, 3);
-            ctx.fillRect(npc.x + 2, npc.y - 28, 2, 3);
+            if (npc.facing === "down" || !npc.facing) {
+              ctx.fillRect(npc.x - 4, npc.y - 28, 2, 3);
+              ctx.fillRect(npc.x + 2, npc.y - 28, 2, 3);
+            } else if (npc.facing === "left") {
+              ctx.fillRect(npc.x - 5, npc.y - 28, 2, 3);
+            } else if (npc.facing === "right") {
+              ctx.fillRect(npc.x + 3, npc.y - 28, 2, 3);
+            }
+            ctx.fillStyle = "#7c2d12";
+            ctx.fillRect(npc.x - 2, npc.y - 23, 4, 1);
           }
 
           if (dist(player.x, player.y, npc.x, npc.y) < 120) {
@@ -5641,7 +6745,7 @@
 
           if (name !== "Người chơi") {
             const nameColor = isSelf ? "#facc15" : "#6ee7b7";
-            ctx.font = "bold 13px Lexend, sans-serif";
+            ctx.font = canvasFont('bold 13px "Be Vietnam Pro", sans-serif');
             const textWidth = ctx.measureText(name).width;
             const nameBoxX = x - textWidth / 2 - 6;
             const nameBoxY = nameY - 9;
@@ -5702,7 +6806,7 @@
             bubbleText = "💨 MÁT NHẸ";
             bubbleColor = "#10b981";
           }
-          ctx.font = "bold 14px Lexend, sans-serif";
+          ctx.font = canvasFont('bold 14px "Be Vietnam Pro", sans-serif');
           const tw = ctx.measureText(bubbleText).width;
           ctx.fillStyle = "rgba(15,23,42,0.95)";
           ctx.fillRect(player.x - tw / 2 - 10, bubbleY - 16, tw + 20, 26);
@@ -5718,11 +6822,16 @@
             baseline: "middle",
           });
         }
-        if (!player.seated && isLessonPhase() && gameState === "PLAYING") {
+        if (
+          !player.seated &&
+          isLessonPhase() &&
+          !inPreparation &&
+          gameState === "PLAYING"
+        ) {
           const room = playerInRoom();
           if (room) {
             const seat = findNearbySeat(room);
-            if (seat && !seat.occupied) {
+            if (seat && !seat.occupied && !seat.npcReservation) {
               ctx.strokeStyle = "rgba(250,204,21,0.9)";
               ctx.lineWidth = 3;
               ctx.setLineDash([6, 4]);
@@ -6081,11 +7190,13 @@
             const room = playerInRoom();
             if (room) {
               const seat = findNearbySeat(room);
-              if (seat && !seat.occupied)
+              if (seat && !seat.occupied && !seat.npcReservation)
                 hint = isMobile
                   ? "🪑 Nhấn nút ghế để ngồi"
                   : "[E] Ngồi vào ghế";
               else if (!seat) hint = "Đến gần ghế để ngồi";
+              else if (seat.npcReservation)
+                hint = "Ghế này sắp có NPC ngồi";
             } else hint = "⚠ Vào lớp ngay!";
           } else if (isBreakPhase() && player.seated) {
             hint = isMobile ? "🪑 Nhấn nút ghế để đứng dậy" : "[E] Đứng dậy";
@@ -6155,7 +7266,7 @@
             }
           }
           if (hint) {
-            ctx.font = 'bold 16px "Courier New", monospace';
+            ctx.font = canvasFont('bold 16px "Be Vietnam Pro", sans-serif');
             const tw = ctx.measureText(hint).width;
             ctx.fillStyle = "rgba(15,23,42,0.95)";
             ctx.fillRect(W / 2 - tw / 2 - 20, H - 65, tw + 40, 42);
@@ -6250,6 +7361,164 @@
       function drawMapFloorObjects(time) {
         // Floor props are already included in drawMap(); keeping this hook lets
         // the render phase separate background vs dynamic entities cleanly.
+      }
+
+      function drawOneTeacher(teacher, time) {
+        const pulse = 0.5 + Math.sin(time * 2 + teacher.x) * 0.5;
+        ctx.save();
+        ctx.strokeStyle =
+          teacher.accent +
+          Math.floor(60 + pulse * 40)
+            .toString(16)
+            .padStart(2, "0");
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(teacher.x, teacher.y - 10, 22 + pulse * 3, 0, Math.PI * 2);
+        ctx.stroke();
+
+        drawShadow(teacher.x, teacher.y + 14, 11);
+        const legOffset = teacher.isMoving
+          ? Math.floor(teacher.animFrame / 2) % 2 === 0
+            ? -1
+            : 1
+          : 0;
+        ctx.fillStyle = "#0f172a";
+        ctx.fillRect(teacher.x - 8, teacher.y + 8 + legOffset, 6, 8);
+        ctx.fillRect(teacher.x + 2, teacher.y + 8 - legOffset, 6, 8);
+
+        ctx.fillStyle = teacher.coatColor;
+        ctx.fillRect(teacher.x - 10, teacher.y - 20, 20, 28);
+        ctx.strokeStyle = "#0f172a";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(teacher.x - 10, teacher.y - 20, 20, 28);
+        if (!teacher.hasLongHair) {
+          ctx.fillStyle = "#dc2626";
+          ctx.fillRect(teacher.x - 2, teacher.y - 20, 4, 10);
+        }
+
+        ctx.fillStyle = teacher.skin;
+        ctx.fillRect(teacher.x - 8, teacher.y - 34, 16, 16);
+        ctx.fillStyle = teacher.hair;
+        ctx.fillRect(teacher.x - 9, teacher.y - 36, 18, 6);
+        if (teacher.hasLongHair) {
+          ctx.fillRect(teacher.x - 10, teacher.y - 34, 3, 14);
+          ctx.fillRect(teacher.x + 7, teacher.y - 34, 3, 14);
+        }
+        ctx.fillStyle = "#0f172a";
+        ctx.fillRect(teacher.x - 4, teacher.y - 28, 2, 3);
+        ctx.fillRect(teacher.x + 2, teacher.y - 28, 2, 3);
+        if (teacher.hasGlasses) {
+          ctx.strokeStyle = "#0f172a";
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(teacher.x - 6, teacher.y - 30, 5, 5);
+          ctx.strokeRect(teacher.x + 1, teacher.y - 30, 5, 5);
+          ctx.beginPath();
+          ctx.moveTo(teacher.x - 1, teacher.y - 28);
+          ctx.lineTo(teacher.x + 1, teacher.y - 28);
+          ctx.stroke();
+        }
+
+        ctx.font = '18px "Be Vietnam Pro", sans-serif';
+        ctx.textAlign = "center";
+        ctx.fillText(
+          teacher.subjectData.icon,
+          teacher.x + 22,
+          teacher.y - 38 + Math.sin(time * 3) * 2,
+        );
+        drawTextOutlined(teacher.name, teacher.x, teacher.y - 52, {
+          font: 'bold 11px "Be Vietnam Pro", sans-serif',
+          color: teacher.accent,
+          outlineColor: "#000000",
+          outlineWidth: 3,
+          align: "center",
+          baseline: "middle",
+        });
+        drawTextOutlined(
+          `GV ${teacher.subjectData.name} • Lớp ${teacher.grade}`,
+          teacher.x,
+          teacher.y - 66,
+          {
+            font: 'bold 9px "Be Vietnam Pro", sans-serif',
+            color: "#e2e8f0",
+            outlineColor: "#000000",
+            outlineWidth: 2,
+            align: "center",
+            baseline: "middle",
+          },
+        );
+
+        if (teacher.currentSpeech && teacher.bubbleLife > 0) {
+          const maxWidth = 280;
+          const padding = 10;
+          const lineHeight = 15;
+          const maxLines = 5;
+          const font = 'bold 12px "Be Vietnam Pro", sans-serif';
+          ctx.font = canvasFont(font);
+          const lines = [];
+          let line = "";
+          for (const word of teacher.currentSpeech.split(/\s+/)) {
+            const candidate = line ? `${line} ${word}` : word;
+            if (
+              line &&
+              ctx.measureText(candidate).width > maxWidth - padding * 2
+            ) {
+              lines.push(line);
+              line = word;
+            } else {
+              line = candidate;
+            }
+          }
+          if (line) lines.push(line);
+          if (lines.length > maxLines) {
+            lines.length = maxLines;
+            let lastLine = lines[maxLines - 1];
+            while (
+              lastLine.length > 0 &&
+              ctx.measureText(`${lastLine}…`).width > maxWidth - padding * 2
+            ) {
+              lastLine = lastLine.slice(0, -1);
+            }
+            lines[maxLines - 1] = `${lastLine.trimEnd()}…`;
+          }
+
+          const bubbleWidth = Math.min(
+            maxWidth,
+            Math.max(...lines.map((text) => ctx.measureText(text).width)) +
+              padding * 2,
+          );
+          const bubbleHeight = lines.length * lineHeight + padding * 2;
+          const bubbleX = teacher.x - bubbleWidth / 2;
+          const bubbleTop = teacher.y - 94 - bubbleHeight;
+          const alpha = Math.min(1, teacher.bubbleLife / 0.5);
+          ctx.globalAlpha = alpha;
+          ctx.fillStyle = "rgba(15, 23, 42, 0.96)";
+          ctx.beginPath();
+          ctx.roundRect(bubbleX, bubbleTop, bubbleWidth, bubbleHeight, 8);
+          ctx.fill();
+          ctx.strokeStyle = teacher.accent;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.moveTo(teacher.x - 7, bubbleTop + bubbleHeight);
+          ctx.lineTo(teacher.x, bubbleTop + bubbleHeight + 10);
+          ctx.lineTo(teacher.x + 7, bubbleTop + bubbleHeight);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.font = canvasFont(font);
+          ctx.fillStyle = "#f0f6fc";
+          ctx.textAlign = "left";
+          ctx.textBaseline = "top";
+          lines.forEach((text, index) => {
+            ctx.fillText(
+              text,
+              bubbleX + padding,
+              bubbleTop + padding + index * lineHeight,
+            );
+          });
+        }
+        ctx.restore();
       }
 
       function drawOneNPC(npc, time) {
@@ -6410,6 +7679,14 @@
           });
         }
 
+        for (const teacher of teacherEntities) {
+          renderables.push({
+            y: teacher.y,
+            sort: "teacher",
+            draw: () => drawOneTeacher(teacher, time),
+          });
+        }
+
         for (const id in otherPlayers) {
           const p = otherPlayers[id];
           if (!p || p.x === undefined) continue;
@@ -6563,6 +7840,8 @@
 
       function startGame(isMP = false) {
         syncPlayerNameFromInput();
+        resetNPCSeatReservations();
+        resetTeacherState();
         if (mp.connected && mp.fb && mp.roomCode && mp.myId) {
           mp.fb.set(
             mp.fb.ref(
@@ -6592,6 +7871,10 @@
         scheduleIndex = 0;
         scheduleTimer = 0;
         inTransition = false;
+        inPreparation = false;
+        prepTimer = 0;
+        prepWarnings = { lights: [], fans: [] };
+        roomWarningCooldown = 0;
         transitionTimer = 0;
         transitionAlpha = 1;
         standingOutsideSeatTimer = 0;
@@ -6622,6 +7905,7 @@
 
       function gameOver(reason) {
         gameState = "GAMEOVER";
+        despawnTeachers();
         minigame.active = false;
         document.getElementById("minigame-overlay").classList.remove("active");
 
