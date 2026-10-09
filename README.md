@@ -147,10 +147,10 @@ Trong mỗi tiết học, cô giáo nhắc nhở học sinh tập trung:
 
 | Nhân vật | Vai trò | Kỹ năng | Tạo hình |
 |---|---|---|---|
-| **Gia Hưng** | 🏃 Năng động | Tốc độ +20% | Cao, cân đối, tóc ngắn |
-| **Bảo Ngọc** | ♻️ Lớp xanh | Hồi +8 HP/ngày | Nữ, thấp, mảnh mai, **tóc dài** |
-| **Minh Thái** | 🛡️ Cờ đỏ | Chống chịu tốt | **Cao nhất, to con** |
-| **Gia Uy** | 💻 CLB Tin Học | Quạt x2, minigame dễ | Cao vừa, **đeo kính** |
+| **Gia Hưng** | 🏃 Lớp phó văn thể mỹ năng động | Tốc độ +20% | Cao, cân đối, tóc ngắn |
+| **Bảo Ngọc** | ♻️ Cô gái năng động,thích học hỏi,thích thể thao | Hồi +8 HP/ngày | Nữ, thấp, mảnh mai, **tóc dài** |
+| **Minh Thái** | 🛡️ Lớp phó lao động + Baller | Chống chịu tốt | **Cao nhất, to con** |
+| **Gia Uy** | 💻 Thành viên CLB Tin Học | Quạt x2, minigame dễ | Cao vừa, **đeo kính** |
 
 ---
 
