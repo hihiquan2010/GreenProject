@@ -150,7 +150,7 @@ Trong mỗi tiết học, cô giáo nhắc nhở học sinh tập trung:
 | **Gia Hưng** | 🏃 Năng động | Tốc độ +20% | Cao, cân đối, tóc ngắn |
 | **Bảo Ngọc** | ♻️ Lớp xanh | Hồi +8 HP/ngày | Nữ, thấp, mảnh mai, **tóc dài** |
 | **Minh Thái** | 🛡️ Cờ đỏ | Chống chịu tốt | **Cao nhất, to con** |
-| **Gia Uy** | 💻 CLB Tin Học | Quạt x2, minigame dễ | Cao, **đeo kính** |
+| **Gia Uy** | 💻 CLB Tin Học | Quạt x2, minigame dễ | Cao vừa, **đeo kính** |
 
 ---
 
