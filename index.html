@@ -300,6 +300,7 @@
         line-height: 1.5;
         color: #e2e8f0;
         margin-top: 4px;
+        white-space: pre-wrap;
       }
       #mobile-controls {
         display: none;
@@ -921,7 +922,7 @@
         }
       }
     </style>
-    <!-- ✅ FIREBASE SDK -->
+    <!-- Firebase SDK -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
       import {
@@ -937,7 +938,7 @@
       } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
       // ================================================================
-      //  ⚠️⚠️⚠️ CONFIG FIREBASE ⚠️⚠️⚠️
+      //  ⚠️⚠️⚠️  CONFIG FIREBASE  ⚠️⚠️⚠️
       // ================================================================
       const firebaseConfig = {
         apiKey: "AIzaSyA9K08fpDAX-zX06ve2zqeim5B4H89aS5w",
@@ -949,7 +950,6 @@
         messagingSenderId: "336292376429",
         appId: "1:336292376429:web:0c20c76d90c826a7dd3464",
       };
-
       // ================================================================
 
       try {
@@ -1040,9 +1040,59 @@
             >
               CHỌN NHÂN VẬT
             </h2>
-            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 16px">
+            <p style="font-size: 13px; color: #94a3b8; margin-bottom: 8px">
+              Mục tiêu:
+              <strong style="color: #fbbf24">SỐNG SÓT NHIỀU NGÀY NHẤT!</strong>
+            </p>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 16px">
               Mỗi bạn có kỹ năng riêng!
             </p>
+            <div
+              style="max-width: 400px; margin: 0 auto 18px; text-align: left"
+            >
+              <label
+                for="player-name-input"
+                style="
+                  display: block;
+                  font-size: 12px;
+                  color: #94a3b8;
+                  font-weight: 700;
+                  margin-bottom: 6px;
+                  letter-spacing: 0.5px;
+                "
+              >
+                ✏️ TÊN CỦA BẠN
+                <span style="color: #64748b; font-weight: 400"
+                  >(không bắt buộc)</span
+                >
+              </label>
+              <input
+                type="text"
+                id="player-name-input"
+                class="mp-input"
+                maxlength="16"
+                placeholder="VD: Nam Khánh, Bảo Trân..."
+                autocomplete="off"
+                style="
+                  font-size: 15px;
+                  letter-spacing: 1px;
+                  text-transform: none;
+                  padding: 12px 14px;
+                  font-family: &quot;Lexend&quot;, sans-serif;
+                  font-weight: 700;
+                "
+              />
+              <div
+                style="
+                  font-size: 10px;
+                  color: #64748b;
+                  margin-top: 6px;
+                  text-align: center;
+                "
+              >
+                Tên sẽ hiển thị trên đầu nhân vật của bạn
+              </div>
+            </div>
             <div id="char-grid"></div>
             <div
               style="
@@ -1086,6 +1136,21 @@
             >
               👥 CHƠI NHÓM ONLINE
             </h2>
+            <div
+              style="
+                background: #0f172a;
+                border-left: 3px solid #fbbf24;
+                padding: 10px 12px;
+                border-radius: 6px;
+                margin-bottom: 12px;
+                font-size: 12px;
+                color: #cbd5e1;
+              "
+            >
+              ⚡ <strong style="color: #fbbf24">Lưu ý:</strong> Mỗi người có
+              <strong>timeline riêng</strong> (tiết học lệch nhau 0-10s). Vẫn
+              thấy nhau di chuyển!
+            </div>
             <div class="tab-bar">
               <button class="tab-btn active" data-tab="host">
                 🎮 TẠO PHÒNG
@@ -1102,8 +1167,7 @@
                 "
               >
                 Tạo phòng và chia sẻ
-                <strong style="color: #10b981">mã phòng</strong>. Bạn cũng có
-                thể mở 2 tab cùng máy để test!
+                <strong style="color: #10b981">mã phòng</strong>.
               </p>
               <button
                 id="btn-create-room"
@@ -1195,14 +1259,39 @@
               <div
                 style="
                   background: #0f172a;
-                  border-left: 3px solid #38bdf8;
+                  border-left: 3px solid #fbbf24;
                   padding: 10px 12px;
                   border-radius: 6px;
                   margin-bottom: 8px;
                 "
               >
-                <strong style="color: #7dd3fc">📱 ĐA THIẾT BỊ:</strong> Joystick
-                ảo (góc trái) + nút cảm ứng (góc phải).
+                <strong style="color: #fbbf24">🎯 MỤC TIÊU:</strong> Sống sót
+                qua nhiều ngày nhất! Bảng xếp hạng top 5 lưu trên máy bạn.
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #a855f7;
+                  padding: 10px 12px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #c084fc">🔮 NPC BÍ ẨN:</strong> Khi trời
+                MƯA, một NPC mặc áo khoác trùm đầu sẽ ngồi giữa sân farming
+                aura. Đến gần để hồi HP!
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #60a5fa;
+                  padding: 10px 12px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #60a5fa">💬 NPC THƯỜNG:</strong> Rải khắp
+                sân, cho mẹo chơi hoặc nhiệm vụ. Nhấn E để nói chuyện!
               </div>
               <div
                 style="
@@ -1214,8 +1303,36 @@
                 "
               >
                 <strong style="color: #7dd3fc">⏰ LỊCH HỌC:</strong> Ngày bắt
-                đầu bằng <strong>GIỜ RA CHƠI</strong>! Sau đó: 2 tiết → RA CHƠI
-                → 2 tiết → RA CHƠI → 2 tiết → RA CHƠI → 1 tiết cuối.
+                đầu bằng <strong>RA CHƠI SÁNG (60s)</strong>. Mỗi tiết
+                <strong>45s</strong>. 2 tiết → Ra chơi (60s) → 2 tiết → Ra chơi
+                (60s) → 2 tiết → Ra chơi (60s) → Tiết 7.
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #fbbf24;
+                  padding: 10px 12px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #fbbf24">⏰ CHUẨN BỊ:</strong> Trước mỗi
+                tiết có <strong>5 giây</strong> để bật đèn và quạt tại công tắc
+                (nhấn E). Nếu quên bật thiết bị cần thiết trong tiết, bạn sẽ mất
+                HP.
+              </div>
+              <div
+                style="
+                  background: #0f172a;
+                  border-left: 3px solid #fbbf24;
+                  padding: 10px 12px;
+                  border-radius: 6px;
+                  margin-bottom: 8px;
+                "
+              >
+                <strong style="color: #fbbf24">⏱️ THỜI GIAN:</strong> Ra chơi
+                <strong>60 giây</strong> • Mỗi tiết <strong>45 giây</strong> •
+                Minigame mỗi <strong>15 giây</strong> (98% cơ hội).
               </div>
               <div
                 style="
@@ -1226,9 +1343,8 @@
                   margin-bottom: 8px;
                 "
               >
-                <strong style="color: #6ee7b7">🪑 NGỒI GHẾ:</strong><br />•
-                <strong>Giờ RA CHƠI:</strong> Không cần ngồi.<br />•
-                <strong>Giờ HỌC:</strong> Phải ngồi đúng ghế.
+                <strong style="color: #6ee7b7">🪑 NGỒI GHẾ:</strong> Ra chơi —
+                tự do. Giờ học — phải ngồi ghế.
               </div>
               <div
                 style="
@@ -1239,8 +1355,9 @@
                   margin-bottom: 8px;
                 "
               >
-                <strong style="color: #fde047">🔇 MINIGAME:</strong> Mỗi 10 giây
-                có 80% xuất hiện. Nhấn SPACE/CLICK khi kim vào vùng XANH!
+                <strong style="color: #fde047">🔇 MINIGAME:</strong> Mỗi 15 giây
+                có 98% cơ hội xuất hiện khi đang ngồi trong tiết (trung bình
+                khoảng 15,3 giây/lần). Nhấn SPACE khi kim vào vùng XANH!
               </div>
               <div
                 style="
@@ -1251,20 +1368,8 @@
                   margin-bottom: 8px;
                 "
               >
-                <strong style="color: #6ee7b7">♻️ NHẶT RÁC HỒI MÁU:</strong> Bỏ
-                rác vào <strong>Thùng Xanh</strong> để hồi HP!
-              </div>
-              <div
-                style="
-                  background: #0f172a;
-                  border-left: 3px solid #10b981;
-                  padding: 10px 12px;
-                  border-radius: 6px;
-                  margin-bottom: 8px;
-                "
-              >
-                <strong style="color: #6ee7b7">🌿 GIẢM Ô NHIỄM:</strong> Càng
-                dọn rác → ít ô nhiễm ngày mai!
+                <strong style="color: #6ee7b7">♻️ NHẶT RÁC:</strong> Bỏ vào
+                Thùng Xanh → hồi HP. Càng nhiều rác → ít ô nhiễm ngày mai.
               </div>
               <div
                 style="
@@ -1272,23 +1377,11 @@
                   border-left: 3px solid #f59e0b;
                   padding: 10px 12px;
                   border-radius: 6px;
-                  margin-bottom: 8px;
                 "
               >
-                <strong style="color: #fbbf24">🌡️ NHIỆT ĐỘ & QUẠT:</strong
-                ><br />• ☀️ NÓNG: Quạt làm mát VỀ 50°.<br />• 🌧️ MƯA: Quạt làm
-                mát XUỐNG DƯỚI 50° → hạ thân nhiệt!
-              </div>
-              <div
-                style="
-                  background: #0f172a;
-                  border-left: 3px solid #3b82f6;
-                  padding: 10px 12px;
-                  border-radius: 6px;
-                "
-              >
-                <strong style="color: #93c5fd">👥 CHƠI NHÓM:</strong> Tạo phòng
-                qua Firebase. Chia sẻ mã 6 ký tự cho bạn bè ở bất kỳ đâu!
+                <strong style="color: #fbbf24">🌡️ NHIỆT ĐỘ:</strong> ☀️ Nóng:
+                quạt làm mát VỀ 50°. 🌧️ Mưa: quạt làm mát DƯỚI 50° → hạ thân
+                nhiệt!
               </div>
             </div>
             <button
@@ -1312,7 +1405,7 @@
               class="pixel-font-vi"
               style="font-size: 18px; color: #f87171; margin-bottom: 10px"
             >
-              ĐỘI ĐÃ KIỆT SỨC!
+              BẠN ĐÃ KIỆT SỨC!
             </h2>
             <p
               id="game-over-reason"
@@ -1326,12 +1419,24 @@
                 border: 2px solid #7f1d1d;
                 border-radius: 10px;
                 padding: 14px;
-                margin-bottom: 16px;
+                margin-bottom: 12px;
                 font-size: 14px;
                 color: #cbd5e1;
                 line-height: 1.9;
               "
             >
+              <div
+                id="stat-player-name"
+                style="
+                  font-family: &quot;Press Start 2P&quot;, monospace;
+                  font-size: 12px;
+                  color: #10b981;
+                  margin-bottom: 8px;
+                  text-align: center;
+                "
+              >
+                NGƯỜI CHƠI
+              </div>
               <div>
                 📅 NGÀY SỐNG SÓT:
                 <strong id="stat-days" style="color: #fbbf24">0</strong>
@@ -1348,6 +1453,46 @@
                 📚 TIẾT HOÀN THÀNH:
                 <strong id="stat-lessons" style="color: #c4b5fd">0</strong>
               </div>
+            </div>
+            <div
+              style="
+                background: #0f172a;
+                border: 2px solid #fbbf24;
+                border-radius: 10px;
+                padding: 12px;
+                margin-bottom: 16px;
+              "
+            >
+              <div
+                style="
+                  font-family: &quot;Press Start 2P&quot;, monospace;
+                  font-size: 11px;
+                  color: #fbbf24;
+                  margin-bottom: 4px;
+                  text-align: center;
+                "
+              >
+                🏆 TOP 5 SINH TỒN
+              </div>
+              <div
+                style="
+                  font-size: 10px;
+                  color: #94a3b8;
+                  text-align: center;
+                  margin-bottom: 10px;
+                  font-style: italic;
+                "
+              >
+                Xếp hạng theo: Số ngày sinh tồn → Số rác nhặt
+              </div>
+              <div id="leaderboard-list"></div>
+              <button
+                id="btn-clear-leaderboard"
+                class="btn btn-secondary"
+                style="width: 100%; margin-top: 8px; font-size: 11px"
+              >
+                🗑️ Xóa bảng xếp hạng
+              </button>
             </div>
             <button id="btn-restart" class="btn btn-primary">
               🔄 CHƠI LẠI TỪ NGÀY 1
@@ -1512,6 +1657,15 @@
             this.tone(n, 0.15, "sine", 0.12, i * 0.08),
           );
         }
+        mystic() {
+          [220, 277, 330, 440].forEach((n, i) =>
+            this.tone(n, 0.5, "sine", 0.06, i * 0.15),
+          );
+        }
+        talk() {
+          this.tone(440, 0.03, "square", 0.05);
+          this.tone(550, 0.03, "square", 0.05, 0.04);
+        }
         bgmTick() {
           if (!this.enabled || !this.ctx) return;
           this.musicTimer++;
@@ -1531,7 +1685,7 @@
         hung: {
           id: "hung",
           name: "Gia Hưng",
-          title: "Năng Động",
+          title: "Lớp phó văn thể mỹ năng động",
           desc: "🏃 Tốc độ +20%",
           speedBonus: 1.2,
           skill: "speed",
@@ -1548,7 +1702,7 @@
         ngoc: {
           id: "ngoc",
           name: "Bảo Ngọc",
-          title: "Lớp Xanh",
+          title: "Thành viên của lớp",
           desc: "♻️ Hồi +8 HP/ngày",
           speedBonus: 1.0,
           skill: "regen",
@@ -1565,7 +1719,7 @@
         thai: {
           id: "thai",
           name: "Minh Thái",
-          title: "Cờ Đỏ",
+          title: "Lớp phó lao động vui tính",
           desc: "🛡️ Chống chịu tốt",
           speedBonus: 1.0,
           skill: "tough",
@@ -1582,7 +1736,7 @@
         uy: {
           id: "uy",
           name: "Gia Uy",
-          title: "CLB Tin Học",
+          title: "Thành viên CLB Tin Học",
           desc: "💻 Quạt x2 + Minigame dễ",
           speedBonus: 1.05,
           skill: "fan",
@@ -1599,6 +1753,586 @@
       };
 
       /* =========================================================
+         NPC DATABASE — Tên từ danh sách lớp 11A3
+      ========================================================= */
+      const NPC_POOL = [
+        {
+          id: "an",
+          name: "Trần Ngọc Án",
+          role: "tips",
+          dialogue: [
+            "Mẹo nhỏ: Giờ ra chơi nhớ tắt đèn và quạt đi nghen!",
+            "Tắt hết thiết bị điện khi ra chơi, không là mất điện giờ học đó!",
+            "Mình từng bị mất điện vì quên tắt quạt rồi, đừng dại như mình!",
+          ],
+        },
+        {
+          id: "bao1",
+          name: "Huỳnh Gia Bảo",
+          role: "tips",
+          dialogue: [
+            "Trời nóng bật quạt chỉ làm mát về 50° thôi, không xuống thấp hơn được đâu!",
+            "Đừng quạt tay quá nhiều khi nóng, sẽ không hạ nhiệt thêm đâu!",
+          ],
+        },
+        {
+          id: "binh",
+          name: "Lê Kim Bình",
+          role: "tips",
+          dialogue: [
+            "Mưa phùn mà bật quạt máy là hạ thân nhiệt đó! Tắt quạt mau!",
+            "Trời mưa thì tránh vũng nước, kẻo té mất 15 HP!",
+          ],
+        },
+        {
+          id: "chau",
+          name: "Nguyễn Ngọc Minh Châu",
+          role: "tips",
+          dialogue: [
+            "Nhặt rác bỏ thùng xanh sẽ hồi máu đó! Càng nhiều rác càng hồi nhiều!",
+            "5 rác một lượt là được bonus +5 HP nha!",
+          ],
+        },
+        {
+          id: "chuong",
+          name: "Hồ Văn Chương",
+          role: "quest",
+          quest: {
+            type: "clean_trash",
+            target: 5,
+            description: "Dọn 5 rác trong giờ ra chơi này đi!",
+            reward: { hp: 20 },
+          },
+        },
+        {
+          id: "ha",
+          name: "Vũ Thanh Hà",
+          role: "quest",
+          quest: {
+            type: "turn_off_all",
+            target: 3,
+            description: "Tắt hết đèn và quạt của 3 lớp trước khi vào tiết!",
+            reward: { hp: 15, score: 100 },
+          },
+        },
+        {
+          id: "hieu",
+          name: "Trần Phạm Minh Hiếu",
+          role: "quest",
+          quest: {
+            type: "unclog_drain",
+            target: 2,
+            description: "Thông 2 cống thoát nước trong sân khi trời mưa!",
+            reward: { hp: 25 },
+          },
+        },
+        {
+          id: "huy",
+          name: "Hoàng Huy",
+          role: "quest",
+          quest: {
+            type: "focus_minigame",
+            target: 3,
+            description: "Vượt qua 3 minigame Giữ im lặng không mất máu!",
+            reward: { hp: 30, score: 200 },
+          },
+        },
+        {
+          id: "khang1",
+          name: "Huỳnh Chí Khang",
+          role: "mystic",
+          dialogue: [
+            "...",
+            "Cậu cũng cảm nhận được năng lượng của mưa à?",
+            "Ngồi đây với mình đi, aura sẽ theo cậu cả ngày...",
+          ],
+        },
+        {
+          id: "khoi",
+          name: "Huỳnh Tuấn Khôi",
+          role: "mystic",
+          dialogue: [
+            "Aura của mình đang farm từ từ...",
+            "Cậu ngồi gần mình, sẽ hồi máu tự động đó.",
+            "Mưa phùn là thời điểm linh khí tụ hội...",
+          ],
+        },
+        {
+          id: "lam",
+          name: "Trương Trúc Lam",
+          role: "mystic",
+          dialogue: [
+            "Tối qua mình thấy sao băng, chắc kiếp này sống 100 ngày...",
+            "Đứng yên 10 giây dưới mưa đi, mình tặng cậu một bùa.",
+          ],
+        },
+        {
+          id: "mai",
+          name: "Trần Nguyễn Phương Mai",
+          role: "story",
+          story: [
+            "Nghe nói trường mình có ma đó... nhưng mà ma này hiền lắm.",
+            "Ngày xưa có cô giáo dạy ở đây, cô rất thích trồng cây xanh.",
+            "Bác bảo vệ làm ở đây 20 năm rồi, bác biết hết mọi ngóc ngách.",
+          ],
+        },
+        {
+          id: "my",
+          name: "Lại Hồ Hà My",
+          role: "story",
+          story: [
+            "Đêm qua mình mơ thấy mình bị kẹt trong lớp... đáng sợ thật.",
+            "Có bạn nào đã thử sống qua ngày thứ 7 chưa?",
+            "Thời tiết ngày càng khắc nghiệt, chắc biến đổi khí hậu rồi...",
+          ],
+        },
+        {
+          id: "ngan",
+          name: "Dương Kim Ngân",
+          role: "chat",
+          chat: [
+            "Cậu ăn sáng chưa? Mình đói quá...",
+            "Môn Toán khó quá, cậu học bài chưa?",
+            "Đừng quên làm bài tập về nhà nha!",
+          ],
+        },
+        {
+          id: "ngoc2",
+          name: "Huỳnh Thị Bảo Ngọc",
+          role: "chat",
+          chat: [
+            "Trời hôm nay đẹp ghê... hay là mưa nhỉ?",
+            "Cậu thấy Bác Bảo Vệ hiền không?",
+            "Sân trường rộng thật, chạy mệt nghỉ luôn!",
+          ],
+        },
+        {
+          id: "nhu",
+          name: "Phan Minh Nhựt",
+          role: "chat",
+          chat: [
+            "Sáng nay ăn xôi hay bánh mì đây?",
+            "Có ai rủ đi căng tin không?",
+          ],
+        },
+        {
+          id: "phuoc",
+          name: "Nguyễn Hữu Phước",
+          role: "tips",
+          dialogue: [
+            "Trời mưa thì tránh xa vũng nước, kẻo trượt đấy!",
+            "Cống tắc thì phải thông, kẻo ngập cả sân.",
+          ],
+        },
+        {
+          id: "quyen",
+          name: "Hồ Trần Phương Quyên",
+          role: "chat",
+          chat: [
+            "Ôn bài đi, mai kiểm tra 15 phút đó!",
+            "Cậu có bút dư không cho mình mượn?",
+          ],
+        },
+        {
+          id: "tai",
+          name: "Võ Viết Tài",
+          role: "quest",
+          quest: {
+            type: "talk_npc",
+            target: 5,
+            description: "Nói chuyện với 5 NPC trong sân trường!",
+            reward: { hp: 20, score: 50 },
+          },
+        },
+        {
+          id: "thinh1",
+          name: "Nguyễn Đoàn Khang Thịnh",
+          role: "story",
+          story: [
+            "Ngày xưa ở đây có cây cổ thụ to lắm... người ta chặt đi rồi.",
+            "Bây giờ nắng nóng hơn nhiều, chắc vì mất cây xanh.",
+          ],
+        },
+        {
+          id: "thinh2",
+          name: "Nguyễn Phú Thịnh",
+          role: "chat",
+          chat: [
+            "Bóng đá chiều nay không?",
+            "Mình mới mua truyện mới, hay lắm!",
+          ],
+        },
+        {
+          id: "thinh3",
+          name: "Trần Huy Thịnh",
+          role: "tips",
+          dialogue: [
+            "Nhớ uống đủ nước khi trời nóng!",
+            "Trời mưa thì đừng quạt, hạ thân nhiệt nguy hiểm!",
+          ],
+        },
+        {
+          id: "thong",
+          name: "Huỳnh Tấn Thông",
+          role: "story",
+          story: [
+            "Trường mình có nhiều góc bí mật lắm.",
+            "Hồi trước mình từng thấy ánh sáng lạ trong lớp học buổi tối.",
+          ],
+        },
+        {
+          id: "thoi",
+          name: "Lê Hoàng Thời",
+          role: "chat",
+          chat: [
+            "Cậu thấy thầy dạy Toán thế nào?",
+            "Chiều nay học thêm không?",
+          ],
+        },
+        {
+          id: "thu",
+          name: "Huỳnh Ngọc Minh Thư",
+          role: "tips",
+          dialogue: [
+            "5 rác đầy túi là được thưởng HP đó!",
+            "Rác nhiều thì nên dọn ngay, kẻo mùi hôi.",
+          ],
+        },
+        {
+          id: "thuong",
+          name: "Hồ Ngọc Uyên Thương",
+          role: "chat",
+          chat: [
+            "Nghe nói cuối tuần có sự kiện gì đó...",
+            "Cậu rảnh không đi chơi không?",
+          ],
+        },
+        {
+          id: "toan",
+          name: "Lê Quốc Toàn",
+          role: "quest",
+          quest: {
+            type: "stay_in_class",
+            target: 1,
+            description: "Ngồi ghế trong 1 tiết học đầy đủ!",
+            reward: { hp: 25 },
+          },
+        },
+        {
+          id: "tony",
+          name: "Lê Tony",
+          role: "chat",
+          chat: [
+            "What's up? Trường này vui thật!",
+            "Thầy cô ở đây thân thiện ghê!",
+          ],
+        },
+        {
+          id: "truc",
+          name: "Lê Thanh Trúc",
+          role: "story",
+          story: [
+            "Trường mình có nhiều câu lạc bộ lắm: Tin học, Văn, Toán...",
+            "Mình tham gia CLB Tin Học đó, vui lắm!",
+          ],
+        },
+        {
+          id: "tuan",
+          name: "Phạm Anh Tuấn",
+          role: "tips",
+          dialogue: [
+            "Bị mất điện thì phải tìm Bác Bảo Vệ sửa ngay!",
+            "Tránh vũng nước, không là trượt đấy.",
+          ],
+        },
+        {
+          id: "tuyen1",
+          name: "Nguyễn Ngọc Thanh Tuyền",
+          role: "chat",
+          chat: [
+            "Cậu thấy mưa đẹp không?",
+            "Nhìn mưa hoài tự nhiên thấy buồn.",
+          ],
+        },
+        {
+          id: "tuyen2",
+          name: "Nguyễn Thị Thanh Tuyền",
+          role: "tips",
+          dialogue: [
+            "Đừng để nhiệt độ trên 85° kẻo sốc nhiệt!",
+            "Nhiệt độ dưới 15° cũng mất máu đó.",
+          ],
+        },
+        {
+          id: "uy1",
+          name: "Phạm Gia Uy",
+          role: "chat",
+          chat: ["Trời hôm nay đẹp ghê!", "Cậu học lớp nào vậy?"],
+        },
+        {
+          id: "vy1",
+          name: "Bùi Lê Thúy Vy",
+          role: "story",
+          story: [
+            "Bạn có tin vào ma không?",
+            "Mình nghe kể trường này có chuyện bí ẩn lắm.",
+          ],
+        },
+        {
+          id: "vy2",
+          name: "Cao Thụy Khánh Vy",
+          role: "chat",
+          chat: [
+            "Mình mới làm bài kiểm tra, kết quả tốt lắm!",
+            "Cậu làm bài tập chưa?",
+          ],
+        },
+        {
+          id: "vy3",
+          name: "Thòng Dinh Vy",
+          role: "tips",
+          dialogue: [
+            "Chơi nhóm thì mỗi người có timeline riêng đó!",
+            "Cùng team mà tiết học lệch nhau là chuyện bình thường.",
+          ],
+        },
+        {
+          id: "y",
+          name: "Nguyễn Như Ý",
+          role: "quest",
+          quest: {
+            type: "survive_10min",
+            target: 1,
+            description: "Sinh tồn liên tục 10 phút không mất máu!",
+            reward: { hp: 40, score: 300 },
+          },
+        },
+      ];
+
+      function getAvailableNPCs() {
+        const playerLastName = selectedChar.name.split(" ").slice(-1)[0];
+        return NPC_POOL.filter((npc) => !npc.name.endsWith(playerLastName));
+      }
+
+      /* =========================================================
+         NPC STATE
+      ========================================================= */
+      let npcEntities = [];
+
+      function isPositionSafeForNPC(px, py) {
+        const safeDistance = 80;
+        const inYard = py > 490 && py < 850 && px > 40 && px < 1360;
+        const inCorridor = py > 380 && py < 490 && px > 40 && px < 1360;
+        if (!inYard && !inCorridor) return false;
+
+        for (const room of MAP.rooms) {
+          if (
+            Math.hypot(px - room.switchX, py - room.switchY) < safeDistance ||
+            Math.hypot(px - room.fanSwitchX, py - room.fanSwitchY) <
+              safeDistance ||
+            Math.hypot(px - room.doorX, py - room.doorY) < safeDistance ||
+            (px > room.x - 20 &&
+              px < room.x + room.w + 20 &&
+              py > room.y - 20 &&
+              py < room.y + room.h + 20)
+          ) {
+            return false;
+          }
+        }
+
+        if (
+          Math.hypot(px - MAP.greenBin.cx, py - MAP.greenBin.cy) <
+            safeDistance + 20 ||
+          Math.hypot(px - MAP.guardBooth.npcX, py - MAP.guardBooth.npcY) <
+            safeDistance + 20 ||
+          Math.hypot(px - MAP.flagPole.cx, py - MAP.flagPole.cy) < safeDistance
+        ) {
+          return false;
+        }
+        for (const drain of MAP.drains) {
+          if (Math.hypot(px - drain.x, py - drain.y) < safeDistance)
+            return false;
+        }
+        for (const tree of MAP.trees) {
+          if (Math.hypot(px - tree.x, py - tree.y) < safeDistance - 20)
+            return false;
+        }
+        for (const bed of MAP.flowerBeds) {
+          if (
+            Math.hypot(px - (bed.x + bed.w / 2), py - (bed.y + bed.h / 2)) <
+            safeDistance - 10
+          ) {
+            return false;
+          }
+        }
+        if (
+          npcEntities.some((npc) => Math.hypot(px - npc.x, py - npc.y) < 90)
+        ) {
+          return false;
+        }
+        return true;
+      }
+
+      function spawnNPCsForDay() {
+        npcEntities = [];
+        const available = getAvailableNPCs();
+        const numNPCs = Math.min(8, available.length);
+        const shuffled = [...available].sort(() => Math.random() - 0.5);
+        const chosen = shuffled.slice(0, numNPCs);
+
+        const candidatePositions = [
+          { x: 320, y: 550 },
+          { x: 500, y: 620 },
+          { x: 900, y: 550 },
+          { x: 1080, y: 620 },
+          { x: 400, y: 700 },
+          { x: 1000, y: 700 },
+          { x: 800, y: 780 },
+          { x: 600, y: 780 },
+          { x: 250, y: 400 },
+          { x: 480, y: 400 },
+          { x: 920, y: 400 },
+          { x: 1150, y: 400 },
+          { x: 480, y: 550 },
+          { x: 900, y: 500 },
+          { x: 600, y: 640 },
+        ].sort(() => Math.random() - 0.5);
+        const safePositions = candidatePositions.filter((pos) =>
+          isPositionSafeForNPC(pos.x, pos.y),
+        );
+
+        for (const npc of chosen) {
+          let pos = safePositions.find((candidate) =>
+            isPositionSafeForNPC(candidate.x, candidate.y),
+          );
+          if (pos) {
+            safePositions.splice(safePositions.indexOf(pos), 1);
+          } else {
+            for (let attempt = 0; attempt < 60; attempt++) {
+              const candidate = {
+                x: 200 + Math.random() * 1000,
+                y: 500 + Math.random() * 300,
+              };
+              if (isPositionSafeForNPC(candidate.x, candidate.y)) {
+                pos = candidate;
+                break;
+              }
+            }
+          }
+          if (!pos) continue;
+
+          npcEntities.push({
+            ...npc,
+            x: pos.x,
+            y: pos.y,
+            facing: "down",
+            animFrame: 0,
+            animTimer: 0,
+            isMoving: false,
+            coatColor: npc.role === "mystic" ? "#1e293b" : "#475569",
+            hoodColor: npc.role === "mystic" ? "#0f172a" : "#334155",
+            talkedToToday: false,
+            questAccepted: false,
+            questProgress: 0,
+            bob: Math.random() * Math.PI * 2,
+          });
+        }
+
+        if (currentWeather === "RAIN") spawnMysticNPC();
+      }
+
+      function spawnMysticNPC() {
+        const mysticNames = [
+          "Huỳnh Chí Khang",
+          "Huỳnh Tuấn Khôi",
+          "Trương Trúc Lam",
+        ];
+        const playerLastName = selectedChar.name.split(" ").slice(-1)[0];
+        const availableMystic = mysticNames.filter(
+          (n) => !n.endsWith(playerLastName),
+        );
+        if (availableMystic.length === 0) return;
+        const name =
+          availableMystic[Math.floor(Math.random() * availableMystic.length)];
+        const mysticPositions = [
+          { x: 500, y: 630 },
+          { x: 900, y: 630 },
+          { x: 700, y: 700 },
+          { x: 550, y: 720 },
+          { x: 850, y: 720 },
+        ].sort(() => Math.random() - 0.5);
+        const pos = mysticPositions.find((candidate) =>
+          isPositionSafeForNPC(candidate.x, candidate.y),
+        );
+        if (!pos) return;
+
+        npcEntities.push({
+          id: "mystic_special",
+          name,
+          role: "mystic_special",
+          x: pos.x,
+          y: pos.y,
+          facing: "down",
+          animFrame: 0,
+          animTimer: 0,
+          isMoving: false,
+          coatColor: "#020617",
+          hoodColor: "#0f172a",
+          talkedToToday: false,
+          isSeated: true,
+          auraRadius: 100,
+          auraPulse: 0,
+        });
+      }
+
+      /* =========================================================
+         STORY EVENTS — Cốt truyện song hành
+      ========================================================= */
+      const STORY_EVENTS = {
+        1: {
+          title: "Ngày đầu tiên",
+          text: "Bạn bước vào trường THPT Bình Chánh. Hôm nay trời oi bức... Tắt hết điện trước khi ra chơi nhé!",
+        },
+        2: {
+          title: "Không khí ô nhiễm",
+          text: "Sân trường ngập rác. Ai đó đã vứt bừa bãi. Bạn cần dọn sạch trước khi mùi hôi lan khắp lớp.",
+        },
+        3: {
+          title: "Mưa phùn đầu mùa",
+          text: "Mưa rơi lất phất. Có ai đó ngồi giữa sân, áo khoác trùm đầu, bất động trong mưa...",
+        },
+        4: {
+          title: "Linh khí tụ hội",
+          text: "Nghe nói NPC bí ẩn xuất hiện khi mưa. Họ đang farm aura? Thử lại gần xem!",
+        },
+        5: {
+          title: "Bài kiểm tra dồn dập",
+          text: "Hôm nay có 7 tiết liền. Cố gắng vượt mọi minigame tập trung!",
+        },
+        7: {
+          title: "Tuần đầu sống sót",
+          text: "Bạn đã sống qua 1 tuần! Học sinh trong trường bắt đầu biết tên bạn...",
+        },
+        10: {
+          title: "Truyền thuyết học sinh",
+          text: "10 ngày sống sót! Nghe nói chỉ có huyền thoại mới trụ được tới đây.",
+        },
+      };
+
+      function showDayStory() {
+        if (STORY_EVENTS[currentDay]) {
+          const ev = STORY_EVENTS[currentDay];
+          setTimeout(() => {
+            showDialogue(
+              "📖 NHẬT KÝ HÀNH TRÌNH",
+              `${ev.title}: ${ev.text}`,
+              "📖",
+            );
+          }, 800);
+        }
+      }
+
+      /* =========================================================
          CANVAS & WORLD
       ========================================================= */
       const canvas = document.getElementById("gameCanvas");
@@ -1609,12 +2343,15 @@
       canvas.width = W;
       canvas.height = H;
 
-      const BREAK_DURATION = 30;
-      const LESSON_DURATION = 60;
+      const BREAK_DURATION = 60;
+      const LESSON_DURATION = 45;
       const TRANSITION_DURATION = 3;
+      const PREP_TIME = 5;
+      const LIGHT_OFF_DAMAGE = 3;
+      const FAN_OFF_DAMAGE = 2;
       const MAX_STANDING_DURING_LESSON = 5;
-      const MINIGAME_INTERVAL = 10;
-      const MINIGAME_CHANCE = 0.8;
+      const MINIGAME_INTERVAL = 15;
+      const MINIGAME_CHANCE = 0.98;
 
       const DAY_SCHEDULE = [
         { type: "BREAK", dur: BREAK_DURATION, label: "GIỜ RA CHƠI SÁNG" },
@@ -1792,13 +2529,14 @@
         isInside: false,
         seated: false,
         seatRef: null,
-        name: "Bạn",
+        name: "Người chơi",
         charId: "hung",
         remote: false,
         bumpCooldown: 0,
         slipVel: 0,
         slipDirX: 0,
         slipDirY: 0,
+        talkCooldown: 0,
       };
 
       function rebuildColliders() {
@@ -1843,7 +2581,7 @@
             h: wt,
             type: "wall",
           });
-          if (!r.doorOpen) {
+          if (!r.doorOpen)
             colliders.push({
               x: doorLeft,
               y: r.y + r.h - wt,
@@ -1852,7 +2590,6 @@
               type: "door",
               roomId: r.id,
             });
-          }
           for (const s of r.seats) {
             if (player.seated && player.seatRef === s) continue;
             colliders.push({
@@ -1886,7 +2623,7 @@
           h: MAP.greenBin.h,
           type: "furniture",
         });
-        for (const d of MAP.drains) {
+        for (const d of MAP.drains)
           colliders.push({
             x: d.x - 22,
             y: d.y - 15,
@@ -1895,7 +2632,6 @@
             type: "furniture",
             ref: d,
           });
-        }
         colliders.push({
           x: MAP.flagPole.cx - 8,
           y: MAP.flagPole.cy - 8,
@@ -1903,7 +2639,7 @@
           h: 16,
           type: "furniture",
         });
-        for (const tree of MAP.trees) {
+        for (const tree of MAP.trees)
           colliders.push({
             x: tree.x - 8,
             y: tree.y - 8,
@@ -1911,8 +2647,7 @@
             h: 16,
             type: "furniture",
           });
-        }
-        for (const fb of MAP.flowerBeds) {
+        for (const fb of MAP.flowerBeds)
           colliders.push({
             x: fb.x,
             y: fb.y,
@@ -1920,7 +2655,6 @@
             h: fb.h,
             type: "furniture",
           });
-        }
       }
 
       /* =========================================================
@@ -1940,12 +2674,17 @@
       let screenShake = 0;
       let flashRed = 0,
         flashBlue = 0,
-        flashGreen = 0;
+        flashGreen = 0,
+        flashPurple = 0;
       let transitionAlpha = 0;
       let envMessage = "";
       let envMessageTimer = 0;
       let standingOutsideSeatTimer = 0;
       let standingWarningShown = false;
+      let inPreparation = false;
+      let prepTimer = 0;
+      let prepWarnings = { lights: [], fans: [] };
+      let roomWarningCooldown = 0;
       let fanningEffectTimer = 0;
       let fanningAudioTimer = 0;
       let scheduleIndex = 0;
@@ -1956,6 +2695,7 @@
       let minigameTimer = 0;
       let minigameShownThisLesson = 0;
       let trashCleanedToday = 0;
+      let npcTalkedToday = 0;
 
       const keys = {
         Up: false,
@@ -2021,7 +2761,6 @@
         const rect = () => zone.getBoundingClientRect();
         let centerX = 0,
           centerY = 0;
-
         function start(x, y, id) {
           const r = rect();
           centerX = r.left + r.width / 2;
@@ -2157,8 +2896,6 @@
           { x: seatX + 30, y: seatY },
           { x: seatX - 30, y: seatY },
           { x: seatX, y: seatY - 40 },
-          { x: seatX + 30, y: seatY + 25 },
-          { x: seatX - 30, y: seatY + 25 },
         ];
         let placed = false;
         for (const c of candidates) {
@@ -2285,50 +3022,81 @@
         const c = cv.getContext("2d");
         c.imageSmoothingEnabled = false;
         c.clearRect(0, 0, cv.width, cv.height);
-        const px = (cv.width / 16) * char.height * 0.85;
+        const unit = Math.min(4, (cv.height - 12) / (21 * 1.28));
+        const cx = cv.width / 2;
+        const cy = cv.height / 2 + 3;
         const bw = char.width;
-        const cx = cv.width / 2,
-          cy = cv.height / 2;
+        const hh = char.height;
         const S = (dx, dy, w, h, col) => {
           c.fillStyle = col;
           c.fillRect(
-            Math.round(cx + dx * px * bw - 4),
-            Math.round(cy + dy * px - 4),
-            Math.ceil(w * px * bw),
-            Math.ceil(h * px),
+            Math.round(cx + dx * unit * bw),
+            Math.round(cy + dy * unit * hh),
+            Math.max(1, Math.ceil(w * unit * bw)),
+            Math.max(1, Math.ceil(h * unit * hh)),
           );
         };
         if (char.hasLongHair) {
-          S(3, 2, 2, 10, char.hair);
-          S(11, 2, 2, 10, char.hair);
-          S(5, 8, 6, 6, char.hair);
-          S(4, 12, 8, 3, char.hair);
+          S(-3.5, -1, 1.2, 8, char.hair);
+          S(2.3, -1, 1.2, 8, char.hair);
         }
-        S(5, 2, 6, 5, char.skin);
-        S(4, 1, 8, 2, char.hair);
-        S(4, 2, 1, 3, char.hair);
-        S(11, 2, 1, 3, char.hair);
-        S(6, 4, 1, 1, "#0f172a");
-        S(9, 4, 1, 1, "#0f172a");
-        S(7, 6, 2, 1, "#b45309");
-        S(5, 7, 6, 5, char.shirt);
-        S(4, 8, 1, 3, char.shirt);
-        S(11, 8, 1, 3, char.shirt);
-        S(6, 12, 2, 3, char.pants);
-        S(9, 12, 2, 3, char.pants);
-        S(6, 15, 2, 1, "#0f172a");
-        S(9, 15, 2, 1, "#0f172a");
+        S(-2.5, 7, 1.8, 2.5, char.pants);
+        S(0.7, 7, 1.8, 2.5, char.pants);
+        S(-2.5, 9, 1.8, 0.8, "#0f172a");
+        S(0.7, 9, 1.8, 0.8, "#0f172a");
+        S(-3.5, -1, 7, 8, char.shirt);
+        S(-1.5, -1, 3, 1, "#ffffff");
+        S(-3.5, 7, 7, 0.8, char.pants);
+        S(-5, -0.5, 1.5, 5, char.shirt);
+        S(3.5, -0.5, 1.5, 5, char.shirt);
+        S(-5, 4.5, 1.5, 1.5, char.skin);
+        S(3.5, 4.5, 1.5, 1.5, char.skin);
+        S(-3, -8.5, 6, 7.5, char.skin);
+        S(-3.5, -11, 7, 3.5, char.hair);
+        S(-3.5, -9.5, 1, 4.5, char.hair);
+        S(2.5, -9.5, 1, 4.5, char.hair);
+        if (char.hasLongHair) {
+          S(-4, -9.5, 1.2, 8, char.hair);
+          S(2.8, -9.5, 1.2, 8, char.hair);
+        }
+        S(-2, -6, 1.8, 2, "#ffffff");
+        S(0.4, -6, 1.8, 2, "#ffffff");
+        S(-1.5, -5.7, 1.2, 1.5, "#0f172a");
+        S(0.7, -5.7, 1.2, 1.5, "#0f172a");
+        S(-1.2, -5.4, 0.5, 0.5, "#ffffff");
+        S(1, -5.4, 0.5, 0.5, "#ffffff");
+        S(-2, -7.2, 1.7, 0.5, char.hair);
+        S(0.4, -7.2, 1.7, 0.5, char.hair);
+        S(-0.3, -4.3, 0.6, 0.7, "#b45309");
+        S(-1.2, -3.2, 2.4, 0.5, "#7c2d12");
+        S(-1.5, -3.4, 0.5, 0.5, "#7c2d12");
+        S(1, -3.4, 0.5, 0.5, "#7c2d12");
+        S(-2.6, -5, 0.9, 0.9, "rgba(251,113,133,0.5)");
+        S(1.7, -5, 0.9, 0.9, "rgba(251,113,133,0.5)");
         if (char.hasGlasses) {
           c.strokeStyle = "#0f172a";
-          c.lineWidth = Math.max(1, px * 0.35);
-          const gx1 = cx + 5 * px * bw - 4,
-            gx2 = cx + 8 * px * bw - 4,
-            gy = cy + 3.5 * px - 4;
-          c.strokeRect(gx1, gy, 3 * px * bw, 2 * px);
-          c.strokeRect(gx2, gy, 3 * px * bw, 2 * px);
+          c.lineWidth = 1.5;
+          c.strokeRect(
+            cx - 2.2 * unit * bw,
+            cy - 7 * unit * hh,
+            2 * unit * bw,
+            2.2 * unit * hh,
+          );
+          c.strokeRect(
+            cx + 0.2 * unit * bw,
+            cy - 7 * unit * hh,
+            2 * unit * bw,
+            2.2 * unit * hh,
+          );
           c.beginPath();
-          c.moveTo(gx1 + 3 * px * bw, gy + 1 * px);
-          c.lineTo(gx2, gy + 1 * px);
+          c.moveTo(cx - 0.2 * unit * bw, cy - 6 * unit * hh);
+          c.lineTo(cx + 0.2 * unit * bw, cy - 6 * unit * hh);
+          c.stroke();
+          c.beginPath();
+          c.moveTo(cx - 2.2 * unit * bw, cy - 6 * unit * hh);
+          c.lineTo(cx - 3.3 * unit * bw, cy - 6.3 * unit * hh);
+          c.moveTo(cx + 2.2 * unit * bw, cy - 6 * unit * hh);
+          c.lineTo(cx + 3.3 * unit * bw, cy - 6.3 * unit * hh);
           c.stroke();
         }
       }
@@ -2363,7 +3131,7 @@
       }
 
       /* =========================================================
-         MULTIPLAYER — Firebase Realtime Database
+         MULTIPLAYER — Firebase
       ========================================================= */
       const mp = {
         fb: null,
@@ -2386,7 +3154,6 @@
           fbReady = true;
           console.log("[MP] Firebase ready");
         } else {
-          console.error("[MP] Firebase NOT ready - kiểm tra firebaseConfig!");
           setTimeout(() => {
             if (window._fbReady && window._fb) {
               mp.fb = window._fb;
@@ -2396,7 +3163,6 @@
           }, 1000);
         }
       });
-      // Fallback nếu event đã xảy ra trước khi listener đăng ký
       if (window._fbReady && window._fb) {
         mp.fb = window._fb;
         mp.db = window._fb.db;
@@ -2414,20 +3180,30 @@
         return "u_" + Math.random().toString(36).slice(2, 10);
       }
 
+      function syncPlayerNameFromInput() {
+        const input = document.getElementById("player-name-input");
+        const customName = input ? input.value.trim().slice(0, 16) : "";
+        player.name = customName || "Người chơi";
+        try {
+          if (customName)
+            localStorage.setItem("cfg_eco_player_name", customName);
+          else localStorage.removeItem("cfg_eco_player_name");
+        } catch (e) {}
+        return player.name;
+      }
+
       function cleanupMP() {
-        // Detach listeners
         mp.unsubscribers.forEach((u) => {
           try {
             u();
           } catch (e) {}
         });
         mp.unsubscribers = [];
-        // Xóa player khỏi room
         if (mp.connected && mp.roomCode && mp.myId && mp.fb) {
           try {
-            if (mp.isHost) {
+            if (mp.isHost)
               mp.fb.remove(mp.fb.ref(mp.db, "rooms/" + mp.roomCode));
-            } else {
+            else {
               mp.fb.remove(
                 mp.fb.ref(
                   mp.db,
@@ -2451,15 +3227,15 @@
         mp.myId = "";
       }
 
-      /* ============== HOST ============== */
       function initHost(code) {
         if (!fbReady) {
           const st = document.getElementById("host-status");
-          st.textContent = "⚠ Firebase chưa sẵn sàng. Kiểm tra firebaseConfig!";
+          st.textContent = "⚠ Firebase chưa sẵn sàng.";
           st.style.background = "#7f1d1d";
           st.style.color = "#fecaca";
           return;
         }
+        syncPlayerNameFromInput();
         cleanupMP();
         mp.isHost = true;
         mp.roomCode = code;
@@ -2467,15 +3243,12 @@
         mp.connected = true;
 
         const roomRef = mp.fb.ref(mp.db, "rooms/" + code);
-
-        // Khởi tạo room
         mp.fb.set(roomRef, {
           host: mp.myId,
           createdAt: mp.fb.serverTimestamp(),
           started: false,
         });
 
-        // Ghi thông tin host
         const myRef = mp.fb.ref(mp.db, "rooms/" + code + "/players/" + mp.myId);
         mp.fb.set(myRef, {
           name: player.name,
@@ -2485,170 +3258,13 @@
         });
         mp.fb.onDisconnect(myRef).remove();
 
-        // Nghe danh sách players
         const playersRef = mp.fb.ref(mp.db, "rooms/" + code + "/players");
-        const unsubPlayers = mp.fb.onValue(playersRef, (snapshot) => {
-          const data = snapshot.val() || {};
-          const newList = {};
-          Object.entries(data).forEach(([id, p]) => {
-            if (id === mp.myId) return;
-            newList[id] = {
-              id,
-              name: p.name,
-              charId: p.charId,
-              x: p.x || 700,
-              y: p.y || 720,
-              facing: p.facing || "up",
-              isMoving: p.isMoving || false,
-              animFrame: p.animFrame || 0,
-              trashHeld: p.trashHeld || 0,
-              seated: p.seated || false,
-              fanning: p.fanning || false,
-              temp: p.temp !== undefined ? p.temp : 50,
-              remote: true,
-            };
-          });
-          otherPlayers = newList;
-          updateHostPlayerList();
-        });
-        mp.unsubscribers.push(unsubPlayers);
-
-        // Nghe client states
-        const clientStatesRef = mp.fb.ref(
-          mp.db,
-          "rooms/" + code + "/clientStates",
-        );
-        const unsubStates = mp.fb.onValue(clientStatesRef, (snapshot) => {
-          const data = snapshot.val() || {};
-          Object.entries(data).forEach(([id, st]) => {
-            if (otherPlayers[id]) Object.assign(otherPlayers[id], st);
-          });
-        });
-        mp.unsubscribers.push(unsubStates);
-
-        // Nghe actions từ clients
-        const actionsRef = mp.fb.ref(mp.db, "rooms/" + code + "/actions");
-        const unsubActions = mp.fb.onValue(actionsRef, (snapshot) => {
-          const data = snapshot.val() || {};
-          Object.entries(data).forEach(([actionId, act]) => {
-            if (act.from === mp.myId) return;
-            handleRemoteAction(act.from, act.action);
-            try {
-              mp.fb.remove(
-                mp.fb.ref(mp.db, "rooms/" + code + "/actions/" + actionId),
-              );
-            } catch (e) {}
-          });
-        });
-        mp.unsubscribers.push(unsubActions);
-
-        // Nghe "started" để sync khi có client mới
-        const startedRef = mp.fb.ref(mp.db, "rooms/" + code + "/started");
-        const unsubStarted = mp.fb.onValue(startedRef, (snap) => {
-          mp.started = !!snap.val();
-        });
-        mp.unsubscribers.push(unsubStarted);
-
-        document.getElementById("host-room-code").textContent = code;
-        document.getElementById("host-room-info").style.display = "block";
-        document.getElementById("host-status").textContent =
-          "✓ Đã tạo phòng! Chia sẻ mã cho bạn bè.";
-        updateHostPlayerList();
-        console.log("[MP] Host ready:", code, mp.myId);
-      }
-
-      /* ============== CLIENT ============== */
-      function initJoin(code) {
-        if (!fbReady) {
-          const st = document.getElementById("join-status");
-          st.style.display = "block";
-          st.textContent = "⚠ Firebase chưa sẵn sàng. Kiểm tra firebaseConfig!";
-          st.style.background = "#7f1d1d";
-          st.style.color = "#fecaca";
-          return;
-        }
-        cleanupMP();
-        mp.isHost = false;
-        mp.roomCode = code;
-        mp.myId = genMyId();
-
-        const status = document.getElementById("join-status");
-        status.style.display = "block";
-        status.textContent = "⏳ Đang kiểm tra phòng...";
-        status.style.background = "#0f172a";
-        status.style.borderLeftColor = "#facc15";
-        status.style.color = "#fde047";
-
-        const roomRef = mp.fb.ref(mp.db, "rooms/" + code);
-
-        // Kiểm tra room tồn tại
-        mp.fb
-          .get(roomRef)
-          .then((snap) => {
-            const room = snap.val();
-            if (!room) {
-              status.textContent = "✗ Không tìm thấy phòng! Kiểm tra lại mã.";
-              status.style.background = "#7f1d1d";
-              status.style.color = "#fecaca";
-              return;
-            }
-            if (room.started) {
-              status.textContent = "⚠ Phòng đã bắt đầu, không vào được nữa!";
-              status.style.background = "#78350f";
-              status.style.color = "#fde047";
-              return;
-            }
-            joinRoomConfirmed(code, status);
-          })
-          .catch((err) => {
-            console.error("Join error:", err);
-            status.textContent = "✗ Lỗi kết nối Firebase: " + err.message;
-            status.style.background = "#7f1d1d";
-            status.style.color = "#fecaca";
-          });
-      }
-
-      function joinRoomConfirmed(code, status) {
-        mp.connected = true;
-        status.textContent = "✓ Đã vào phòng! Chờ chủ phòng bắt đầu...";
-        status.style.background = "#064e3b";
-        status.style.borderLeftColor = "#10b981";
-        status.style.color = "#6ee7b7";
-
-        // Thêm player
-        const myRef = mp.fb.ref(mp.db, "rooms/" + code + "/players/" + mp.myId);
-        mp.fb.set(myRef, {
-          name: player.name,
-          charId: selectedChar.id,
-          isHost: false,
-          joinedAt: mp.fb.serverTimestamp(),
-        });
-        mp.fb.onDisconnect(myRef).remove();
-
-        // Nghe danh sách players
-        const playersRef = mp.fb.ref(mp.db, "rooms/" + code + "/players");
-        const unsubPlayers = mp.fb.onValue(playersRef, (snapshot) => {
-          const data = snapshot.val() || {};
-          const newList = {};
-          Object.entries(data).forEach(([id, p]) => {
-            if (id === mp.myId) return;
-            if (p.isHost) {
-              newList["__host__"] = {
-                id: "__host__",
-                name: p.name,
-                charId: p.charId,
-                x: 700,
-                y: 720,
-                facing: "up",
-                isMoving: false,
-                animFrame: 0,
-                trashHeld: 0,
-                seated: false,
-                fanning: false,
-                temp: 50,
-                remote: true,
-              };
-            } else {
+        mp.unsubscribers.push(
+          mp.fb.onValue(playersRef, (snapshot) => {
+            const data = snapshot.val() || {};
+            const newList = {};
+            Object.entries(data).forEach(([id, p]) => {
+              if (id === mp.myId) return;
               newList[id] = {
                 id,
                 name: p.name,
@@ -2664,70 +3280,214 @@
                 temp: p.temp !== undefined ? p.temp : 50,
                 remote: true,
               };
-            }
-          });
-          otherPlayers = newList;
-        });
-        mp.unsubscribers.push(unsubPlayers);
+            });
+            otherPlayers = newList;
+            updateHostPlayerList();
+          }),
+        );
 
-        // Nghe host state
-        const hostStateRef = mp.fb.ref(mp.db, "rooms/" + code + "/hostState");
-        const unsubHostState = mp.fb.onValue(hostStateRef, (snapshot) => {
-          const st = snapshot.val();
-          if (st && otherPlayers["__host__"])
-            Object.assign(otherPlayers["__host__"], st);
-        });
-        mp.unsubscribers.push(unsubHostState);
-
-        // Nghe client states
         const clientStatesRef = mp.fb.ref(
           mp.db,
           "rooms/" + code + "/clientStates",
         );
-        const unsubClientStates = mp.fb.onValue(clientStatesRef, (snapshot) => {
-          const data = snapshot.val() || {};
-          Object.entries(data).forEach(([id, st]) => {
-            if (id !== mp.myId && otherPlayers[id])
-              Object.assign(otherPlayers[id], st);
-          });
-        });
-        mp.unsubscribers.push(unsubClientStates);
+        mp.unsubscribers.push(
+          mp.fb.onValue(clientStatesRef, (snapshot) => {
+            const data = snapshot.val() || {};
+            Object.entries(data).forEach(([id, st]) => {
+              if (otherPlayers[id]) Object.assign(otherPlayers[id], st);
+            });
+          }),
+        );
 
-        // Nghe lệnh bắt đầu
-        const startedRef = mp.fb.ref(mp.db, "rooms/" + code + "/started");
-        const unsubStarted = mp.fb.onValue(startedRef, (snapshot) => {
-          if (snapshot.val() === true && !mp.active) {
-            document.getElementById("mp-modal").classList.add("hidden");
-            document
-              .getElementById("char-select-screen")
-              .classList.add("hidden");
-            mp.active = true;
-            startGame(true);
-          }
-        });
-        mp.unsubscribers.push(unsubStarted);
-
-        // Nghe actions
         const actionsRef = mp.fb.ref(mp.db, "rooms/" + code + "/actions");
-        const unsubActions = mp.fb.onValue(actionsRef, (snapshot) => {
-          const data = snapshot.val() || {};
-          Object.entries(data).forEach(([actionId, act]) => {
-            if (act.from === mp.myId) return;
-            handleRemoteAction(act.from, act.action);
-            try {
-              mp.fb.remove(
-                mp.fb.ref(mp.db, "rooms/" + code + "/actions/" + actionId),
-              );
-            } catch (e) {}
+        mp.unsubscribers.push(
+          mp.fb.onValue(actionsRef, (snapshot) => {
+            const data = snapshot.val() || {};
+            Object.entries(data).forEach(([actionId, act]) => {
+              if (act.from === mp.myId) return;
+              handleRemoteAction(act.from, act.action);
+              try {
+                mp.fb.remove(
+                  mp.fb.ref(mp.db, "rooms/" + code + "/actions/" + actionId),
+                );
+              } catch (e) {}
+            });
+          }),
+        );
+
+        document.getElementById("host-room-code").textContent = code;
+        document.getElementById("host-room-info").style.display = "block";
+        document.getElementById("host-status").textContent =
+          "✓ Đã tạo phòng! Chia sẻ mã cho bạn bè.";
+        updateHostPlayerList();
+      }
+
+      function initJoin(code) {
+        if (!fbReady) {
+          const st = document.getElementById("join-status");
+          st.style.display = "block";
+          st.textContent = "⚠ Firebase chưa sẵn sàng.";
+          st.style.background = "#7f1d1d";
+          st.style.color = "#fecaca";
+          return;
+        }
+        syncPlayerNameFromInput();
+        cleanupMP();
+        mp.isHost = false;
+        mp.roomCode = code;
+        mp.myId = genMyId();
+
+        const status = document.getElementById("join-status");
+        status.style.display = "block";
+        status.textContent = "⏳ Đang kiểm tra phòng...";
+        status.style.background = "#0f172a";
+        status.style.borderLeftColor = "#facc15";
+        status.style.color = "#fde047";
+
+        const roomRef = mp.fb.ref(mp.db, "rooms/" + code);
+        mp.fb
+          .get(roomRef)
+          .then((snap) => {
+            const room = snap.val();
+            if (!room) {
+              status.textContent = "✗ Không tìm thấy phòng!";
+              status.style.background = "#7f1d1d";
+              status.style.color = "#fecaca";
+              return;
+            }
+            if (room.started) {
+              status.textContent = "⚠ Phòng đã bắt đầu, không vào được!";
+              status.style.background = "#78350f";
+              status.style.color = "#fde047";
+              return;
+            }
+            joinRoomConfirmed(code, status);
+          })
+          .catch((err) => {
+            status.textContent = "✗ Lỗi: " + err.message;
+            status.style.background = "#7f1d1d";
+            status.style.color = "#fecaca";
           });
+      }
+
+      function joinRoomConfirmed(code, status) {
+        mp.connected = true;
+        status.textContent = "✓ Đã vào phòng! Chờ chủ phòng bắt đầu...";
+        status.style.background = "#064e3b";
+        status.style.borderLeftColor = "#10b981";
+        status.style.color = "#6ee7b7";
+
+        const myRef = mp.fb.ref(mp.db, "rooms/" + code + "/players/" + mp.myId);
+        mp.fb.set(myRef, {
+          name: player.name,
+          charId: selectedChar.id,
+          isHost: false,
+          joinedAt: mp.fb.serverTimestamp(),
         });
-        mp.unsubscribers.push(unsubActions);
+        mp.fb.onDisconnect(myRef).remove();
+
+        const playersRef = mp.fb.ref(mp.db, "rooms/" + code + "/players");
+        mp.unsubscribers.push(
+          mp.fb.onValue(playersRef, (snapshot) => {
+            const data = snapshot.val() || {};
+            const newList = {};
+            Object.entries(data).forEach(([id, p]) => {
+              if (id === mp.myId) return;
+              if (p.isHost) {
+                newList["__host__"] = {
+                  id: "__host__",
+                  name: p.name,
+                  charId: p.charId,
+                  x: 700,
+                  y: 720,
+                  facing: "up",
+                  isMoving: false,
+                  animFrame: 0,
+                  trashHeld: 0,
+                  seated: false,
+                  fanning: false,
+                  temp: 50,
+                  remote: true,
+                };
+              } else {
+                newList[id] = {
+                  id,
+                  name: p.name,
+                  charId: p.charId,
+                  x: p.x || 700,
+                  y: p.y || 720,
+                  facing: p.facing || "up",
+                  isMoving: p.isMoving || false,
+                  animFrame: p.animFrame || 0,
+                  trashHeld: p.trashHeld || 0,
+                  seated: p.seated || false,
+                  fanning: p.fanning || false,
+                  temp: p.temp !== undefined ? p.temp : 50,
+                  remote: true,
+                };
+              }
+            });
+            otherPlayers = newList;
+          }),
+        );
+
+        const hostStateRef = mp.fb.ref(mp.db, "rooms/" + code + "/hostState");
+        mp.unsubscribers.push(
+          mp.fb.onValue(hostStateRef, (snapshot) => {
+            const st = snapshot.val();
+            if (st && otherPlayers["__host__"])
+              Object.assign(otherPlayers["__host__"], st);
+          }),
+        );
+
+        const clientStatesRef = mp.fb.ref(
+          mp.db,
+          "rooms/" + code + "/clientStates",
+        );
+        mp.unsubscribers.push(
+          mp.fb.onValue(clientStatesRef, (snapshot) => {
+            const data = snapshot.val() || {};
+            Object.entries(data).forEach(([id, st]) => {
+              if (id !== mp.myId && otherPlayers[id])
+                Object.assign(otherPlayers[id], st);
+            });
+          }),
+        );
+
+        const startedRef = mp.fb.ref(mp.db, "rooms/" + code + "/started");
+        mp.unsubscribers.push(
+          mp.fb.onValue(startedRef, (snapshot) => {
+            if (snapshot.val() === true && !mp.active) {
+              document.getElementById("mp-modal").classList.add("hidden");
+              document
+                .getElementById("char-select-screen")
+                .classList.add("hidden");
+              mp.active = true;
+              startGame(true);
+            }
+          }),
+        );
+
+        const actionsRef = mp.fb.ref(mp.db, "rooms/" + code + "/actions");
+        mp.unsubscribers.push(
+          mp.fb.onValue(actionsRef, (snapshot) => {
+            const data = snapshot.val() || {};
+            Object.entries(data).forEach(([actionId, act]) => {
+              if (act.from === mp.myId) return;
+              handleRemoteAction(act.from, act.action);
+              try {
+                mp.fb.remove(
+                  mp.fb.ref(mp.db, "rooms/" + code + "/actions/" + actionId),
+                );
+              } catch (e) {}
+            });
+          }),
+        );
 
         document.getElementById("btn-start-game").disabled = true;
         document.getElementById("btn-start-mp").disabled = true;
       }
 
-      /* ============== SYNC STATE ============== */
       function broadcastMyState() {
         if (!mp.active || !mp.connected || !mp.fb) return;
         const state = {
@@ -2741,12 +3501,12 @@
           fanning: player.fanning,
           temp: bodyTemp,
         };
-        if (mp.isHost) {
+        if (mp.isHost)
           mp.fb.set(
             mp.fb.ref(mp.db, "rooms/" + mp.roomCode + "/hostState"),
             state,
           );
-        } else {
+        else
           mp.fb.set(
             mp.fb.ref(
               mp.db,
@@ -2754,7 +3514,6 @@
             ),
             state,
           );
-        }
       }
 
       function broadcastAction(action) {
@@ -2775,19 +3534,36 @@
         );
       }
 
-      /* ============== UPDATE HOST UI ============== */
       function updateHostPlayerList() {
         const list = document.getElementById("host-player-list");
         if (!list) return;
         list.innerHTML = "";
         const hostItem = document.createElement("div");
         hostItem.className = "player-item";
-        hostItem.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${player.name} (Host)</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${selectedChar.name}</div>`;
+        const hostDot = document.createElement("div");
+        hostDot.className = "pdot";
+        const hostName = document.createElement("div");
+        hostName.style.cssText = "font-weight:700; font-size:13px;";
+        hostName.textContent = `${player.name} (Host)`;
+        const hostCharacter = document.createElement("div");
+        hostCharacter.style.cssText =
+          "font-size:10px; color:#94a3b8; margin-left:auto;";
+        hostCharacter.textContent = selectedChar.name;
+        hostItem.append(hostDot, hostName, hostCharacter);
         list.appendChild(hostItem);
         Object.values(otherPlayers).forEach((p) => {
           const item = document.createElement("div");
           item.className = "player-item";
-          item.innerHTML = `<div class="pdot"></div><div style="font-weight:700; font-size:13px;">${p.name || "Người chơi"}</div><div style="font-size:10px; color:#94a3b8; margin-left:auto;">${CHARACTERS[p.charId]?.name || "?"}</div>`;
+          const dot = document.createElement("div");
+          dot.className = "pdot";
+          const name = document.createElement("div");
+          name.style.cssText = "font-weight:700; font-size:13px;";
+          name.textContent = p.name || "Người chơi";
+          const character = document.createElement("div");
+          character.style.cssText =
+            "font-size:10px; color:#94a3b8; margin-left:auto;";
+          character.textContent = CHARACTERS[p.charId]?.name || "?";
+          item.append(dot, name, character);
           list.appendChild(item);
         });
         const btn = document.getElementById("btn-host-start");
@@ -2852,6 +3628,68 @@
         return "RAIN";
       }
 
+      function isPositionSafeForTrash(px, py) {
+        const minDistance = 40;
+        const inYard = py > 505 && py < 840 && px > 60 && px < 1340;
+        const inCorridor = py > 385 && py < 485 && px > 60 && px < 1340;
+        if (!inYard && !inCorridor) return false;
+
+        for (const tree of MAP.trees) {
+          if (Math.hypot(px - tree.x, py - tree.y) < tree.r + minDistance) {
+            return false;
+          }
+        }
+        for (const bed of MAP.flowerBeds) {
+          if (
+            px > bed.x - minDistance &&
+            px < bed.x + bed.w + minDistance &&
+            py > bed.y - minDistance &&
+            py < bed.y + bed.h + minDistance
+          ) {
+            return false;
+          }
+        }
+        if (
+          Math.hypot(px - MAP.flagPole.cx, py - MAP.flagPole.cy) <
+            50 + minDistance ||
+          Math.hypot(px - MAP.greenBin.cx, py - MAP.greenBin.cy) <
+            minDistance + 50 ||
+          (px > MAP.guardBooth.x - minDistance &&
+            px < MAP.guardBooth.x + MAP.guardBooth.w + minDistance &&
+            py > MAP.guardBooth.y - minDistance &&
+            py < MAP.guardBooth.y + MAP.guardBooth.h + minDistance) ||
+          (px > MAP.gate.x - minDistance &&
+            px < MAP.gate.x + MAP.gate.w + minDistance &&
+            py > MAP.gate.y - minDistance &&
+            py < MAP.gate.y + MAP.gate.h + minDistance)
+        ) {
+          return false;
+        }
+        for (const drain of MAP.drains) {
+          if (Math.hypot(px - drain.x, py - drain.y) < minDistance + 25)
+            return false;
+        }
+        for (const npc of npcEntities) {
+          if (Math.hypot(px - npc.x, py - npc.y) < 35 + minDistance)
+            return false;
+        }
+        for (const room of MAP.rooms) {
+          if (
+            (px > room.x - 20 &&
+              px < room.x + room.w + 20 &&
+              py > room.y - 20 &&
+              py < room.y + room.h + 20) ||
+            Math.hypot(px - room.doorX, py - room.doorY) < minDistance
+          ) {
+            return false;
+          }
+        }
+        for (const trash of trashItems) {
+          if (Math.hypot(px - trash.x, py - trash.y) < 25) return false;
+        }
+        return true;
+      }
+
       /* =========================================================
          ENVIRONMENT
       ========================================================= */
@@ -2860,6 +3698,8 @@
         powerTripped = false;
         bodyTemp = 50;
         trashCleanedToday = 0;
+        npcTalkedToday = 0;
+
         MAP.rooms.forEach((r) => {
           r.doorOpen = false;
           r.fansOn = currentWeather === "HOT";
@@ -2867,17 +3707,27 @@
           r.seats.forEach((s) => (s.occupied = false));
         });
         rebuildColliders();
+
         trashItems = [];
+        spawnNPCsForDay();
         const trashCount = currentWeather === "POLLUTION" ? 16 : 6;
-        for (let i = 0; i < trashCount; i++) {
+        let attempts = 0;
+        const maxAttempts = trashCount * 30;
+        while (trashItems.length < trashCount && attempts < maxAttempts) {
+          attempts++;
+          const x = 100 + Math.random() * 1200;
+          const y = 510 + Math.random() * 330;
+          if (!isPositionSafeForTrash(x, y)) continue;
           trashItems.push({
-            id: "t" + i + "_" + Date.now() + "_" + Math.random(),
-            x: 100 + Math.random() * 1200,
-            y: 510 + Math.random() * 330,
+            id:
+              "t" + trashItems.length + "_" + Date.now() + "_" + Math.random(),
+            x,
+            y,
             type: Math.random() > 0.5 ? "plastic" : "paper",
             bob: Math.random() * Math.PI * 2,
           });
         }
+
         puddles = [];
         if (currentWeather === "RAIN") {
           for (let i = 0; i < 10; i++) {
@@ -2890,6 +3740,7 @@
           }
           MAP.drains.forEach((d) => (d.clogged = true));
         }
+
         rainParticles = [];
         if (currentWeather === "RAIN") {
           for (let i = 0; i < 140; i++) {
@@ -2901,6 +3752,7 @@
             });
           }
         }
+
         clouds = [];
         for (let i = 0; i < 7; i++) {
           clouds.push({
@@ -2910,10 +3762,11 @@
             spd: 5 + Math.random() * 10,
           });
         }
+
         envMessage = {
           HOT: "☀️ HÔM NAY TRỜI OI BỨC — Tắt thiết bị điện!",
           POLLUTION: "☣️ HÔM NAY KHÔNG KHÍ Ô NHIỄM — Nhặt rác!",
-          RAIN: "🌧️ HÔM NAY MƯA PHÙN — Trời mát, tắt quạt!",
+          RAIN: "🌧️ HÔM NAY MƯA PHÙN — NPC bí ẩn xuất hiện!",
         }[currentWeather];
         envMessageTimer = 3.5;
       }
@@ -3022,6 +3875,109 @@
       }
 
       /* =========================================================
+         NPC DIALOGUE
+      ========================================================= */
+      function handleNPCTalk(npc) {
+        if (player.talkCooldown > 0) return;
+        player.talkCooldown = 0.5;
+        npc.talkedToToday = true;
+        npcTalkedToday++;
+        audio.talk();
+
+        // ⭐ NPC BÍ ẨN — Farming aura
+        if (npc.role === "mystic_special") {
+          showMysticDialogue(npc);
+          return;
+        }
+
+        // NPC kể chuyện
+        if (npc.role === "story") {
+          const line = npc.story[Math.floor(Math.random() * npc.story.length)];
+          showDialogue(npc.name, line, "📖");
+          return;
+        }
+
+        // NPC chat
+        if (npc.role === "chat") {
+          const line = npc.chat[Math.floor(Math.random() * npc.chat.length)];
+          showDialogue(npc.name, line, "💬");
+          return;
+        }
+
+        // NPC tips
+        if (npc.role === "tips") {
+          const line =
+            npc.dialogue[Math.floor(Math.random() * npc.dialogue.length)];
+          showDialogue(npc.name, "💡 " + line, "💡");
+          hp = Math.min(100, hp + 5);
+          addFloatingText(npc.x, npc.y - 40, "+5 HP", "#34d399");
+          return;
+        }
+
+        // NPC mystic thường
+        if (npc.role === "mystic") {
+          const line =
+            npc.dialogue[Math.floor(Math.random() * npc.dialogue.length)];
+          showDialogue(npc.name, "🔮 " + line, "🔮");
+          return;
+        }
+
+        // NPC nhiệm vụ
+        if (npc.role === "quest") {
+          if (!npc.questAccepted) {
+            npc.questAccepted = true;
+            const rewardText = `+${npc.quest.reward.hp} HP${npc.quest.reward.score ? ` +${npc.quest.reward.score} điểm` : ""}`;
+            showDialogue(
+              npc.name,
+              `📋 NHIỆM VỤ: ${npc.quest.description}\n\n🎁 Phần thưởng: ${rewardText}`,
+              "📋",
+            );
+          } else if (npc.questProgress >= npc.quest.target) {
+            hp = Math.min(100, hp + npc.quest.reward.hp);
+            if (npc.quest.reward.score)
+              powerSavedCount += Math.floor(npc.quest.reward.score / 10);
+            addFloatingText(
+              npc.x,
+              npc.y - 40,
+              `+${npc.quest.reward.hp} HP`,
+              "#fbbf24",
+            );
+            showDialogue(
+              npc.name,
+              `🎉 Cảm ơn cậu! Phần thưởng +${npc.quest.reward.hp} HP đã được cộng.`,
+              "🎁",
+            );
+            npc.questAccepted = false;
+            npc.questProgress = 0;
+          } else {
+            showDialogue(
+              npc.name,
+              `⏳ Tiến độ: ${npc.questProgress}/${npc.quest.target}. Cố lên!`,
+              "⏳",
+            );
+          }
+          return;
+        }
+      }
+
+      function showMysticDialogue(npc) {
+        const lines = [
+          "...",
+          "(Người này ngồi im không nhúc nhích, mưa rơi lất phất trên vai áo.)",
+          "Họ không quan tâm đến thế giới xung quanh.",
+          "Có vẻ như... họ đang farm aura?",
+          "Bạn cảm nhận được một luồng năng lượng kỳ lạ tỏa ra từ người này.",
+          "Mưa càng nặng hạt, aura càng mạnh...",
+        ];
+        const line = lines[Math.floor(Math.random() * lines.length)];
+        showDialogue("Người Bí Ẩn", line, "🔮");
+        hp = Math.min(100, hp + 5);
+        addFloatingText(npc.x, npc.y - 60, "🔮 +5 HP (Aura)", "#a855f7");
+        flashPurple = 0.5;
+        audio.mystic();
+      }
+
+      /* =========================================================
          INTERACTION
       ========================================================= */
       function handleInteraction() {
@@ -3031,6 +3987,14 @@
         }
         if (gameState !== "PLAYING") return;
         if (minigame.active) return;
+
+        // ⭐ KIỂM TRA NPC TRƯỚC
+        for (const npc of npcEntities) {
+          if (dist(player.x, player.y, npc.x, npc.y) < 55) {
+            handleNPCTalk(npc);
+            return;
+          }
+        }
 
         for (const room of MAP.rooms) {
           if (dist(player.x, player.y, room.switchX, room.switchY) < 45) {
@@ -3042,6 +4006,7 @@
               roomId: room.id,
               value: room.lightsOn,
             });
+            updateQuestProgress("turn_off_all");
             return;
           }
         }
@@ -3054,6 +4019,7 @@
               roomId: room.id,
               value: room.fansOn,
             });
+            updateQuestProgress("turn_off_all");
             return;
           }
         }
@@ -3087,6 +4053,7 @@
             trashItems.splice(i, 1);
             audio.pickup();
             broadcastAction({ kind: "pickupTrash", trashId: tid });
+            updateQuestProgress("clean_trash");
             return;
           }
         }
@@ -3118,13 +4085,7 @@
             );
             showDialogue(
               "♻️ Lớp Xanh",
-              `Tuyệt vời! Bạn đã phân loại ${count} rác và hồi ${actualHeal} HP!`,
-              "♻️",
-            );
-          } else {
-            showDialogue(
-              "♻️ Lớp Xanh",
-              `Bạn đã phân loại ${count} rác! (HP đã đầy)`,
+              `Tuyệt vời! Bạn phân loại ${count} rác và hồi ${actualHeal} HP!`,
               "♻️",
             );
           }
@@ -3148,8 +4109,10 @@
               "Trường Xanh - Sạch - Đẹp nhờ các cháu!",
               "Nhặt rác bỏ thùng sẽ hồi máu đấy!",
               "Càng dọn rác, ngày mai càng ít ô nhiễm!",
-              "Vào lớp nhớ giữ trật tự!",
+              "Khi mưa, để ý NPC bí ẩn ngoài sân nhé!",
               "Quạt tay làm mát cơ thể đấy!",
+              "Trước mỗi tiết có 5 giây chuẩn bị. Nhớ bật đèn và quạt khi trời nóng!",
+              "Nếu cầu dao bị ngắt, nhấn E gần bác để sửa điện; sau đó bật lại đèn và quạt!",
             ];
             showDialogue(
               "Bác Bảo Vệ",
@@ -3165,7 +4128,21 @@
             audio.pickup();
             showDialogue("🚰 Thông cống", "Bạn đã dọn sạch cống!", "🚰");
             broadcastAction({ kind: "unclog", drainX: d.x, drainY: d.y });
+            updateQuestProgress("unclog_drain");
             return;
+          }
+        }
+      }
+
+      function updateQuestProgress(questType) {
+        for (const npc of npcEntities) {
+          if (
+            npc.role === "quest" &&
+            npc.questAccepted &&
+            npc.quest &&
+            npc.quest.type === questType
+          ) {
+            npc.questProgress++;
           }
         }
       }
@@ -3218,6 +4195,19 @@
       }
       function isLessonPhase() {
         return currentSlot().type === "LESSON";
+      }
+      function updatePrepWarnings() {
+        prepWarnings = {
+          lights: MAP.rooms
+            .filter((room) => powerTripped || !room.lightsOn)
+            .map((room) => room.id),
+          fans:
+            currentWeather === "HOT"
+              ? MAP.rooms
+                  .filter((room) => powerTripped || !room.fansOn)
+                  .map((room) => room.id)
+              : [],
+        };
       }
       function lessonNumber() {
         if (!isLessonPhase()) return 0;
@@ -3301,10 +4291,13 @@
         if (flashRed > 0) flashRed = Math.max(0, flashRed - dt * 2);
         if (flashBlue > 0) flashBlue = Math.max(0, flashBlue - dt * 2);
         if (flashGreen > 0) flashGreen = Math.max(0, flashGreen - dt * 2);
+        if (flashPurple > 0) flashPurple = Math.max(0, flashPurple - dt * 1.5);
         if (envMessageTimer > 0) envMessageTimer -= dt;
+        if (roomWarningCooldown > 0) roomWarningCooldown -= dt;
         if (transitionAlpha > 0)
           transitionAlpha = Math.max(0, transitionAlpha - dt * 1.5);
         if (player.bumpCooldown > 0) player.bumpCooldown -= dt;
+        if (player.talkCooldown > 0) player.talkCooldown -= dt;
         if (fanningEffectTimer > 0) fanningEffectTimer -= dt;
 
         audio.bgmTick();
@@ -3370,20 +4363,53 @@
                 endDay();
                 return;
               }
+              inPreparation = false;
+              prepTimer = 0;
               if (currentSlot().type === "BREAK") {
                 forceStandUpIfPlaying();
                 standingOutsideSeatTimer = 0;
                 standingWarningShown = false;
               }
               if (currentSlot().type === "LESSON") {
+                inPreparation = true;
+                prepTimer = PREP_TIME;
+                forceStandUpIfPlaying();
                 standingOutsideSeatTimer = 0;
                 standingWarningShown = false;
                 minigameShownThisLesson = 0;
-                scheduleNextMinigame();
+                updatePrepWarnings();
               }
               audio.bell();
-              envMessage = currentSlot().label + " BẮT ĐẦU!";
-              envMessageTimer = 2;
+              if (inPreparation) {
+                envMessage =
+                  `CHUẨN BỊ ${currentSlot().label} — BẬT ĐÈN` +
+                  (currentWeather === "HOT" ? " + QUẠT!" : "!");
+                envMessageTimer = PREP_TIME;
+              } else {
+                envMessage = currentSlot().label + " BẮT ĐẦU!";
+                envMessageTimer = 2;
+              }
+            }
+          } else if (inPreparation) {
+            prepTimer = Math.max(0, prepTimer - dt);
+            updatePrepWarnings();
+            if (prepTimer <= 0) {
+              inPreparation = false;
+              scheduleTimer = 0;
+              minigameShownThisLesson = 0;
+              minigame.resolved = false;
+              scheduleNextMinigame();
+              audio.bell();
+              const missingLights = prepWarnings.lights.length > 0;
+              const missingFans = prepWarnings.fans.length > 0;
+              if (missingLights || missingFans) {
+                envMessage = powerTripped
+                  ? "⚠ MẤT ĐIỆN! Nhờ Bác Bảo Vệ sửa cầu dao!"
+                  : `⚠ CÒN THIẾU ${missingLights ? "ĐÈN" : ""}${missingLights && missingFans ? " + " : ""}${missingFans ? "QUẠT" : ""} — Hãy bật trong lớp!`;
+              } else {
+                envMessage = currentSlot().label + " BẮT ĐẦU!";
+              }
+              envMessageTimer = 3;
             }
           } else {
             scheduleTimer += dt;
@@ -3407,7 +4433,10 @@
                   }
                 }
               }
-              if (slot.type === "LESSON") lessonsCompleted++;
+              if (slot.type === "LESSON") {
+                lessonsCompleted++;
+                updateQuestProgress("stay_in_class");
+              }
             }
           }
         }
@@ -3434,9 +4463,8 @@
 
         const wantMove = Math.abs(mx) > 0.01 || Math.abs(my) > 0.01;
         if (wantMove && player.seated) {
-          if (isBreakPhase()) {
-            standUp();
-          } else {
+          if (isBreakPhase() || inPreparation) standUp();
+          else {
             mx = 0;
             my = 0;
           }
@@ -3481,8 +4509,35 @@
         }
 
         player.isInside = !!playerInRoom();
+        const room = playerInRoom();
+        const fanRequired = currentWeather === "HOT";
+        if (
+          isLessonPhase() &&
+          !inPreparation &&
+          !inTransition &&
+          room &&
+          player.seated
+        ) {
+          const lightsUnavailable = powerTripped || !room.lightsOn;
+          const fanUnavailable = fanRequired && (powerTripped || !room.fansOn);
+          if (lightsUnavailable) hp -= LIGHT_OFF_DAMAGE * dt;
+          if (fanUnavailable) hp -= FAN_OFF_DAMAGE * dt;
+          if (
+            (lightsUnavailable || fanUnavailable) &&
+            roomWarningCooldown <= 0
+          ) {
+            const missing = lightsUnavailable ? "ĐÈN" : "QUẠT";
+            envMessage = powerTripped
+              ? "⚡ MẤT ĐIỆN! Nhờ Bác Bảo Vệ sửa cầu dao!"
+              : `⚠ BẬT ${missing} LỚP ${room.id}!`;
+            envMessageTimer = 2;
+            roomWarningCooldown = 2.5;
+            audio.hurt();
+            flashRed = 0.25;
+          }
+        }
 
-        if (isLessonPhase() && !inTransition) {
+        if (isLessonPhase() && !inPreparation && !inTransition) {
           if (!player.seated) {
             standingOutsideSeatTimer += dt;
             const inRoom = playerInRoom();
@@ -3522,6 +4577,7 @@
           keys.Fan &&
           player.isInside &&
           isLessonPhase() &&
+          !inPreparation &&
           !inTransition &&
           player.seated;
         if (player.fanning) {
@@ -3537,6 +4593,7 @@
 
         if (
           isLessonPhase() &&
+          !inPreparation &&
           !inTransition &&
           player.seated &&
           !minigame.active &&
@@ -3581,9 +4638,14 @@
           }
         }
 
-        const room = playerInRoom();
         const fanMult = selectedChar.skill === "fan" ? 2 : 1;
-        if (isLessonPhase() && !inTransition && room && player.seated) {
+        if (
+          isLessonPhase() &&
+          !inPreparation &&
+          !inTransition &&
+          room &&
+          player.seated
+        ) {
           const fanOn = room.fansOn && !powerTripped;
           const manualFan = player.fanning;
           let tempDelta = 0;
@@ -3695,6 +4757,7 @@
           note = ` (Đã dọn ${trashCleanedToday} rác hôm qua → giảm ô nhiễm!)`;
         envMessage = `NGÀY ${currentDay} BẮT ĐẦU — ${currentWeather === "HOT" ? "☀️ OI BỨC" : currentWeather === "POLLUTION" ? "☣️ Ô NHIỄM" : "🌧️ MƯA PHÙN"}${note}`;
         envMessageTimer = 4;
+        showDayStory();
       }
 
       /* =========================================================
@@ -3899,7 +4962,6 @@
           ctx.fillRect(r.x + r.w - wt, r.y, wt, r.h);
           ctx.fillRect(r.x, r.y + r.h - wt, doorLeft - r.x, wt);
           ctx.fillRect(doorRight, r.y + r.h - wt, r.x + r.w - doorRight, wt);
-
           ctx.fillStyle = "#064e3b";
           ctx.fillRect(r.x + r.w / 2 - 80, r.y + 12, 160, 40);
           ctx.strokeStyle = "#065f46";
@@ -3913,7 +4975,6 @@
             align: "center",
             baseline: "middle",
           });
-
           const sx = r.switchX,
             sy = r.switchY;
           ctx.fillStyle = "rgba(15,23,42,0.9)";
@@ -3936,7 +4997,6 @@
             align: "center",
             baseline: "middle",
           });
-
           const fx = r.fanSwitchX,
             fy = r.fanSwitchY;
           ctx.fillStyle = "rgba(15,23,42,0.9)";
@@ -3959,7 +5019,6 @@
             align: "center",
             baseline: "middle",
           });
-
           if (r.fansOn && !powerTripped) {
             const fanX = r.x + r.w / 2,
               fanY = r.y + 60;
@@ -4035,28 +5094,6 @@
             );
             ctx.fillStyle = "#fbbf24";
             ctx.fillRect(doorRight - 10, r.y + r.h - 8, 4, 6);
-          }
-          const doorCx = (doorLeft + doorRight) / 2;
-          const doorCy = r.y + r.h;
-          const nearDoor = dist(player.x, player.y, doorCx, doorCy) < 80;
-          if (nearDoor && gameState === "PLAYING" && !minigame.active) {
-            ctx.save();
-            const t = (Math.sin(time * 4) + 1) * 0.5;
-            ctx.globalAlpha = 0.5 + t * 0.5;
-            drawTextOutlined(
-              r.doorOpen ? "▼ VÀO ĐƯỢC ▼" : "NHẤN E MỞ CỬA",
-              doorCx,
-              doorCy - 20,
-              {
-                font: 'bold 16px "Courier New", monospace',
-                color: r.doorOpen ? "#10b981" : "#facc15",
-                outlineColor: "#000000",
-                outlineWidth: 4,
-                align: "center",
-                baseline: "middle",
-              },
-            );
-            ctx.restore();
           }
         }
 
@@ -4251,6 +5288,118 @@
         }
       }
 
+      /* =========================================================
+         DRAW NPCs
+      ========================================================= */
+      function drawNPCs(time) {
+        for (const npc of npcEntities) {
+          const isMystic =
+            npc.role === "mystic" || npc.role === "mystic_special";
+          const isSeated = npc.isSeated || npc.role === "mystic_special";
+
+          // Aura cho mystic_special
+          if (npc.role === "mystic_special") {
+            npc.auraPulse = (npc.auraPulse || 0) + 0.02;
+            const pulse = Math.sin(npc.auraPulse) * 0.5 + 0.5;
+            for (let i = 3; i >= 1; i--) {
+              ctx.strokeStyle = `rgba(168, 85, 247, ${(0.15 * pulse) / i})`;
+              ctx.lineWidth = 2;
+              ctx.beginPath();
+              ctx.arc(
+                npc.x,
+                npc.y,
+                npc.auraRadius * (i / 3) + pulse * 10,
+                0,
+                Math.PI * 2,
+              );
+              ctx.stroke();
+            }
+            for (let i = 0; i < 6; i++) {
+              const angle = (time * 0.5 + (i * Math.PI) / 3) % (Math.PI * 2);
+              const r = 40 + Math.sin(time * 2 + i) * 15;
+              const ax = npc.x + Math.cos(angle) * r;
+              const ay = npc.y + Math.sin(angle) * r - 20;
+              ctx.fillStyle = `rgba(168, 85, 247, ${0.6 + Math.sin(time * 4 + i) * 0.3})`;
+              ctx.beginPath();
+              ctx.arc(ax, ay, 3, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+
+          drawShadow(npc.x, npc.y + 14, 11);
+
+          if (!isSeated) {
+            ctx.fillStyle = "#334155";
+            ctx.fillRect(npc.x - 8, npc.y + 8, 6, 8);
+            ctx.fillRect(npc.x + 2, npc.y + 8, 6, 8);
+          }
+
+          ctx.fillStyle = npc.coatColor || "#475569";
+          ctx.fillRect(npc.x - 10, npc.y - 20, 20, 28);
+          ctx.strokeStyle = "#0f172a";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(npc.x - 10, npc.y - 20, 20, 28);
+
+          if (isSeated) {
+            ctx.fillStyle = "#475569";
+            ctx.fillRect(npc.x - 12, npc.y - 6, 24, 6);
+          }
+
+          if (isMystic && isSeated) {
+            ctx.fillStyle = npc.hoodColor || "#0f172a";
+            ctx.beginPath();
+            ctx.arc(npc.x, npc.y - 26, 12, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = "#000";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            ctx.fillStyle = "#1e1b4b";
+            ctx.beginPath();
+            ctx.arc(npc.x, npc.y - 24, 7, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.fillStyle = "#fde68a";
+            ctx.fillRect(npc.x - 8, npc.y - 34, 16, 16);
+            ctx.fillStyle = "#1e293b";
+            ctx.fillRect(npc.x - 9, npc.y - 36, 18, 6);
+            ctx.fillStyle = "#0f172a";
+            ctx.fillRect(npc.x - 4, npc.y - 28, 2, 3);
+            ctx.fillRect(npc.x + 2, npc.y - 28, 2, 3);
+          }
+
+          if (dist(player.x, player.y, npc.x, npc.y) < 120) {
+            drawTextOutlined(npc.name, npc.x, npc.y - 48, {
+              font: "bold 12px Lexend, sans-serif",
+              color: npc.role === "mystic_special" ? "#c084fc" : "#93c5fd",
+              outlineColor: "#000000",
+              outlineWidth: 3,
+              align: "center",
+              baseline: "middle",
+            });
+          }
+
+          if (
+            !npc.talkedToToday &&
+            dist(player.x, player.y, npc.x, npc.y) < 100
+          ) {
+            const icon =
+              npc.role === "quest"
+                ? "❗"
+                : npc.role === "mystic_special"
+                  ? "🔮"
+                  : npc.role === "mystic"
+                    ? "✨"
+                    : npc.role === "story"
+                      ? "📖"
+                      : "💬";
+            ctx.font = "20px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(icon, npc.x, npc.y - 55 + Math.sin(time * 4) * 3);
+            ctx.textAlign = "left";
+          }
+        }
+      }
+
       function drawCharBody(
         x,
         y,
@@ -4264,109 +5413,185 @@
         name,
         isSelf,
       ) {
-        const basePx = 2.8;
-        const px = basePx * char.height;
+        const unit = 3.2;
         const bw = char.width;
+        const hh = char.height;
         const S = (dx, dy, w, h, col) => {
           ctx.fillStyle = col;
           ctx.fillRect(
-            Math.round(x + dx * px * bw),
-            Math.round(y + dy * px),
-            Math.ceil(w * px * bw),
-            Math.ceil(h * px),
+            Math.round(x + dx * unit * bw),
+            Math.round(y + dy * unit * hh),
+            Math.max(1, Math.ceil(w * unit * bw)),
+            Math.max(1, Math.ceil(h * unit * hh)),
           );
         };
         ctx.fillStyle = "rgba(0,0,0,0.35)";
         ctx.beginPath();
-        ctx.ellipse(
-          x,
-          y + 14 * char.height,
-          12 * bw,
-          4 * char.height,
-          0,
-          0,
-          Math.PI * 2,
-        );
+        ctx.ellipse(x, y + 11 * hh, 12 * bw, 4 * hh, 0, 0, Math.PI * 2);
         ctx.fill();
 
         if (char.hasLongHair && facing !== "up") {
-          S(-7, -8, 3, 14, char.hair);
-          S(4, -8, 3, 14, char.hair);
-          S(-7, -4, 3, 10, char.hair);
-          S(4, -4, 3, 10, char.hair);
+          S(-3.5, -3, 1, 5.5, char.hair);
+          S(2.3, -3, 1, 5.5, char.hair);
         }
+
         const walkPhase = Math.floor(animFrame / 2);
         const legOffset = isMoving ? (walkPhase === 0 ? -1 : 1) : 0;
         if (seated) {
-          S(-4, 6, 3, 3, char.pants);
-          S(1, 6, 3, 3, char.pants);
+          S(-2.5, 6, 1.8, 2.5, char.pants);
+          S(0.7, 6, 1.8, 2.5, char.pants);
         } else {
-          S(-4, 8 + legOffset, 3, 4, char.pants);
-          S(1, 8 - legOffset, 3, 4, char.pants);
+          S(-2.5, 7 + legOffset * 0.8, 1.8, 2.5, char.pants);
+          S(0.7, 7 - legOffset * 0.8, 1.8, 2.5, char.pants);
         }
-        S(-6, -2, 12, 12, char.shirt);
-        S(-3, -2, 6, 2, "#ffffff");
-        S(-6, 7, 12, 2, char.pants);
+        if (!seated) {
+          S(-2.5, 9 + legOffset * 0.8, 1.8, 0.8, "#0f172a");
+          S(0.7, 9 - legOffset * 0.8, 1.8, 0.8, "#0f172a");
+        }
+        S(-3.5, -1, 7, 8, char.shirt);
+        S(-1.5, -1, 3, 1, "#ffffff");
+        S(-3.5, 7, 7, 0.8, char.pants);
+
         if (fanning) {
           const fp = Math.sin(time * 20) * 3;
-          S(-9, -1 + fp, 3, 6, char.skin);
-          S(6, -1 - fp, 3, 6, char.skin);
+          S(-5, -0.5 + fp * 0.15, 1.5, 4, char.shirt);
+          S(3.5, -0.5 - fp * 0.15, 1.5, 4, char.shirt);
+          S(-5, 3.5 + fp * 0.15, 1.5, 1.5, char.skin);
+          S(3.5, 3.5 - fp * 0.15, 1.5, 1.5, char.skin);
           ctx.fillStyle = "#fde047";
           ctx.beginPath();
-          ctx.arc(x + 11 * bw, y - 2 + fp, 6, 0, Math.PI * 2);
+          ctx.arc(x + 5 * bw, y - 1 + fp * 0.5, 7, 0, Math.PI * 2);
           ctx.fill();
           ctx.strokeStyle = "#92400e";
           ctx.lineWidth = 1.5;
           ctx.beginPath();
-          ctx.arc(x + 11 * bw, y - 2 + fp, 6, 0, Math.PI * 2);
+          ctx.arc(x + 5 * bw, y - 1 + fp * 0.5, 7, 0, Math.PI * 2);
           ctx.stroke();
           for (let a = 0; a < Math.PI * 2; a += Math.PI / 3) {
             ctx.beginPath();
-            ctx.moveTo(x + 11 * bw, y - 2 + fp);
+            ctx.moveTo(x + 5 * bw, y - 1 + fp * 0.5);
             ctx.lineTo(
-              x + 11 * bw + Math.cos(a) * 6,
-              y - 2 + fp + Math.sin(a) * 6,
+              x + 5 * bw + Math.cos(a) * 7,
+              y - 1 + fp * 0.5 + Math.sin(a) * 7,
             );
             ctx.stroke();
           }
         } else if (seated) {
-          S(-9, 1, 3, 5, char.skin);
-          S(6, 1, 3, 5, char.skin);
+          S(-5, 0.5, 1.5, 4, char.shirt);
+          S(3.5, 0.5, 1.5, 4, char.shirt);
+          S(-5, 4, 1.5, 1.5, char.skin);
+          S(3.5, 4, 1.5, 1.5, char.skin);
         } else {
-          S(-9, -1, 3, 7, char.skin);
-          S(6, -1, 3, 7, char.skin);
+          S(-5, -0.5, 1.5, 5, char.shirt);
+          S(3.5, -0.5, 1.5, 5, char.shirt);
+          S(-5, 4.5, 1.5, 1.5, char.skin);
+          S(3.5, 4.5, 1.5, 1.5, char.skin);
         }
-        S(-6, -16, 12, 12, char.skin);
-        S(-7, -19, 14, 5, char.hair);
-        S(-7, -17, 2, 8, char.hair);
-        S(5, -17, 2, 8, char.hair);
+
+        S(-3, -8.5, 6, 7.5, char.skin);
+        if (facing !== "up") S(-3.5, -11, 7, 3.5, char.hair);
+        else S(-3.5, -11, 7, 8.5, char.hair);
+
+        if (facing === "down" || facing === "up") {
+          S(-3.5, -9.5, 1, 4.5, char.hair);
+          S(2.5, -9.5, 1, 4.5, char.hair);
+        } else if (facing === "left") {
+          S(2.5, -9.5, 1, 4.5, char.hair);
+        } else if (facing === "right") {
+          S(-3.5, -9.5, 1, 4.5, char.hair);
+        }
+
         if (char.hasLongHair) {
-          S(-8, -17, 3, 16, char.hair);
-          S(5, -17, 3, 16, char.hair);
-          S(-7, -14, 2, 14, char.hair);
-          S(5, -14, 2, 14, char.hair);
+          if (facing === "down" || facing === "up") {
+            S(-4, -9.5, 1.2, 8, char.hair);
+            S(2.8, -9.5, 1.2, 8, char.hair);
+          } else if (facing === "left") {
+            S(2.8, -9.5, 1.2, 8, char.hair);
+          } else if (facing === "right") {
+            S(-4, -9.5, 1.2, 8, char.hair);
+          }
         }
-        ctx.fillStyle = "#0f172a";
-        const eyeY = y - 10 * char.height;
-        if (facing === "down") {
-          ctx.fillRect(x - 4 * bw, eyeY, 2, 3);
-          ctx.fillRect(x + 2 * bw, eyeY, 2, 3);
-        } else if (facing === "left") ctx.fillRect(x - 5 * bw, eyeY, 2, 3);
-        else if (facing === "right") ctx.fillRect(x + 3 * bw, eyeY, 2, 3);
+
+        if (facing !== "up") {
+          if (facing === "down") {
+            S(-2, -6, 1.8, 2, "#ffffff");
+            S(0.4, -6, 1.8, 2, "#ffffff");
+            S(-1.5, -5.7, 1.2, 1.5, "#0f172a");
+            S(0.7, -5.7, 1.2, 1.5, "#0f172a");
+            S(-1.2, -5.4, 0.5, 0.5, "#ffffff");
+            S(1, -5.4, 0.5, 0.5, "#ffffff");
+            S(-2, -7.2, 1.7, 0.5, char.hair);
+            S(0.4, -7.2, 1.7, 0.5, char.hair);
+            S(-0.3, -4.3, 0.6, 0.7, "#b45309");
+            S(-1.2, -3.2, 2.4, 0.5, "#7c2d12");
+            S(-1.5, -3.4, 0.5, 0.5, "#7c2d12");
+            S(1, -3.4, 0.5, 0.5, "#7c2d12");
+            S(-2.6, -5, 0.9, 0.9, "rgba(251,113,133,0.5)");
+            S(1.7, -5, 0.9, 0.9, "rgba(251,113,133,0.5)");
+          } else if (facing === "left") {
+            S(-2.5, -6, 2, 2, "#ffffff");
+            S(-2, -5.7, 1.3, 1.5, "#0f172a");
+            S(-1.7, -5.4, 0.5, 0.5, "#ffffff");
+            S(-2.6, -7.2, 1.8, 0.5, char.hair);
+            S(-3.2, -4.3, 0.6, 0.7, "#b45309");
+            S(-2.2, -3.2, 1.5, 0.5, "#7c2d12");
+            S(-2.5, -3.4, 0.5, 0.5, "#7c2d12");
+            S(-3.2, -5, 0.9, 0.9, "rgba(251,113,133,0.5)");
+          } else if (facing === "right") {
+            S(0.5, -6, 2, 2, "#ffffff");
+            S(0.7, -5.7, 1.3, 1.5, "#0f172a");
+            S(1.2, -5.4, 0.5, 0.5, "#ffffff");
+            S(0.8, -7.2, 1.8, 0.5, char.hair);
+            S(2.6, -4.3, 0.6, 0.7, "#b45309");
+            S(0.7, -3.2, 1.5, 0.5, "#7c2d12");
+            S(2, -3.4, 0.5, 0.5, "#7c2d12");
+            S(2.3, -5, 0.9, 0.9, "rgba(251,113,133,0.5)");
+          }
+        }
+
         if (char.hasGlasses && facing !== "up") {
           ctx.strokeStyle = "#0f172a";
-          ctx.lineWidth = 2;
-          const gy = eyeY - 1;
+          ctx.lineWidth = 1.8;
           if (facing === "down") {
-            ctx.strokeRect(x - 5 * bw, gy, 5, 5);
-            ctx.strokeRect(x + 1 * bw, gy, 5, 5);
+            ctx.strokeRect(
+              x - 2.2 * unit * bw,
+              y - 7 * unit * hh,
+              2 * unit * bw,
+              2.2 * unit * hh,
+            );
+            ctx.strokeRect(
+              x + 0.2 * unit * bw,
+              y - 7 * unit * hh,
+              2 * unit * bw,
+              2.2 * unit * hh,
+            );
             ctx.beginPath();
-            ctx.moveTo(x - 1 * bw, gy + 2);
-            ctx.lineTo(x + 1 * bw, gy + 2);
+            ctx.moveTo(x - 0.2 * unit * bw, y - 6 * unit * hh);
+            ctx.lineTo(x + 0.2 * unit * bw, y - 6 * unit * hh);
             ctx.stroke();
-          } else if (facing === "left") ctx.strokeRect(x - 6 * bw, gy, 5, 5);
-          else if (facing === "right") ctx.strokeRect(x + 2 * bw, gy, 5, 5);
+            ctx.beginPath();
+            ctx.moveTo(x - 2.2 * unit * bw, y - 6 * unit * hh);
+            ctx.lineTo(x - 3.3 * unit * bw, y - 6.3 * unit * hh);
+            ctx.moveTo(x + 2.2 * unit * bw, y - 6 * unit * hh);
+            ctx.lineTo(x + 3.3 * unit * bw, y - 6.3 * unit * hh);
+            ctx.stroke();
+          } else if (facing === "left") {
+            ctx.strokeRect(
+              x - 3 * unit * bw,
+              y - 7 * unit * hh,
+              2.5 * unit * bw,
+              2.2 * unit * hh,
+            );
+          } else if (facing === "right") {
+            ctx.strokeRect(
+              x + 0.5 * unit * bw,
+              y - 7 * unit * hh,
+              2.5 * unit * bw,
+              2.2 * unit * hh,
+            );
+          }
         }
+
         if (fanning) {
           ctx.strokeStyle = "rgba(56,189,248,0.5)";
           ctx.lineWidth = 2;
@@ -4377,15 +5602,65 @@
             ctx.stroke();
           }
         }
+
         if (name) {
-          drawTextOutlined(name, x, y - 27 * char.height, {
-            font: "bold 14px Lexend, sans-serif",
-            color: isSelf ? "#facc15" : "#6ee7b7",
-            outlineColor: "#000000",
-            outlineWidth: 4,
-            align: "center",
-            baseline: "middle",
-          });
+          const arrowSize = isSelf ? 10 : 8;
+          const topOfHair = y - 11 * unit * hh - 4;
+          const arrowGap = isSelf ? 7 : 6;
+          const arrowY = topOfHair - arrowSize - arrowGap;
+          const nameY = arrowY - 16;
+          const arrowColor = isSelf ? "#facc15" : "#6ee7b7";
+          const bounce = Math.sin(time * 4) * (isSelf ? 3 : 1.5);
+
+          ctx.save();
+          ctx.translate(x, arrowY + bounce);
+
+          ctx.fillStyle = "#000000";
+          ctx.beginPath();
+          ctx.moveTo(-arrowSize - 2, -arrowSize - 2);
+          ctx.lineTo(arrowSize + 2, -arrowSize - 2);
+          ctx.lineTo(0, arrowSize + 3);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.fillStyle = arrowColor;
+          ctx.beginPath();
+          ctx.moveTo(-arrowSize, -arrowSize);
+          ctx.lineTo(arrowSize, -arrowSize);
+          ctx.lineTo(0, arrowSize);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.strokeStyle = isSelf ? "#fff8" : "#cffafe";
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(-arrowSize, -arrowSize);
+          ctx.lineTo(arrowSize, -arrowSize);
+          ctx.stroke();
+          ctx.restore();
+
+          if (name !== "Người chơi") {
+            const nameColor = isSelf ? "#facc15" : "#6ee7b7";
+            ctx.font = "bold 13px Lexend, sans-serif";
+            const textWidth = ctx.measureText(name).width;
+            const nameBoxX = x - textWidth / 2 - 6;
+            const nameBoxY = nameY - 9;
+            const nameBoxWidth = textWidth + 12;
+            ctx.fillStyle = "rgba(0,0,0,0.55)";
+            ctx.fillRect(nameBoxX, nameBoxY, nameBoxWidth, 18);
+            ctx.strokeStyle = nameColor;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(nameBoxX, nameBoxY, nameBoxWidth, 18);
+
+            drawTextOutlined(name, x, nameY, {
+              font: "bold 13px Lexend, sans-serif",
+              color: nameColor,
+              outlineColor: "#000000",
+              outlineWidth: 3,
+              align: "center",
+              baseline: "middle",
+            });
+          }
         }
       }
 
@@ -4479,7 +5754,7 @@
             p.seated || false,
             p.fanning || false,
             time,
-            p.name || "Bạn",
+            p.name || "Người chơi",
             false,
           );
           if (p.temp !== undefined && Math.abs(p.temp - 50) > 15) {
@@ -4644,35 +5919,16 @@
             },
           );
         }
-        if (player.fanning) {
-          const a = 0.85 + 0.15 * Math.sin(performance.now() / 100);
-          let fanText;
-          if (currentWeather === "RAIN") fanText = "💨 QUẠT TAY: LẠNH NHANH!";
-          else if (currentWeather === "HOT")
-            fanText =
-              bodyTemp <= 51
-                ? "💨 QUẠT TAY: ĐÃ ĐẠT MÁT (50°)"
-                : "💨 QUẠT TAY: ĐANG MÁT...";
-          else fanText = "💨 QUẠT TAY: MÁT NHẸ";
-          drawTextOutlined(fanText, W / 2, 118, {
-            font: 'bold 18px "Courier New", monospace',
-            color: `rgba(56,189,248,${a})`,
-            outlineColor: "#000000",
-            outlineWidth: 4,
-            align: "center",
-            baseline: "middle",
-          });
-        }
         if (mp.active) {
           ctx.fillStyle = "rgba(10,14,20,0.92)";
-          ctx.fillRect(W - 220, 15, 205, 76);
+          ctx.fillRect(W - 240, 15, 225, 76);
           ctx.strokeStyle = "#3b82f6";
           ctx.lineWidth = 3;
-          ctx.strokeRect(W - 220, 15, 205, 76);
+          ctx.strokeRect(W - 240, 15, 225, 76);
           drawTextOutlined(
             `👥 ${Object.keys(otherPlayers).length + 1}P`,
-            W - 117,
-            42,
+            W - 127,
+            35,
             {
               font: 'bold 14px "Courier New", monospace',
               color: "#3b82f6",
@@ -4682,9 +5938,17 @@
               baseline: "middle",
             },
           );
-          drawTextOutlined(`PHÒNG ${mp.roomCode}`, W - 117, 68, {
-            font: 'bold 13px "Courier New", monospace',
+          drawTextOutlined(`PHÒNG ${mp.roomCode}`, W - 127, 55, {
+            font: 'bold 11px "Courier New", monospace',
             color: "#94a3b8",
+            outlineColor: "#000000",
+            outlineWidth: 3,
+            align: "center",
+            baseline: "middle",
+          });
+          drawTextOutlined(`⚡ Timeline riêng`, W - 127, 75, {
+            font: 'bold 11px "Courier New", monospace',
+            color: "#fbbf24",
             outlineColor: "#000000",
             outlineWidth: 3,
             align: "center",
@@ -4827,6 +6091,20 @@
             hint = isMobile ? "🪑 Nhấn nút ghế để đứng dậy" : "[E] Đứng dậy";
           }
           if (!hint) {
+            for (const npc of npcEntities) {
+              if (dist(player.x, player.y, npc.x, npc.y) < 55) {
+                if (npc.role === "quest")
+                  hint = `[E] Nhận nhiệm vụ: ${npc.name}`;
+                else if (npc.role === "mystic_special")
+                  hint = `[E] Người bí ẩn...`;
+                else if (npc.role === "mystic")
+                  hint = `[E] Nói chuyện: ${npc.name}`;
+                else hint = `[E] Nói chuyện với ${npc.name}`;
+                break;
+              }
+            }
+          }
+          if (!hint) {
             for (const r of MAP.rooms) {
               if (dist(player.x, player.y, r.switchX, r.switchY) < 45) {
                 hint = "[E] Bật/Tắt ĐÈN";
@@ -4855,7 +6133,9 @@
             dist(player.x, player.y, MAP.guardBooth.npcX, MAP.guardBooth.npcY) <
               75
           ) {
-            hint = powerTripped ? "[E] Nhờ Bác sửa điện" : "[E] Nói chuyện";
+            hint = powerTripped
+              ? "[E] Nhờ Bác sửa điện"
+              : "[E] Nói chuyện với Bác";
           }
           if (
             !hint &&
@@ -4963,6 +6243,139 @@
           ctx.fillRect(0, 0, W, H);
         }
       }
+      function drawMapBackground(time) {
+        drawMap(time);
+      }
+
+      function drawMapFloorObjects(time) {
+        // Floor props are already included in drawMap(); keeping this hook lets
+        // the render phase separate background vs dynamic entities cleanly.
+      }
+
+      function drawOneNPC(npc, time) {
+        const isMystic = npc.role === "mystic" || npc.role === "mystic_special";
+        const isSeated = npc.isSeated || npc.role === "mystic_special";
+
+        if (npc.role === "mystic_special") {
+          npc.auraPulse = (npc.auraPulse || 0) + 0.02;
+          const pulse = Math.sin(npc.auraPulse) * 0.5 + 0.5;
+          for (let i = 3; i >= 1; i--) {
+            ctx.strokeStyle = `rgba(168, 85, 247, ${(0.15 * pulse) / i})`;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.arc(
+              npc.x,
+              npc.y,
+              npc.auraRadius * (i / 3) + pulse * 10,
+              0,
+              Math.PI * 2,
+            );
+            ctx.stroke();
+          }
+          for (let i = 0; i < 6; i++) {
+            const angle = (time * 0.5 + (i * Math.PI) / 3) % (Math.PI * 2);
+            const r = 40 + Math.sin(time * 2 + i) * 15;
+            const ax = npc.x + Math.cos(angle) * r;
+            const ay = npc.y + Math.sin(angle) * r - 20;
+            ctx.fillStyle = `rgba(168, 85, 247, ${0.6 + Math.sin(time * 4 + i) * 0.3})`;
+            ctx.beginPath();
+            ctx.arc(ax, ay, 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        drawShadow(npc.x, npc.y + 14, 11);
+
+        if (!isSeated) {
+          ctx.fillStyle = "#334155";
+          ctx.fillRect(npc.x - 8, npc.y + 8, 6, 8);
+          ctx.fillRect(npc.x + 2, npc.y + 8, 6, 8);
+        }
+
+        ctx.fillStyle = npc.coatColor || "#475569";
+        ctx.fillRect(npc.x - 10, npc.y - 20, 20, 28);
+        ctx.strokeStyle = "#0f172a";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(npc.x - 10, npc.y - 20, 20, 28);
+
+        if (isSeated) {
+          ctx.fillStyle = "#475569";
+          ctx.fillRect(npc.x - 12, npc.y - 6, 24, 6);
+        }
+
+        if (isMystic && isSeated) {
+          ctx.fillStyle = npc.hoodColor || "#0f172a";
+          ctx.beginPath();
+          ctx.arc(npc.x, npc.y - 26, 12, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = "#000";
+          ctx.lineWidth = 2;
+          ctx.stroke();
+          ctx.fillStyle = "#1e1b4b";
+          ctx.beginPath();
+          ctx.arc(npc.x, npc.y - 24, 7, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillStyle = "#fde68a";
+          ctx.fillRect(npc.x - 8, npc.y - 34, 16, 16);
+          ctx.fillStyle = "#1e293b";
+          ctx.fillRect(npc.x - 9, npc.y - 36, 18, 6);
+          ctx.fillStyle = "#0f172a";
+          ctx.fillRect(npc.x - 4, npc.y - 28, 2, 3);
+          ctx.fillRect(npc.x + 2, npc.y - 28, 2, 3);
+        }
+
+        if (dist(player.x, player.y, npc.x, npc.y) < 120) {
+          drawTextOutlined(npc.name, npc.x, npc.y - 48, {
+            font: "bold 12px Lexend, sans-serif",
+            color: npc.role === "mystic_special" ? "#c084fc" : "#93c5fd",
+            outlineColor: "#000000",
+            outlineWidth: 3,
+            align: "center",
+            baseline: "middle",
+          });
+        }
+
+        if (
+          !npc.talkedToToday &&
+          dist(player.x, player.y, npc.x, npc.y) < 100
+        ) {
+          const icon =
+            npc.role === "quest"
+              ? "❗"
+              : npc.role === "mystic_special"
+                ? "🔮"
+                : npc.role === "mystic"
+                  ? "✨"
+                  : npc.role === "story"
+                    ? "📖"
+                    : "💬";
+          ctx.font = "20px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText(icon, npc.x, npc.y - 55 + Math.sin(time * 4) * 3);
+          ctx.textAlign = "left";
+        }
+      }
+
+      function drawOneTrash(t, time) {
+        const bob = Math.sin(time * 3 + t.bob) * 2;
+        drawShadow(t.x, t.y + 6, 8);
+        if (t.type === "plastic") {
+          ctx.fillStyle = "#0ea5e9";
+          ctx.fillRect(t.x - 5, t.y - 10 + bob, 10, 17);
+          ctx.fillStyle = "#38bdf8";
+          ctx.fillRect(t.x - 5, t.y - 10 + bob, 10, 5);
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(t.x - 3, t.y - 12 + bob, 5, 3);
+        } else {
+          ctx.fillStyle = "#fde047";
+          ctx.fillRect(t.x - 8, t.y - 6 + bob, 16, 12);
+          ctx.strokeStyle = "#a16207";
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(t.x - 8, t.y - 6 + bob, 16, 12);
+        }
+      }
+
       function render(time) {
         ctx.save();
         if (screenShake > 0)
@@ -4973,10 +6386,79 @@
         ctx.clearRect(-20, -20, W + 40, H + 40);
         ctx.fillStyle = "#000";
         ctx.fillRect(-20, -20, W + 40, H + 40);
-        drawMap(time);
-        drawGuard(time);
-        drawOtherPlayers(time);
-        drawPlayer(time);
+
+        drawMapBackground(time);
+        drawMapFloorObjects(time);
+
+        const renderables = [];
+
+        const guardNpc =
+          MAP.guardBooth && MAP.guardBooth.npcY !== undefined
+            ? MAP.guardBooth.npcY
+            : player.y;
+        renderables.push({
+          y: guardNpc,
+          sort: "guard",
+          draw: () => drawGuard(time),
+        });
+
+        for (const npc of npcEntities) {
+          renderables.push({
+            y: npc.y,
+            sort: "npc",
+            draw: () => drawOneNPC(npc, time),
+          });
+        }
+
+        for (const id in otherPlayers) {
+          const p = otherPlayers[id];
+          if (!p || p.x === undefined) continue;
+          renderables.push({
+            y: p.y,
+            sort: "other",
+            draw: () => {
+              const ch = CHARACTERS[p.charId] || CHARACTERS.hung;
+              drawCharBody(
+                p.x,
+                p.y,
+                ch,
+                p.facing || "up",
+                p.animFrame || 0,
+                p.isMoving || false,
+                p.seated || false,
+                p.fanning || false,
+                time,
+                p.name || "Người chơi",
+                false,
+              );
+              if (p.temp !== undefined && Math.abs(p.temp - 50) > 15) {
+                ctx.fillStyle = p.temp > 50 ? "#ef4444" : "#38bdf8";
+                ctx.font = "bold 14px sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillText(p.temp > 50 ? "🔥" : "❄️", p.x, p.y - 42);
+                ctx.textAlign = "left";
+              }
+            },
+          });
+        }
+
+        renderables.push({
+          y: player.y,
+          sort: "player",
+          draw: () => drawPlayer(time),
+        });
+
+        for (const t of trashItems) {
+          renderables.push({
+            y: t.y,
+            sort: "trash",
+            draw: () => drawOneTrash(t, time),
+          });
+        }
+
+        renderables.sort((a, b) => a.y - b.y);
+        for (const item of renderables) item.draw();
+
         drawParticles();
         drawFloatingTexts();
         drawRain();
@@ -4990,6 +6472,10 @@
         }
         if (flashGreen > 0) {
           ctx.fillStyle = `rgba(16,185,129,${flashGreen * 0.35})`;
+          ctx.fillRect(0, 0, W, H);
+        }
+        if (flashPurple > 0) {
+          ctx.fillStyle = `rgba(168,85,247,${flashPurple * 0.3})`;
           ctx.fillRect(0, 0, W, H);
         }
         if (transitionAlpha > 0) {
@@ -5058,6 +6544,13 @@
         document.getElementById("dialogue-speaker").textContent = speaker;
         document.getElementById("dialogue-text").textContent = text;
         document.getElementById("dialogue-avatar").textContent = avatar;
+        const speakerEl = document.getElementById("dialogue-speaker");
+        if (avatar === "🔮") speakerEl.style.color = "#c084fc";
+        else if (avatar === "📋") speakerEl.style.color = "#fbbf24";
+        else if (avatar === "💡") speakerEl.style.color = "#60a5fa";
+        else if (avatar === "📖") speakerEl.style.color = "#34d399";
+        else if (avatar === "💬") speakerEl.style.color = "#94a3b8";
+        else speakerEl.style.color = "#facc15";
         document.getElementById("dialogue-box").classList.remove("hidden");
       }
       function closeDialogue() {
@@ -5069,6 +6562,17 @@
         .addEventListener("click", closeDialogue);
 
       function startGame(isMP = false) {
+        syncPlayerNameFromInput();
+        if (mp.connected && mp.fb && mp.roomCode && mp.myId) {
+          mp.fb.set(
+            mp.fb.ref(
+              mp.db,
+              "rooms/" + mp.roomCode + "/players/" + mp.myId + "/name",
+            ),
+            player.name,
+          );
+          if (mp.isHost) updateHostPlayerList();
+        }
         gameState = "PLAYING";
         player.x = 700;
         player.y = 720;
@@ -5078,6 +6582,7 @@
         player.seatRef = null;
         player.slipVel = 0;
         player.bumpCooldown = 0;
+        player.talkCooldown = 0;
         hp = 100;
         bodyTemp = 50;
         currentDay = 1;
@@ -5095,26 +6600,142 @@
         minigame.resolved = false;
         minigameShownThisLesson = 0;
         trashCleanedToday = 0;
+        npcTalkedToday = 0;
         floatingTexts = [];
         document.getElementById("minigame-overlay").classList.remove("active");
         spawnDayEnvironment();
         scheduleNextMinigame();
+
+        // ⭐ MP: Timeline riêng (lệch 0-10s cho client)
+        if (isMP && !mp.isHost) {
+          scheduleTimer = Math.random() * 10;
+        }
+
         envMessage = `NGÀY 1 — ${currentWeather === "HOT" ? "☀️ OI BỨC" : currentWeather === "POLLUTION" ? "☣️ Ô NHIỄM" : "🌧️ MƯA PHÙN"} — GIỜ RA CHƠI!`;
         envMessageTimer = 3.5;
         if (!isMP) mp.active = false;
         if (isMP) setTimeout(() => broadcastMyState(), 500);
+
+        // Hiển thị cốt truyện ngày 1
+        setTimeout(() => showDayStory(), 1500);
       }
 
       function gameOver(reason) {
         gameState = "GAMEOVER";
         minigame.active = false;
         document.getElementById("minigame-overlay").classList.remove("active");
+
+        const survivalScore = {
+          playerName: player.name || "Người chơi",
+          characterName: selectedChar.name,
+          characterId: selectedChar.id,
+          days: currentDay,
+          trash: trashCleanedCount,
+          power: powerSavedCount,
+          lessons: lessonsCompleted,
+          timestamp: Date.now(),
+          character: selectedChar.name,
+        };
+        saveScore(survivalScore);
+
         document.getElementById("game-over-reason").textContent = reason;
+        document.getElementById("stat-player-name").textContent = (
+          player.name || "Người chơi"
+        ).toLocaleUpperCase("vi");
         document.getElementById("stat-days").textContent = currentDay;
         document.getElementById("stat-trash").textContent = trashCleanedCount;
         document.getElementById("stat-power").textContent = powerSavedCount;
         document.getElementById("stat-lessons").textContent = lessonsCompleted;
+        renderLeaderboard();
         document.getElementById("game-over-screen").classList.remove("hidden");
+      }
+
+      function saveScore(score) {
+        try {
+          const key = "cfg_eco_scores";
+          const storedScores = JSON.parse(localStorage.getItem(key) || "[]");
+          if (!Array.isArray(storedScores))
+            throw new TypeError("Dữ liệu bảng xếp hạng không hợp lệ");
+          const scores = storedScores.filter(
+            (entry) => entry && typeof entry === "object" && !Array.isArray(entry),
+          );
+          scores.push(score);
+          scores.sort(
+            (a, b) =>
+              (Number(b.days) || 0) - (Number(a.days) || 0) ||
+              (Number(b.trash) || 0) - (Number(a.trash) || 0),
+          );
+          localStorage.setItem(key, JSON.stringify(scores.slice(0, 20)));
+        } catch (e) {
+          console.error("Không lưu được điểm:", e);
+        }
+      }
+
+      function renderLeaderboard() {
+        const el = document.getElementById("leaderboard-list");
+        if (!el) return;
+        try {
+          const scores = JSON.parse(
+            localStorage.getItem("cfg_eco_scores") || "[]",
+          );
+          if (!Array.isArray(scores))
+            throw new TypeError("Dữ liệu bảng xếp hạng không hợp lệ");
+          const sorted = scores
+            .filter((score) => score && typeof score === "object" && !Array.isArray(score))
+            .sort(
+              (a, b) =>
+                (Number(b.days) || 0) - (Number(a.days) || 0) ||
+                (Number(b.trash) || 0) - (Number(a.trash) || 0),
+            );
+          if (sorted.length === 0) {
+            el.textContent = "Chưa có ai. Bạn là người đầu tiên!";
+            el.style.cssText =
+              "color:#64748b;text-align:center;padding:12px;font-size:12px;";
+            return;
+          }
+          el.style.cssText = "";
+          el.replaceChildren(
+            ...sorted
+              .slice(0, 5)
+              .map((s, i) => {
+                const medal = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"][i] || `${i + 1}.`;
+                const row = document.createElement("div");
+                row.style.cssText = `display:flex;align-items:center;gap:10px;padding:8px 12px;background:${i === 0 ? "linear-gradient(90deg, rgba(250,204,21,0.1), rgba(0,0,0,0.3))" : "#020617"};border-radius:8px;margin-bottom:6px;border:1px solid ${i === 0 ? "#fbbf24" : "#334155"};`;
+
+                const medalLabel = document.createElement("span");
+                medalLabel.textContent = medal;
+                medalLabel.style.cssText =
+                  "font-size:20px;flex-shrink:0;width:30px;text-align:center;";
+                row.appendChild(medalLabel);
+
+                const details = document.createElement("div");
+                details.style.cssText = "flex:1;text-align:left;min-width:0;";
+
+                const name = document.createElement("div");
+                name.textContent = s.playerName || s.character || "Ẩn danh";
+                name.style.cssText = `font-weight:800;color:${i === 0 ? "#fbbf24" : "#10b981"};font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;`;
+                details.appendChild(name);
+
+                const characterName = s.characterName || s.character || "?";
+                const days = Number.isFinite(Number(s.days))
+                  ? Math.max(0, Number(s.days))
+                  : 0;
+                const trash = Number.isFinite(Number(s.trash))
+                  ? Math.max(0, Number(s.trash))
+                  : 0;
+                const stats = document.createElement("div");
+                stats.style.cssText =
+                  "font-size:11px;color:#94a3b8;margin-top:2px;";
+                stats.textContent = `🎮 ${characterName} • 📅 ${days} ngày • 🗑️ ${trash} rác`;
+                details.appendChild(stats);
+                row.appendChild(details);
+                return row;
+              }),
+          );
+        } catch (e) {
+          console.error("Không thể hiển thị bảng xếp hạng:", e);
+          el.textContent = "Không thể tải bảng xếp hạng trên thiết bị này.";
+        }
       }
 
       /* =========================================================
@@ -5196,12 +6817,11 @@
         .getElementById("btn-host-start")
         .addEventListener("click", () => {
           if (!mp.isHost) return;
-          if (mp.fb && mp.roomCode) {
+          if (mp.fb && mp.roomCode)
             mp.fb.set(
               mp.fb.ref(mp.db, "rooms/" + mp.roomCode + "/started"),
               true,
             );
-          }
           document.getElementById("mp-modal").classList.add("hidden");
           document.getElementById("char-select-screen").classList.add("hidden");
           mp.active = true;
@@ -5213,6 +6833,19 @@
         document.getElementById("game-over-screen").classList.add("hidden");
         startGame(mp.active);
       });
+      document
+        .getElementById("btn-clear-leaderboard")
+        .addEventListener("click", () => {
+          if (!confirm("Bạn có chắc muốn xóa toàn bộ bảng xếp hạng?")) return;
+          try {
+            localStorage.removeItem("cfg_eco_scores");
+            renderLeaderboard();
+          } catch (e) {
+            console.error("Không thể xóa bảng xếp hạng:", e);
+            const list = document.getElementById("leaderboard-list");
+            list.textContent = "Không thể xóa bảng xếp hạng trên thiết bị này.";
+          }
+        });
       document.getElementById("btn-help").addEventListener("click", () => {
         document
           .getElementById("instructions-modal")
@@ -5244,6 +6877,20 @@
       window.addEventListener("keydown", (e) => {
         audio.init();
         const k = e.key.toLowerCase();
+        const isMovementKey = [
+          "arrowup",
+          "arrowdown",
+          "arrowleft",
+          "arrowright",
+          "w",
+          "a",
+          "s",
+          "d",
+        ].includes(k);
+        const isInteractKey = k === "e" || k === " ";
+
+        if (e.repeat && (isMovementKey || isInteractKey)) return;
+
         if (
           minigame.active &&
           !minigame.resolved &&
@@ -5283,6 +6930,13 @@
          INIT
       ========================================================= */
       buildCharSelect();
+      try {
+        const savedName = localStorage.getItem("cfg_eco_player_name");
+        if (savedName) {
+          const nameInput = document.getElementById("player-name-input");
+          if (nameInput) nameInput.value = savedName.slice(0, 16);
+        }
+      } catch (e) {}
       setupJoystick();
       setupMobileButtons();
       rebuildColliders();
